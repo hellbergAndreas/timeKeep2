@@ -5,11 +5,14 @@ import FormInput from "../../components/formInput/FormInput"
 import { useAuth } from "../../context/AuthContext"
 import UserKit from "../../data/UserKit"
 import styles from "./LoginSignUpForm.module.scss"
+import { useHistory } from "react-router-dom"
 
 const LoginSignUpForm = () => {
   const userKit = new UserKit()
   const [inputValues, setInputValues] = useState()
-  const { signup, currentUser } = useAuth()
+  const [member, setMember] = useState(true)
+  const history = useHistory()
+  const { signup, login } = useAuth()
   const handleChange = (name, value) => {
     setInputValues((prevState) => {
       return {
@@ -21,18 +24,32 @@ const LoginSignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    signup(inputValues.email, inputValues.password)
+    if (!member) {
+      console.log("not member")
+      signup(inputValues.email, inputValues.password)
+    } else {
+      console.log("member")
+      login(inputValues.email, inputValues.password)
+      history.push("/")
+    }
+  }
+
+  const addMember = () => {
+    setMember(!member)
   }
 
   return (
     <div className={styles.form}>
       <div className={styles.formWrapper}>
-        {currentUser && JSON.stringify(currentUser)}
+        {member ? "Login" : "Register"}
         <form>
           <FormInput handleChange={handleChange} label="email"></FormInput>
           <FormInput handleChange={handleChange} label="password"></FormInput>
-          <Button onClick={(e) => handleSubmit(e)} name="Submit"></Button>
+          <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
         </form>
+        <Button onClick={addMember}>
+          {member ? "Not a member?" : "Already a member?"}
+        </Button>
       </div>
     </div>
   )

@@ -1,11 +1,11 @@
 const functions = require("firebase-functions")
 const express = require("express")
 const cors = require("cors")
-const corsHandler = cors({ origin: true })
 
 const admin = require("firebase-admin")
 admin.initializeApp()
 const app = express()
+app.use(cors({ origin: true }))
 
 app.get("/", (req, res) => {})
 app.post("/", async (req, res) => {
