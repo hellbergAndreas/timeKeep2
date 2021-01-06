@@ -1,10 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
 import Button from "../buttons/Button"
 import { useAuth } from "../context/AuthContext"
 
 const Dashboard = () => {
-  const { currentUser, logout } = useAuth()
+  const { currentUser, logout, login } = useAuth()
   const [error, setError] = useState("")
   const history = useHistory()
 

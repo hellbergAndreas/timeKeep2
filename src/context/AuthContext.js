@@ -30,8 +30,11 @@ export const AuthProvider = ({ children }) => {
     })
     return unsubscribe
   }, [])
-  useEffect(() => {
+  const fetchUser = () => {
     !currentUser && history.push("/login")
+  }
+  useEffect(() => {
+    fetchUser()
   }, [currentUser])
 
   const value = {

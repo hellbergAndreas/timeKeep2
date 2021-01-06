@@ -10,9 +10,10 @@ import { useHistory } from "react-router-dom"
 const LoginSignUpForm = () => {
   const userKit = new UserKit()
   const [inputValues, setInputValues] = useState()
+
   const [member, setMember] = useState(true)
   const history = useHistory()
-  const { signup, login } = useAuth()
+  const { signup, login, currentUser } = useAuth()
   const handleChange = (name, value) => {
     setInputValues((prevState) => {
       return {
@@ -21,16 +22,20 @@ const LoginSignUpForm = () => {
       }
     })
   }
+  useEffect(() => {
+    currentUser && history.push("/")
+  }, [currentUser])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!member) {
       console.log("not member")
       signup(inputValues.email, inputValues.password)
     } else {
-      console.log("member")
-      login(inputValues.email, inputValues.password)
-      history.push("/")
+      try {
+        await login(inputValues.email, inputValues.password)
+        history.push("/")
+      } catch {}
     }
   }
 
