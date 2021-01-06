@@ -1,0 +1,16 @@
+.inputWrapper {
+}
+
+.input {
+  height: 28px;
+  border: none;
+  border-bottom: 1px solid black;
+  &:hover {
+    background-color: rgba(182, 209, 255, 0.123);
+  }
+  &:focus {
+    outline: none;
+    background-color: rgba(182, 209, 255, 0.123);
+    border-bottom: 2px solid rgba(6, 41, 100, 0.823);
+  }
+}
