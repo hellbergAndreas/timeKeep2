@@ -4,4 +4,21 @@
   border-radius: 8px;
   box-shadow: 10px 10px 26px -5px rgba(0, 0, 0, 0.21);
   max-height: auto;
+  margin-top: 5%;
+}
+.memberLink {
+  color: blue;
+  margin-top: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.header {
+  margin-bottom: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.label {
+  color: blue;
 }

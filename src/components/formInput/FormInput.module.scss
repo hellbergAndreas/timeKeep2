@@ -1,10 +1,13 @@
 .inputWrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .input {
   height: 28px;
   border: none;
   border-bottom: 1px solid black;
+  margin: 10px 0px;
   &:hover {
     background-color: rgba(182, 209, 255, 0.123);
   }
@@ -13,4 +16,9 @@
     background-color: rgba(182, 209, 255, 0.123);
     border-bottom: 2px solid rgba(6, 41, 100, 0.823);
   }
+}
+
+.label {
+  place-self: start;
+  font-size: 13px;
 }

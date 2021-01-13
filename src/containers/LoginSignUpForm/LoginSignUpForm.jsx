@@ -8,12 +8,11 @@ import styles from "./LoginSignUpForm.module.scss"
 import { useHistory } from "react-router-dom"
 
 const LoginSignUpForm = () => {
-  const userKit = new UserKit()
   const [inputValues, setInputValues] = useState()
 
   const [member, setMember] = useState(true)
   const history = useHistory()
-  const { signup, login, currentUser } = useAuth()
+  const { signup, login, currentUser, loading } = useAuth()
   const handleChange = (name, value) => {
     setInputValues((prevState) => {
       return {
@@ -24,6 +23,7 @@ const LoginSignUpForm = () => {
   }
   useEffect(() => {
     currentUser && history.push("/")
+    console.log(currentUser)
   }, [currentUser])
 
   const handleSubmit = async (e) => {
@@ -33,7 +33,7 @@ const LoginSignUpForm = () => {
       signup(inputValues.email, inputValues.password)
     } else {
       try {
-        await login(inputValues.email, inputValues.password)
+        await login(inputValues.Email, inputValues.Password)
         history.push("/")
       } catch {}
     }
@@ -46,15 +46,18 @@ const LoginSignUpForm = () => {
   return (
     <div className={styles.form}>
       <div className={styles.formWrapper}>
-        {member ? "Login" : "Register"}
+        <div className={styles.header}>{member ? "Login" : "Register"}</div>
         <form>
-          <FormInput handleChange={handleChange} label="email"></FormInput>
-          <FormInput handleChange={handleChange} label="password"></FormInput>
-          <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
+          <FormInput handleChange={handleChange} label="Email"></FormInput>
+          <FormInput handleChange={handleChange} label="Password"></FormInput>
+          <Button onClick={(e) => handleSubmit(e)}>
+            {member ? "Login" : "Register"}
+          </Button>
         </form>
-        <Button onClick={addMember}>
+
+        <div className={styles.memberLink} onClick={addMember}>
           {member ? "Not a member?" : "Already a member?"}
-        </Button>
+        </div>
       </div>
     </div>
   )

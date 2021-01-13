@@ -4,7 +4,7 @@ import Button from "../buttons/Button"
 import { useAuth } from "../context/AuthContext"
 
 const Dashboard = () => {
-  const { currentUser, logout, login } = useAuth()
+  const { currentUser, logout, loading } = useAuth()
   const [error, setError] = useState("")
   const history = useHistory()
 
@@ -15,6 +15,10 @@ const Dashboard = () => {
       setError("failed to log out")
     }
   }
+
+  useEffect(() => {
+    !currentUser && history.push("/login")
+  }, [currentUser])
 
   return (
     <div>
