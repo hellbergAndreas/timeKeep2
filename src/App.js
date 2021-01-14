@@ -3,8 +3,8 @@ import "./App.css"
 import LoginSignUpForm from "./containers/LoginSignUpForm/LoginSignUpForm"
 import { AuthProvider } from "./context/AuthContext"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import LoginPage from "./pages/LoginPage"
-import Dashboard from "./pages/Dashboard"
+import LoginPage from "./pages/LoginPage/LoginPage"
+import Dashboard from "./pages/Dashboard/Dashboard"
 function App() {
   return (
     <div className="App">

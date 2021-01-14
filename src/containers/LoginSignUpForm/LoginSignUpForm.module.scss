@@ -1,11 +1,3 @@
-.form {
-  width: 400px;
-  padding: 70px 170px;
-  border-radius: 8px;
-  box-shadow: 10px 10px 26px -5px rgba(0, 0, 0, 0.21);
-  max-height: auto;
-  margin-top: 5%;
-}
 .memberLink {
   color: blue;
   margin-top: 20px;
@@ -21,4 +13,18 @@
 }
 .label {
   color: blue;
+}
+.form {
+  padding: 0px 30px;
+}
+
+@media (min-width: 700px) {
+  .form {
+    width: 400px;
+    padding: 70px 170px;
+    border-radius: 8px;
+    box-shadow: 10px 10px 26px -5px rgba(0, 0, 0, 0.21);
+    max-height: auto;
+    margin-top: 5%;
+  }
 }
