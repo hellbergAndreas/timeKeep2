@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import Button from "../../buttons/Button"
+import Button from "../../components/Buttons/Button"
 
 import FormInput from "../../components/FormInput/FormInput"
 import { useAuth } from "../../context/AuthContext"
-import UserKit from "../../data/UserKit"
+
 import styles from "./LoginSignUpForm.module.scss"
 import { useHistory } from "react-router-dom"
 

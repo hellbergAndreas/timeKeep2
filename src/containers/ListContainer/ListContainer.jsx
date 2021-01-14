@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import CategoryObject from "../../components/CategoryObject/CategoryObject"
-import styles from "./CategoryContainer.module.scss"
+import ListObject from "../../components/ListObject/ListObject"
+import styles from "./ListContainer.module.scss"
 
 const categorys = [
   {
@@ -34,7 +34,7 @@ const CategoryContainer = ({ listFetch }) => {
   }, [list])
   const renderCategorys = () => {
     return list.map((item) => {
-      return <CategoryObject>{item.name}</CategoryObject>
+      return <ListObject>{item.name}</ListObject>
     })
   }
   return <section className={styles.section}>{renderCategorys()}</section>

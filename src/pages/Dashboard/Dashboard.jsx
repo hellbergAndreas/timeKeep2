@@ -1,40 +1,31 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import Button from "../../components/Buttons/Button"
-import CategoryContainer from "../../containers/CategoryContainer/CategoryContainer"
+import ListContainer from "../../containers/ListContainer/ListContainer"
 import Navbar from "../../containers/Navbar/Navbar"
 import Header from "../../components/Header/Header"
 import { useAuth } from "../../context/AuthContext"
 import styles from "./Dashboard.module.scss"
+import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeaderContainer"
 const Dashboard = () => {
-  const { currentUser, logout, loading } = useAuth()
-  const [error, setError] = useState("")
+  const { currentUser } = useAuth()
   const history = useHistory()
-
-  const handleLogOut = async () => {
-    try {
-      await logout()
-    } catch {
-      setError("failed to log out")
-    }
-  }
 
   useEffect(() => {
     !currentUser && history.push("/login")
   }, [currentUser])
 
+  const handleClick = () => {}
   return (
     <div>
-      <Navbar>
-        {currentUser && currentUser.email}
-        <Button onClick={handleLogOut}>Log out</Button>
-      </Navbar>
+      <Navbar></Navbar>
       <section className={styles.mainSection}>
-        <Header>Categorys</Header>
-        <CategoryContainer listFetch="Category"></CategoryContainer>
-        <Header>Activities</Header>
+        <ListHeaderContainer type="Categorys"></ListHeaderContainer>
 
-        <CategoryContainer listFetch="Activity"></CategoryContainer>
+        <ListContainer listFetch="Category"></ListContainer>
+        <Header>Activities</Header>
+        <ListHeaderContainer type="Activities"></ListHeaderContainer>
+        <ListContainer listFetch="Activity"></ListContainer>
       </section>
     </div>
   )
