@@ -16,7 +16,9 @@ export default ({ type }) => {
       <Button onClick={handleClick}>
         Add {type === "Categorys" ? "category" : "activity"}
       </Button>
-      {!hidden && <FormCard setHidden={setHidden} hidden={hidden}></FormCard>}
+      {!hidden && (
+        <FormCard type={type} setHidden={setHidden} hidden={hidden}></FormCard>
+      )}
     </div>
   )
 }

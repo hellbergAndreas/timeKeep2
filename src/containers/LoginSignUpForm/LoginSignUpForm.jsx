@@ -6,10 +6,11 @@ import { useAuth } from "../../context/AuthContext"
 
 import styles from "./LoginSignUpForm.module.scss"
 import { useHistory } from "react-router-dom"
+import UserKit from "../../data/UserKit"
 
 const LoginSignUpForm = () => {
   const [inputValues, setInputValues] = useState()
-
+  const userKit = new UserKit()
   const [member, setMember] = useState(true)
   const history = useHistory()
   const { signup, login, currentUser, loading } = useAuth()
@@ -26,11 +27,16 @@ const LoginSignUpForm = () => {
     console.log(currentUser)
   }, [currentUser])
 
+  useEffect(() => {
+    console.log(inputValues)
+  }, [inputValues])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!member) {
       console.log("not member")
-      signup(inputValues.email, inputValues.password)
+      signup(inputValues.Email, inputValues.Password)
+      userKit.addUser(inputValues.Email)
     } else {
       try {
         await login(inputValues.Email, inputValues.Password)

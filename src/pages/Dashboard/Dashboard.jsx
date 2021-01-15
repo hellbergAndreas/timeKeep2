@@ -13,6 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     !currentUser && history.push("/login")
+    console.log(currentUser.refreshToken)
   }, [currentUser])
 
   const handleClick = () => {}
@@ -21,7 +22,6 @@ const Dashboard = () => {
       <Navbar></Navbar>
       <section className={styles.mainSection}>
         <ListHeaderContainer type="Categorys"></ListHeaderContainer>
-
         <ListContainer listFetch="Category"></ListContainer>
         <Header>Activities</Header>
         <ListHeaderContainer type="Activities"></ListHeaderContainer>

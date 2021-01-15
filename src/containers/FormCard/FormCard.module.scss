@@ -12,11 +12,20 @@
 
 .form {
   width: 400px;
-  padding: 70px 170px;
+  padding: 0px 170px;
   border-radius: 8px;
   box-shadow: 10px 10px 26px -5px rgba(0, 0, 0, 0.21);
   max-height: auto;
   margin-top: 5%;
   background-color: white;
   height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.button {
+  margin-bottom: 20px;
+  width: 40px;
+  height: 40px;
+  place-self: center;
 }
