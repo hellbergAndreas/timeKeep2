@@ -9,7 +9,42 @@ const db = admin.firestore()
 
 app.use(cors({ origin: true }))
 
-app.post("/createScream", (req, res) => {
+const FBAuth = (req, res, next) => {
+  let idToken
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    idToken = req.headers.authorization.split("Bearer ")[1]
+  } else {
+    console.error("No token found")
+    return res.status(403).json({ error: "Unauthorized" })
+  }
+  admin
+    .auth()
+    .verifyIdToken(idToken)
+    .then((decodedToken) => {
+      req.user = decodedToken
+      console.log(decodedToken)
+      return db
+        .collection("users")
+        .where("user", "==", req.user.uid)
+        .limit(1)
+        .get()
+    })
+    .then(() => {
+      return next()
+    })
+    .catch((err) => {
+      console.error("Error while verifying token", err)
+      return res.status(403).json(err)
+    })
+  // .then(data => {
+  //   req.user.handle  = docs[0].data().handle
+  //   return next()
+  // })
+}
+app.post("/createScream", FBAuth, (req, res) => {
   const newScream = {
     body: req.body.body,
     createdAt: admin.firestore.Timestamp.fromDate(new Date()),
