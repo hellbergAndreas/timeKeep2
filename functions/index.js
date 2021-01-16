@@ -26,7 +26,8 @@ app.post("/createScream", (req, res) => {
 })
 app.post("/users", (req, res) => {
   const newUser = {
-    user: req.body.userId,
+    email: req.body.email,
+    user: req.body.user,
     createdAt: admin.firestore.Timestamp.fromDate(new Date()),
   }
   db.collection("users")
