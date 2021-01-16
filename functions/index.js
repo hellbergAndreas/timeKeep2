@@ -9,15 +9,28 @@ const db = admin.firestore()
 
 app.use(cors({ origin: true }))
 
-app.post("/createScream", async (req, res) => {
+app.post("/createScream", (req, res) => {
   const newScream = {
     body: req.body.body,
     createdAt: admin.firestore.Timestamp.fromDate(new Date()),
   }
-  admin
-    .firestore()
-    .collection("screams")
+  db.collection("screams")
     .add(newScream)
+    .then((doc) => {
+      return res.json({ message: `document ${doc.id} created successfully` })
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something went wrong" })
+      console.log(err)
+    })
+})
+app.post("/users", (req, res) => {
+  const newUser = {
+    user: req.body.userId,
+    createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+  }
+  db.collection("users")
+    .add(newUser)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
