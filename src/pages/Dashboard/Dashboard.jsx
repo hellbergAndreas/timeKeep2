@@ -13,7 +13,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     !currentUser && history.push("/login")
-    console.log(currentUser.refreshToken)
+    //getting idToken from user
+    if (currentUser) {
+      return currentUser.getIdToken().then((token) => {
+        sessionStorage.setItem("sessionToken", token)
+        // return console.log({ token })
+      })
+    }
   }, [currentUser])
 
   const handleClick = () => {}

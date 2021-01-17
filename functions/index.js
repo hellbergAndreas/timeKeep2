@@ -25,7 +25,7 @@ const FBAuth = (req, res, next) => {
     .verifyIdToken(idToken)
     .then((decodedToken) => {
       req.user = decodedToken
-      console.log(decodedToken)
+
       return db
         .collection("users")
         .where("user", "==", req.user.uid)
@@ -44,13 +44,18 @@ const FBAuth = (req, res, next) => {
   //   return next()
   // })
 }
-app.post("/createScream", FBAuth, (req, res) => {
-  const newScream = {
-    body: req.body.body,
-    createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+
+app.post("/categorys", FBAuth, (req, res) => {
+  let user = req.body.email
+  const newCategory = {
+    category: req.body.category,
+    descritpion: req.body.description,
   }
-  db.collection("screams")
-    .add(newScream)
+  db.collection("users")
+    .doc(user)
+    .collection("categorys")
+    .doc(newCategory.category)
+    .set(newCategory)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
@@ -59,37 +64,56 @@ app.post("/createScream", FBAuth, (req, res) => {
       console.log(err)
     })
 })
+//
 app.post("/users", (req, res) => {
   const newUser = {
     email: req.body.email,
     user: req.body.user,
+    handle: req.body.email,
     createdAt: admin.firestore.Timestamp.fromDate(new Date()),
   }
-  db.collection("users")
-    .add(newUser)
+  db.collection(`users`)
+    .doc(newUser.email)
+    .set(newUser)
+    .then((ref) => {
+      let id = ref.id
+      return id
+    })
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
-    .catch((err) => {
-      res.status(500).json({ error: "something went wrong" })
-      console.log(err)
-    })
-})
-
-app.get("/screams", (req, res) => {
-  admin
-    .firestore()
-    .collection("screams")
-    .get()
-    .then((data) => {
-      let screams = []
-      data.forEach((doc) => {
-        screams.push(doc.data())
-      })
-      return res.json(screams)
-    })
     .catch((err) => console.error(err))
 })
+// app.post("/createScream", FBAuth, (req, res) => {
+//   const newScream = {
+//     body: req.body.body,
+//     createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+//   }
+//   db.collection("screams")
+//     .add(newScream)
+//     .then((doc) => {
+//       return res.json({ message: `document ${doc.id} created successfully` })
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: "something went wrong" })
+//       console.log(err)
+//     })
+// })
+
+// app.get("/screams", (req, res) => {
+//   admin
+//     .firestore()
+//     .collection("screams")
+//     .get()
+//     .then((data) => {
+//       let screams = []
+//       data.forEach((doc) => {
+//         screams.push(doc.data())
+//       })
+//       return res.json(screams)
+//     })
+//     .catch((err) => console.error(err))
+// })
 
 // https://baseurl.com/api
 

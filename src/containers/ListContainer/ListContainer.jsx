@@ -22,15 +22,12 @@ const activitites = [
 const CategoryContainer = ({ listFetch }) => {
   const [list, setList] = useState([])
   useEffect(() => {
-    console.log(listFetch)
     if (listFetch === "Activity") {
       setList(activitites)
-      console.log("fetching activities")
     }
     if (listFetch === "Category") {
       setList(categorys)
     }
-    console.log(list)
   }, [list])
   const renderCategorys = () => {
     return list.map((item) => {

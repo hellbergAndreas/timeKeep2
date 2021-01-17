@@ -24,22 +24,22 @@ const LoginSignUpForm = () => {
   }
   useEffect(() => {
     currentUser && history.push("/")
-    console.log(currentUser)
+    if (currentUser && !member) {
+      const user = {
+        email: currentUser.email,
+        user: currentUser.uid,
+      }
+      userKit.addUser(user)
+    }
   }, [currentUser])
-
-  useEffect(() => {
-    console.log(inputValues)
-  }, [inputValues])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!member) {
-      console.log("not member")
-      signup(inputValues.Email, inputValues.Password)
-      userKit.addUser(inputValues.Email)
+      signup(inputValues.email, inputValues.password)
     } else {
       try {
-        await login(inputValues.Email, inputValues.Password)
+        await login(inputValues.email, inputValues.password)
         history.push("/")
       } catch {}
     }
