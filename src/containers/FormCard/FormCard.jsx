@@ -19,7 +19,7 @@ export default ({ hidden, setHidden, type }) => {
     if (type === "categorys") {
       userKit.addCategory(inputs)
     } else {
-      userKit.addActivitie(inputs)
+      userKit.addActivity(inputs)
     }
 
     // console.log(scream)

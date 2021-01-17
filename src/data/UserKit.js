@@ -14,7 +14,7 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
-  async addActivitie(activity) {
+  async addActivity(activity) {
     console.log(activity)
     const url = `${ROOT_URL}activities`
     const payload = activity
@@ -25,9 +25,21 @@ export default class {
     })
   }
   async getCategory(user) {
-    const url = `${ROOT_URL}getCategorys/`
+    const url = `${ROOT_URL}getCategorys`
     return fetch(url, {
       headers: { ...this.getPublicHeaders(), user },
+    })
+  }
+  async getActivities(user, category) {
+    const payload = {
+      user,
+      category,
+    }
+    const url = `${ROOT_URL}getActivities`
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPublicHeaders(),
+      body: JSON.stringify(payload),
     })
   }
   async addUser(user) {

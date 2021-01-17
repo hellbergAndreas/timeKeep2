@@ -17,12 +17,11 @@ const CategoryContainer = ({ listFetch }) => {
       setCategory(name)
     }
   }
-  useEffect(() => {
-    console.log(category)
-  }, [category])
+  useEffect(() => {}, [category])
   useEffect(() => {
     // fetching all categorys
     if (listFetch === "category") {
+      console.log("fetching categorys")
       userKit
         .getCategory(currentUser.email)
         .then((res) => res.json())
@@ -30,10 +29,18 @@ const CategoryContainer = ({ listFetch }) => {
           setList(data)
         })
     }
-    if (listFetch === "activity") {
-      // fetching all activities
-    }
   }, [])
+  useEffect(() => {
+    console.log("fetch activities")
+    if (category && listFetch === "activity") {
+      userKit
+        .getActivities(currentUser.email, category)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+        })
+    }
+  }, [category])
   const renderCategorys = () => {
     return list.map((item) => {
       return (

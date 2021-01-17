@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react"
 
 const CategoryContext = React.createContext()
+
 export const useCategory = () => {
   return useContext(CategoryContext)
 }
 export const CategoryProvider = ({ children }) => {
-  const [category, setCategory] = useState("blupp")
+  const [category, setCategory] = useState(null)
   const [activity, setActivity] = useState()
 
   const value = {

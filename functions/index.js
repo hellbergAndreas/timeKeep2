@@ -45,7 +45,7 @@ const FBAuth = (req, res, next) => {
   // })
 }
 
-app.post("/categorys", (req, res) => {
+app.post("/categorys", FBAuth, (req, res) => {
   let user = req.body.email
   const newCategory = {
     category: req.body.category,
@@ -73,9 +73,9 @@ app.post("/activities", (req, res) => {
   }
   db.collection("users")
     .doc(user)
+
     .collection("activities")
-    .doc(newActivity.activity)
-    .set(newActivity)
+    .add(newActivity)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
@@ -84,9 +84,8 @@ app.post("/activities", (req, res) => {
       console.log(err)
     })
 })
-app.get(`/getCategorys/`, (req, res) => {
+app.get(`/getCategorys`, (req, res) => {
   db.collection(`/users/${req.headers.user}/categorys`)
-
     .get()
     .then((data) => {
       let categorys = []
@@ -94,6 +93,18 @@ app.get(`/getCategorys/`, (req, res) => {
         categorys.push(doc.data())
       })
       return res.json(categorys)
+    })
+    .catch((err) => console.error(err))
+})
+app.post(`/getActivities`, (req, res) => {
+  db.collection(`/users/${req.body.user}/activities`)
+    .get()
+    .then((data) => {
+      let activities = []
+      data.forEach((doc) => {
+        doc.data().parent === req.body.category && activities.push(doc.data())
+      })
+      return res.json(activities)
     })
     .catch((err) => console.error(err))
 })
