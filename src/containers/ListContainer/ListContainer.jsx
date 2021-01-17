@@ -37,15 +37,15 @@ const CategoryContainer = ({ listFetch }) => {
         .getActivities(currentUser.email, category)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
+          setList(data)
         })
     }
   }, [category])
   const renderCategorys = () => {
     return list.map((item) => {
       return (
-        <ListObject name={item.category} onClick={handleClick}>
-          {item.category}
+        <ListObject name={item.name} onClick={handleClick}>
+          {item.name}
         </ListObject>
       )
     })

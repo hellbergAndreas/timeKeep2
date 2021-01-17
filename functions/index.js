@@ -48,13 +48,13 @@ const FBAuth = (req, res, next) => {
 app.post("/categorys", FBAuth, (req, res) => {
   let user = req.body.email
   const newCategory = {
-    category: req.body.category,
+    name: req.body.category,
     descritpion: req.body.description,
   }
   db.collection("users")
     .doc(user)
     .collection("categorys")
-    .doc(newCategory.category)
+    .doc(newCategory.name)
     .set(newCategory)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
@@ -68,7 +68,7 @@ app.post("/activities", (req, res) => {
   let user = req.body.email
   const newActivity = {
     parent: req.body.parent,
-    activity: req.body.activity,
+    name: req.body.activity,
     descritpion: req.body.description,
   }
   db.collection("users")
