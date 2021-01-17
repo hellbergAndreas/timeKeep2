@@ -4,17 +4,23 @@ import FormInput from "../../components/FormInput/FormInput"
 import Button from "../../components/Buttons/Button"
 import UserKit from "../../data/UserKit"
 import { useAuth } from "../../context/AuthContext"
+import { useCategory } from "../../context/CategoryContext"
 export default ({ hidden, setHidden, type }) => {
   const [inputValues, setInputValues] = useState({ body: "" })
   const { currentUser } = useAuth()
+  const { category } = useCategory()
   const userKit = new UserKit()
   const handleClick = () => {
-    const category = {
+    const inputs = {
       ...inputValues,
       email: currentUser.email,
+      parent: category,
     }
-
-    userKit.addCategory(category)
+    if (type === "categorys") {
+      userKit.addCategory(inputs)
+    } else {
+      userKit.addActivitie(inputs)
+    }
 
     // console.log(scream)
   }

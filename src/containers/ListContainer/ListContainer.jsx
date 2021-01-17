@@ -9,12 +9,12 @@ const CategoryContainer = ({ listFetch }) => {
   const [list, setList] = useState([])
   const { currentUser } = useAuth()
   const { category, setCategory, activity, setActivity } = useCategory()
-  console.log(listFetch)
+
   const userKit = new UserKit()
 
   const handleClick = (name) => {
     if (listFetch === "category") {
-      console.log(name)
+      setCategory(name)
     }
   }
   useEffect(() => {

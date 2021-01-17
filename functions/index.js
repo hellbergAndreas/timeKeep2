@@ -52,10 +52,30 @@ app.post("/categorys", (req, res) => {
     descritpion: req.body.description,
   }
   db.collection("users")
-    .doc("hellberg.andreas@gmail.com")
+    .doc(user)
     .collection("categorys")
     .doc(newCategory.category)
     .set(newCategory)
+    .then((doc) => {
+      return res.json({ message: `document ${doc.id} created successfully` })
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something went wrong" })
+      console.log(err)
+    })
+})
+app.post("/activities", (req, res) => {
+  let user = req.body.email
+  const newActivity = {
+    parent: req.body.parent,
+    activity: req.body.activity,
+    descritpion: req.body.description,
+  }
+  db.collection("users")
+    .doc(user)
+    .collection("activities")
+    .doc(newActivity.activity)
+    .set(newActivity)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })

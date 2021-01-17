@@ -14,8 +14,17 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
+  async addActivitie(activity) {
+    console.log(activity)
+    const url = `${ROOT_URL}activities`
+    const payload = activity
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPrivateHeaders(),
+      body: JSON.stringify(payload),
+    })
+  }
   async getCategory(user) {
-    console.log(user)
     const url = `${ROOT_URL}getCategorys/`
     return fetch(url, {
       headers: { ...this.getPublicHeaders(), user },
@@ -31,7 +40,6 @@ export default class {
     })
   }
   async addScream(payload) {
-    console.log(payload)
     const url = `${ROOT_URL}createScream`
 
     return fetch(url, {
