@@ -27,11 +27,11 @@ const Dashboard = () => {
     <div>
       <Navbar></Navbar>
       <section className={styles.mainSection}>
-        <ListHeaderContainer type="Categorys"></ListHeaderContainer>
-        <ListContainer listFetch="Category"></ListContainer>
+        <ListHeaderContainer type="categorys"></ListHeaderContainer>
+        <ListContainer listFetch="category"></ListContainer>
         <Header>Activities</Header>
-        <ListHeaderContainer type="Activities"></ListHeaderContainer>
-        <ListContainer listFetch="Activity"></ListContainer>
+        <ListHeaderContainer type="activities"></ListHeaderContainer>
+        <ListContainer listFetch="activity"></ListContainer>
       </section>
     </div>
   )

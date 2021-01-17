@@ -5,12 +5,20 @@ const API_URL = `${ROOT_URL}api/v1/`
 
 export default class {
   async addCategory(category) {
+    console.log(category)
     const url = `${ROOT_URL}categorys`
     const payload = category
     return fetch(url, {
       method: "POST",
       headers: this.getPrivateHeaders(),
       body: JSON.stringify(payload),
+    })
+  }
+  async getCategory(user) {
+    console.log(user)
+    const url = `${ROOT_URL}getCategorys/`
+    return fetch(url, {
+      headers: { ...this.getPublicHeaders(), user },
     })
   }
   async addUser(user) {

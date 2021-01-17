@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const value = {
-    currentUser: currentUser,
+    currentUser,
     signup,
     login,
     logout,

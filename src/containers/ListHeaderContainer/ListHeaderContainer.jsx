@@ -14,7 +14,7 @@ export default ({ type }) => {
     <div className={styles.header}>
       <Header>{type}</Header>
       <Button onClick={handleClick}>
-        Add {type === "Categorys" ? "category" : "activity"}
+        Add {type === "categorys" ? "category" : "activity"}
       </Button>
       {!hidden && (
         <FormCard type={type} setHidden={setHidden} hidden={hidden}></FormCard>

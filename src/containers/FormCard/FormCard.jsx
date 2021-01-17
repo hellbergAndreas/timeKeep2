@@ -33,7 +33,7 @@ export default ({ hidden, setHidden, type }) => {
           X
         </button>
         <FormInput
-          label={type === "Categorys" ? "Category name" : "Activity name"}
+          label={type === "categorys" ? "Category name" : "Activity name"}
           handleChange={handleChange}
         ></FormInput>
         <FormInput handleChange={handleChange} label="Description"></FormInput>

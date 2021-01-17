@@ -45,14 +45,14 @@ const FBAuth = (req, res, next) => {
   // })
 }
 
-app.post("/categorys", FBAuth, (req, res) => {
+app.post("/categorys", (req, res) => {
   let user = req.body.email
   const newCategory = {
     category: req.body.category,
     descritpion: req.body.description,
   }
   db.collection("users")
-    .doc(user)
+    .doc("hellberg.andreas@gmail.com")
     .collection("categorys")
     .doc(newCategory.category)
     .set(newCategory)
@@ -64,7 +64,19 @@ app.post("/categorys", FBAuth, (req, res) => {
       console.log(err)
     })
 })
-//
+app.get(`/getCategorys/`, (req, res) => {
+  db.collection(`/users/${req.headers.user}/categorys`)
+
+    .get()
+    .then((data) => {
+      let categorys = []
+      data.forEach((doc) => {
+        categorys.push(doc.data())
+      })
+      return res.json(categorys)
+    })
+    .catch((err) => console.error(err))
+})
 app.post("/users", (req, res) => {
   const newUser = {
     email: req.body.email,
@@ -98,21 +110,6 @@ app.post("/users", (req, res) => {
 //       res.status(500).json({ error: "something went wrong" })
 //       console.log(err)
 //     })
-// })
-
-// app.get("/screams", (req, res) => {
-//   admin
-//     .firestore()
-//     .collection("screams")
-//     .get()
-//     .then((data) => {
-//       let screams = []
-//       data.forEach((doc) => {
-//         screams.push(doc.data())
-//       })
-//       return res.json(screams)
-//     })
-//     .catch((err) => console.error(err))
 // })
 
 // https://baseurl.com/api
