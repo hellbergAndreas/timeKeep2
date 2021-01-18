@@ -1,11 +1,27 @@
 import React from "react"
 import styles from "./ListObject.module.scss"
+import cx from "classnames"
 
-const CategoryObject = ({ children, name, onClick }) => {
+const CategoryObject = ({
+  children,
+  name,
+  onClick,
+  timeGoes,
+  canBeDeactivated,
+  category,
+  activity,
+}) => {
   return (
-    <section onClick={() => onClick(name)} className={styles.listObject}>
+    <button
+      onClick={() => onClick(name)}
+      className={cx(
+        styles.btn,
+        category && category === name ? styles.active : "",
+        activity && activity === name ? styles.active : ""
+      )}
+    >
       {children}
-    </section>
+    </button>
   )
 }
 

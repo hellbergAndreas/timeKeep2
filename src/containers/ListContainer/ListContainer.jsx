@@ -8,17 +8,25 @@ import styles from "./ListContainer.module.scss"
 const CategoryContainer = ({ listFetch }) => {
   const [list, setList] = useState([])
   const { currentUser } = useAuth()
-  const { category, setCategory, activity, setActivity } = useCategory()
+  const {
+    category,
+    setCategory,
+    activity,
+    setActivity,
+    timeGoes,
+  } = useCategory()
 
   const userKit = new UserKit()
 
   const handleClick = (name) => {
     if (listFetch === "category") {
       setCategory(name)
-      activity && setActivity(null)
+      category === name && setCategory(null)
+      setActivity(null)
     }
     if (listFetch === "activity") {
       setActivity(name)
+      activity === name && setActivity(null)
     }
   }
 
@@ -35,7 +43,6 @@ const CategoryContainer = ({ listFetch }) => {
     }
   }, [])
   useEffect(() => {
-    console.log("fetching activities")
     if (category && listFetch === "activity") {
       userKit
         .getActivities(currentUser.email, category)
@@ -44,11 +51,21 @@ const CategoryContainer = ({ listFetch }) => {
           setList(data)
         })
     }
+    if (!category && listFetch === "activity") {
+      setList([])
+    }
   }, [category])
   const renderCategorys = () => {
     return list.map((item) => {
       return (
-        <ListObject name={item.name} onClick={handleClick}>
+        <ListObject
+          category={category}
+          activity={activity}
+          isRunning={timeGoes}
+          canBeDeactivated={true}
+          name={item.name}
+          onClick={handleClick}
+        >
           {item.name}
         </ListObject>
       )
