@@ -108,6 +108,17 @@ app.post(`/getActivities`, (req, res) => {
     })
     .catch((err) => console.error(err))
 })
+app.post(`/sessions`, (req, res) => {
+  db.collection(`/users/${req.body.user}/sessions`)
+    .add(req.body.session)
+    .then((doc) => {
+      return res.json({ message: `document ${doc.id} created successfully` })
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something went wrong" })
+      console.log(err)
+    })
+})
 app.post("/users", (req, res) => {
   const newUser = {
     email: req.body.email,

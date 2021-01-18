@@ -8,7 +8,6 @@ export default ({ type }) => {
   const [hidden, setHidden] = useState(true)
   const handleClick = () => {
     setHidden(!hidden)
-    console.log(hidden)
   }
   return (
     <div className={styles.header}>

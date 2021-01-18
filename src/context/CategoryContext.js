@@ -7,13 +7,19 @@ export const useCategory = () => {
 }
 export const CategoryProvider = ({ children }) => {
   const [category, setCategory] = useState(null)
-  const [activity, setActivity] = useState()
+  const [activity, setActivity] = useState(null)
+  const [timeGoes, setTimeGoes] = useState(false)
+  const [session, setSession] = useState()
 
   const value = {
     category,
-    activity,
     setCategory,
+    activity,
     setActivity,
+    session,
+    setSession,
+    timeGoes,
+    setTimeGoes,
   }
   return (
     <CategoryContext.Provider value={value}>

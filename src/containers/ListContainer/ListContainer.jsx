@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import ListObject from "../../components/ListObject/ListObject"
 import { useAuth } from "../../context/AuthContext"
 import { useCategory } from "../../context/CategoryContext"
@@ -15,13 +15,17 @@ const CategoryContainer = ({ listFetch }) => {
   const handleClick = (name) => {
     if (listFetch === "category") {
       setCategory(name)
+      activity && setActivity(null)
+    }
+    if (listFetch === "activity") {
+      setActivity(name)
     }
   }
-  useEffect(() => {}, [category])
+
   useEffect(() => {
     // fetching all categorys
+    console.log("fetching categorys")
     if (listFetch === "category") {
-      console.log("fetching categorys")
       userKit
         .getCategory(currentUser.email)
         .then((res) => res.json())
@@ -31,7 +35,7 @@ const CategoryContainer = ({ listFetch }) => {
     }
   }, [])
   useEffect(() => {
-    console.log("fetch activities")
+    console.log("fetching activities")
     if (category && listFetch === "activity") {
       userKit
         .getActivities(currentUser.email, category)
