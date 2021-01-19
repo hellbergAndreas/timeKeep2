@@ -1,5 +1,6 @@
+@import "../../sharedCSS.scss";
 .memberLink {
-  color: blue;
+  color: $purple;
   margin-top: 20px;
   &:hover {
     cursor: pointer;
@@ -14,8 +15,9 @@
 .label {
   color: blue;
 }
-.formWrapper {
-  padding: 0px 30px;
+
+.form {
+  margin-top: 40px;
 }
 
 @media (min-width: 700px) {

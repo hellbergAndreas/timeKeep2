@@ -10,6 +10,7 @@ const FormInput = ({ label, handleChange, type, required }) => {
     <div className={styles.inputWrapper}>
       <input
         required={required}
+        autoComplete="off"
         type={type}
         name={name}
         onChange={(e) => handleChange(e.target.name, e.target.value)}
