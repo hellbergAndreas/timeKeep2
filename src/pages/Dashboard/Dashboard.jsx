@@ -3,12 +3,12 @@ import { useHistory } from "react-router-dom"
 import Button from "../../components/Buttons/Button"
 import ListContainer from "../../containers/ListContainer/ListContainer"
 import Navbar from "../../containers/Navbar/Navbar"
-import Header from "../../components/Header/Header"
+
 import { useAuth } from "../../context/AuthContext"
 import styles from "./Dashboard.module.scss"
 import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeaderContainer"
 import { useCategory } from "../../context/CategoryContext"
-import { unstable_renderSubtreeIntoContainer } from "react-dom"
+
 import StartButton from "../../components/Buttons/StartButton"
 const Dashboard = () => {
   const { currentUser } = useAuth()
@@ -31,11 +31,15 @@ const Dashboard = () => {
     <div>
       <Navbar></Navbar>
       <section className={styles.mainSection}>
-        <ListHeaderContainer type="categorys"></ListHeaderContainer>
-        <ListContainer listFetch="category"></ListContainer>
-        <Header>Activities</Header>
-        <ListHeaderContainer type="activities"></ListHeaderContainer>
-        <ListContainer listFetch="activity"></ListContainer>
+        <div className={styles.categorySection}>
+          <ListHeaderContainer type="categorys"></ListHeaderContainer>
+          <ListContainer listFetch="category"></ListContainer>
+        </div>
+
+        <div className={styles.activitySection}>
+          <ListHeaderContainer type="activities"></ListHeaderContainer>
+          <ListContainer listFetch="activity"></ListContainer>
+        </div>
         {category && activity ? <StartButton></StartButton> : null}
       </section>
     </div>

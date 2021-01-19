@@ -1,9 +1,5 @@
-.listObject {
-}
+@import "../../sharedCSS.scss";
 
-.active {
-  color: red;
-}
 .icons {
   display: none;
 }
@@ -19,11 +15,17 @@ button:focus {
 }
 
 .btn {
-  margin: 10px;
-  height: 120px;
-  width: 150px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px;
+  color: $textColor;
+  height: 90px;
+
+  min-width: 145px;
+  max-width: 145px;
+
   border-radius: 8px;
-  color: #705fff;
+
   position: relative;
   background: #ebf2fa;
   transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -69,7 +71,10 @@ button:focus {
 .roundSmaller:after {
   border-radius: 50%;
 }
-
+.pressed {
+  background-color: rgba(26, 42, 146, 0.101);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.02);
+}
 .roundLarge {
   height: 80px;
   width: 80px;
@@ -89,12 +94,10 @@ button:focus {
 .active {
   box-shadow: inset 0px -2px 5px rgb(255, 255, 255),
     inset 0px 2px 5px rgba(0, 0, 0, 0.15);
-  background-color: #edecec;
-  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: #d8dfe7;
+  transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .disabled {
-}
-body {
-  background-color: #ebf2fa;
+  opacity: 0.99;
 }

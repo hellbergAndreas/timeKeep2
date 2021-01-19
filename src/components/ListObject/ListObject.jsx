@@ -14,10 +14,11 @@ const CategoryObject = ({
   return (
     <button
       onClick={() => onClick(name)}
+      disabled={timeGoes && canBeDeactivated}
       className={cx(
         styles.btn,
-        category && category === name ? styles.active : "",
-        activity && activity === name ? styles.active : ""
+        category === name && styles.active,
+        activity === name && styles.active
       )}
     >
       {children}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import Button from "../../components/Buttons/Button"
+import Button, { ButtonShape } from "../../components/Buttons/Button"
 import { useAuth } from "../../context/AuthContext"
 import styles from "./Navbar.module.scss"
 
@@ -14,7 +14,9 @@ const Header = () => {
   return (
     <section className={styles.section}>
       <div>welcome {currentUser && currentUser.email}</div>
-      <Button onClick={handleLogOut}>Log out</Button>
+      <Button shape={ButtonShape.ROUND_SMALL} onClick={handleLogOut}>
+        Log out
+      </Button>
     </section>
   )
 }

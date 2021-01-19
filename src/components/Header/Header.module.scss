@@ -1,3 +1,18 @@
+@import "../../sharedCSS.scss";
 .header {
   margin: 20px 0px;
+  font-size: 30px;
+  font-weight: bold;
+  color: $headerColor1;
+}
+
+.purple {
+  color: $purple;
+}
+.orange {
+  color: $orange;
+}
+
+.green {
+  color: $green;
 }

@@ -1,16 +1,106 @@
-.button {
-  height: 45px;
-  width: 167px;
-  margin-top: 10px;
-  background-color: white;
-  border-radius: 5px;
+@import "../../sharedCSS.scss";
+.icons {
+  display: none;
+}
+
+button {
+  border: 0;
+}
+
+button:focus {
+  border: none;
+  outline: 0 !important;
+  outline-style: none;
+}
+
+.btn {
+  font-size: 20px;
   font-weight: bold;
-  border: 1px solid rgb(182, 209, 255);
-  background-color: #705fff;
-  color: white;
-  &:hover {
-    background-color: #705fff;
-    font-size: 15px;
-    cursor: pointer;
-  }
+
+  margin: 15px 0px;
+  height: 90px;
+  border-radius: 8px;
+  position: relative;
+  background: #ebf2fa;
+  transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0px -6px 10px rgba(255, 255, 255, 1),
+    0px 4px 15px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.btn:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  // z-index: 2;
+}
+.btn:active {
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.02);
+}
+
+.btn:active:after {
+  box-shadow: inset 0px -2px 5px rgb(255, 255, 255),
+    inset 0px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.roundSmall {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.roundSmall:after {
+  border-radius: 50%;
+}
+
+.roundSmaller {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+}
+
+.roundSmaller:after {
+  border-radius: 50%;
+}
+.pressed {
+  background-color: rgba(26, 42, 146, 0.101);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.02);
+}
+.roundLarge {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.roundLarge:after {
+  border-radius: 50%;
+}
+
+.rectLarge {
+  height: 60px;
+  width: 100px;
+  border-radius: 8px;
+}
+
+.active {
+  box-shadow: inset 0px -2px 5px rgb(255, 255, 255),
+    inset 0px 2px 5px rgba(0, 0, 0, 0.15);
+  background-color: #d8dfe7;
+  transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.disabled {
+  opacity: 0.99;
+}
+.green {
+  color: $green;
+}
+.purple {
+  color: $purple;
+}
+.orange {
+  color: $orange;
 }

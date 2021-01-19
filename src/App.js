@@ -1,5 +1,5 @@
 import { Router } from "react-router-dom"
-import "./App.css"
+import "./App.scss"
 import LoginSignUpForm from "./containers/LoginSignUpForm/LoginSignUpForm"
 import { AuthProvider } from "./context/AuthContext"
 import { BrowserRouter, Switch, Route } from "react-router-dom"

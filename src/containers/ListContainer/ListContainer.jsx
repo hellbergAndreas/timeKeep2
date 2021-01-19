@@ -32,8 +32,8 @@ const CategoryContainer = ({ listFetch }) => {
 
   useEffect(() => {
     // fetching all categorys
-    console.log("fetching categorys")
-    if (listFetch === "category") {
+
+    if (listFetch === "category" && currentUser) {
       userKit
         .getCategory(currentUser.email)
         .then((res) => res.json())
@@ -43,7 +43,7 @@ const CategoryContainer = ({ listFetch }) => {
     }
   }, [])
   useEffect(() => {
-    if (category && listFetch === "activity") {
+    if (category && listFetch === "activity" && currentUser) {
       userKit
         .getActivities(currentUser.email, category)
         .then((res) => res.json())
@@ -61,7 +61,7 @@ const CategoryContainer = ({ listFetch }) => {
         <ListObject
           category={category}
           activity={activity}
-          isRunning={timeGoes}
+          timeGoes={timeGoes}
           canBeDeactivated={true}
           name={item.name}
           onClick={handleClick}

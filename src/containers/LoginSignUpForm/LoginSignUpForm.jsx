@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Button from "../../components/Buttons/Button"
+import Button, { ButtonShape } from "../../components/Buttons/Button"
 
 import FormInput from "../../components/FormInput/FormInput"
 import { useAuth } from "../../context/AuthContext"
@@ -7,6 +7,7 @@ import { useAuth } from "../../context/AuthContext"
 import styles from "./LoginSignUpForm.module.scss"
 import { useHistory } from "react-router-dom"
 import UserKit from "../../data/UserKit"
+import Header from "../../components/Header/Header"
 
 const LoginSignUpForm = () => {
   const [inputValues, setInputValues] = useState()
@@ -50,20 +51,26 @@ const LoginSignUpForm = () => {
   }
 
   return (
-    <div className={styles.form}>
-      <div className={styles.formWrapper}>
-        <div className={styles.header}>{member ? "Login" : "Register"}</div>
-        <form>
-          <FormInput handleChange={handleChange} label="Email"></FormInput>
-          <FormInput handleChange={handleChange} label="Password"></FormInput>
-          <Button onClick={(e) => handleSubmit(e)}>
-            {member ? "Login" : "Register"}
-          </Button>
-        </form>
+    <div className={styles.formWrapper}>
+      <Header>{member ? "Login" : "Register"}</Header>
+      <form className={styles.form}>
+        <FormInput
+          required
+          handleChange={handleChange}
+          label="Email"
+        ></FormInput>
+        <FormInput
+          required={true}
+          handleChange={handleChange}
+          label="Password"
+        ></FormInput>
+        <Button shape={ButtonShape.RECT_LARGE} onClick={(e) => handleSubmit(e)}>
+          {member ? "Login" : "Register"}
+        </Button>
+      </form>
 
-        <div className={styles.memberLink} onClick={addMember}>
-          {member ? "Not a member?" : "Already a member?"}
-        </div>
+      <div className={styles.memberLink} onClick={addMember}>
+        {member ? "Not a member?" : "Already a member?"}
       </div>
     </div>
   )

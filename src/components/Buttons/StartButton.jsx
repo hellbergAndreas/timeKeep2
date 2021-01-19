@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import { useCategory } from "../../context/CategoryContext"
 import UserKit from "../../data/UserKit"
+import Button, { ButtonShape } from "./Button"
 
 const StartButton = () => {
   const {
@@ -44,7 +45,15 @@ const StartButton = () => {
     }
   }, [sessionComplete])
 
-  return <button onClick={handleClick}>Pressme</button>
+  return (
+    <Button
+      color={"green"}
+      shape={ButtonShape.ROUND_LARGE}
+      onClick={handleClick}
+    >
+      Go
+    </Button>
+  )
 }
 export default StartButton
 
