@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import Button, { ButtonShape } from "../../components/Buttons/Button"
 import { useAuth } from "../../context/AuthContext"
 import styles from "./Navbar.module.scss"
+import logoutSvg from "./logout.svg"
 
 const Header = () => {
   const { logout, currentUser } = useAuth()
@@ -12,11 +13,28 @@ const Header = () => {
   }
 
   return (
-    <section className={styles.section}>
-      <div>welcome {currentUser && currentUser.email}</div>
-      <Button shape={ButtonShape.ROUND_SMALL} onClick={handleLogOut}>
+    <section className={styles.header}>
+      <h2 className={styles.logo}>timeKeep</h2>
+
+      <nav onClick={handleLogOut} className={styles.nav}>
+        <ul>
+          <li>
+            <a className={styles.active} href="">
+              en
+            </a>
+          </li>
+          <li>
+            <a href="">två</a>
+          </li>
+          <li>
+            <a href="">tre</a>
+          </li>
+        </ul>
+      </nav>
+      {/* <div>welcome {currentUser && currentUser.email}</div> */}
+      {/* <Button shape={ButtonShape.ROUND_SMALL} onClick={handleLogOut}>
         Log out
-      </Button>
+      </Button> */}
     </section>
   )
 }

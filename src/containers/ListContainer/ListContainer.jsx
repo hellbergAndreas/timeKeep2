@@ -35,7 +35,7 @@ const CategoryContainer = ({ listFetch }) => {
 
     if (listFetch === "category" && currentUser) {
       userKit
-        .getCategory(currentUser.email)
+        .getCategories(currentUser.uid)
         .then((res) => res.json())
         .then((data) => {
           setList(data)
@@ -45,7 +45,7 @@ const CategoryContainer = ({ listFetch }) => {
   useEffect(() => {
     if (category && listFetch === "activity" && currentUser) {
       userKit
-        .getActivities(currentUser.email, category)
+        .getActivities(currentUser.uid, category)
         .then((res) => res.json())
         .then((data) => {
           setList(data)

@@ -2,10 +2,7 @@ import React, { useEffect } from "react"
 import styles from "./FormInput.module.scss"
 const FormInput = ({ label, handleChange, type, required }) => {
   let name = label.split(" ")[0].toLowerCase()
-  // console.log(name)
-  // useEffect(() => {
-  //   console.log("hello")
-  // })
+
   return (
     <div className={styles.inputWrapper}>
       <input

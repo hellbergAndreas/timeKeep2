@@ -52,7 +52,7 @@ const LoginSignUpForm = () => {
 
   return (
     <div className={styles.formWrapper}>
-      <Header>{member ? "Login" : "Register"}</Header>
+      <Header border={"border"}>{member ? "Login" : "Register"}</Header>
       <form className={styles.form}>
         <FormInput
           required

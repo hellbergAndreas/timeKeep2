@@ -4,6 +4,11 @@
   font-size: 30px;
   font-weight: bold;
   color: $headerColor1;
+  color: rgb(62, 62, 62);
+}
+.border {
+  border-bottom: 5px solid $purple;
+  width: 120px;
 }
 
 .purple {

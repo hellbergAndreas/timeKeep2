@@ -11,10 +11,12 @@ export default ({ hidden, setHidden, type }) => {
   const { category } = useCategory()
   const userKit = new UserKit()
   const handleClick = () => {
+    console.log(currentUser.uid)
     const inputs = {
       ...inputValues,
       email: currentUser.email,
       parent: category,
+      userId: currentUser.uid,
     }
     if (type === "categorys") {
       userKit.addCategory(inputs)
@@ -34,15 +36,20 @@ export default ({ hidden, setHidden, type }) => {
   }
   return (
     <div className={styles.background}>
-      <div className={styles.form}>
+      <div className={styles.formWrapper}>
         <button className={styles.button} onClick={() => setHidden(!hidden)}>
           X
         </button>
         <FormInput
+          required
           label={type === "categorys" ? "Category name" : "Activity name"}
           handleChange={handleChange}
         ></FormInput>
-        <FormInput handleChange={handleChange} label="Description"></FormInput>
+        <FormInput
+          required
+          handleChange={handleChange}
+          label="Description"
+        ></FormInput>
         <Button onClick={handleClick}>Add</Button>
       </div>
     </div>

@@ -45,17 +45,16 @@ const FBAuth = (req, res, next) => {
   // })
 }
 
-app.post("/categorys", FBAuth, (req, res) => {
-  let user = req.body.email
+app.post("/categories", FBAuth, (req, res) => {
+  let user = req.body
   const newCategory = {
-    name: req.body.category,
-    descritpion: req.body.description,
+    name: user.category,
+    descritpion: user.description,
+    userId: user.userId,
   }
-  db.collection("users")
-    .doc(user)
-    .collection("categorys")
-    .doc(newCategory.name)
-    .set(newCategory)
+  db.collection("categories")
+
+    .add(newCategory)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
@@ -65,16 +64,14 @@ app.post("/categorys", FBAuth, (req, res) => {
     })
 })
 app.post("/activities", (req, res) => {
-  let user = req.body.email
+  let user = req.body
   const newActivity = {
-    parent: req.body.parent,
-    name: req.body.activity,
-    descritpion: req.body.description,
+    parent: user.parent,
+    name: user.activity,
+    descritpion: user.description,
+    userId: user.userId,
   }
-  db.collection("users")
-    .doc(user)
-
-    .collection("activities")
+  db.collection("activities")
     .add(newActivity)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
@@ -84,33 +81,38 @@ app.post("/activities", (req, res) => {
       console.log(err)
     })
 })
-app.get(`/getCategorys`, (req, res) => {
-  db.collection(`/users/${req.headers.user}/categorys`)
+app.post(`/getCategories`, (req, res) => {
+  return db
+    .collection(`categories`)
+    .where("userId", "==", req.body.userId)
     .get()
     .then((data) => {
-      let categorys = []
+      let categories = []
       data.forEach((doc) => {
-        categorys.push(doc.data())
+        categories.push(doc.data())
       })
-      return res.json(categorys)
+      return res.json(categories)
     })
     .catch((err) => console.error(err))
 })
 app.post(`/getActivities`, (req, res) => {
-  db.collection(`/users/${req.body.user}/activities`)
+  return db
+    .collection(`activities`)
+    .where("userId", "==", req.body.userId)
+    .where("parent", "==", req.body.parent)
     .get()
     .then((data) => {
       let activities = []
       data.forEach((doc) => {
-        doc.data().parent === req.body.category && activities.push(doc.data())
+        activities.push(doc.data())
       })
       return res.json(activities)
     })
     .catch((err) => console.error(err))
 })
 app.post(`/sessions`, (req, res) => {
-  db.collection(`/users/${req.body.user}/sessions`)
-    .add(req.body.session)
+  db.collection(`sessions`)
+    .add(req.body)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
@@ -122,13 +124,12 @@ app.post(`/sessions`, (req, res) => {
 app.post("/users", (req, res) => {
   const newUser = {
     email: req.body.email,
-    user: req.body.user,
+    userId: req.body.user,
     handle: req.body.email,
     createdAt: admin.firestore.Timestamp.fromDate(new Date()),
   }
   db.collection(`users`)
-    .doc(newUser.email)
-    .set(newUser)
+    .add(newUser)
     .then((ref) => {
       let id = ref.id
       return id

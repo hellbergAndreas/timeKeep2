@@ -41,7 +41,7 @@ const StartButton = () => {
   }
   useEffect(() => {
     if (sessionComplete) {
-      userKit.addSession(session, currentUser.email)
+      userKit.addSession(session, currentUser.uid)
     }
   }, [sessionComplete])
 

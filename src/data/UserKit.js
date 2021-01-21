@@ -5,8 +5,7 @@ const API_URL = `${ROOT_URL}api/v1/`
 
 export default class {
   async addCategory(category) {
-    console.log(category)
-    const url = `${ROOT_URL}categorys`
+    const url = `${ROOT_URL}categories`
     const payload = category
     return fetch(url, {
       method: "POST",
@@ -15,26 +14,30 @@ export default class {
     })
   }
   async addActivity(activity) {
-    console.log(activity)
     const url = `${ROOT_URL}activities`
     const payload = activity
+
     return fetch(url, {
       method: "POST",
       headers: this.getPrivateHeaders(),
       body: JSON.stringify(payload),
     })
   }
-  async getCategory(user) {
-    const url = `${ROOT_URL}getCategorys`
+  async getCategories(user) {
+    const url = `${ROOT_URL}getCategories`
+    const payload = { userId: user }
     return fetch(url, {
-      headers: { ...this.getPublicHeaders(), user },
+      method: "POST",
+      headers: this.getPublicHeaders(),
+      body: JSON.stringify(payload),
     })
   }
-  async getActivities(user, category) {
+  async getActivities(userId, parent) {
     const payload = {
-      user,
-      category,
+      userId: userId,
+      parent: parent,
     }
+
     const url = `${ROOT_URL}getActivities`
     return fetch(url, {
       method: "POST",
@@ -44,10 +47,12 @@ export default class {
   }
   async addSession(session, user) {
     const url = `${ROOT_URL}sessions`
+
     const payload = {
-      session,
-      user,
+      ...session,
+      userId: user,
     }
+    console.log(payload)
     return fetch(url, {
       method: "POST",
       headers: this.getPublicHeaders(),
@@ -57,6 +62,7 @@ export default class {
   async addUser(user) {
     const url = `${ROOT_URL}users`
     const payload = user
+
     return fetch(url, {
       method: "POST",
       headers: this.getPublicHeaders(),
