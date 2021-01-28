@@ -10,9 +10,11 @@ import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeader
 import { useCategory } from "../../context/CategoryContext"
 
 import StartButton from "../../components/Buttons/StartButton"
+import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
+import { useSession } from "../../context/SessionContext"
 const Dashboard = () => {
   const { currentUser } = useAuth()
-  const { category, activity } = useCategory()
+  const { category, activity } = useSession()
 
   const history = useHistory()
 
@@ -31,6 +33,7 @@ const Dashboard = () => {
     <div>
       <Navbar></Navbar>
       <section className={styles.mainSection}>
+        <StartButton></StartButton>
         <div className={styles.categorySection}>
           <ListHeaderContainer type="categorys"></ListHeaderContainer>
           <ListContainer listFetch="category"></ListContainer>
@@ -40,7 +43,7 @@ const Dashboard = () => {
           <ListHeaderContainer type="activities"></ListHeaderContainer>
           <ListContainer listFetch="activity"></ListContainer>
         </div>
-        {category && activity ? <StartButton></StartButton> : null}
+        <ConfirmSession></ConfirmSession>
       </section>
     </div>
   )

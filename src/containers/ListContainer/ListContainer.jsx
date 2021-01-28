@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import ListObject from "../../components/ListObject/ListObject"
 import { useAuth } from "../../context/AuthContext"
-import { useCategory } from "../../context/CategoryContext"
+
+import { useSession } from "../../context/SessionContext"
 import UserKit from "../../data/UserKit"
 import styles from "./ListContainer.module.scss"
 
@@ -14,7 +15,7 @@ const CategoryContainer = ({ listFetch }) => {
     activity,
     setActivity,
     timeGoes,
-  } = useCategory()
+  } = useSession()
 
   const userKit = new UserKit()
 

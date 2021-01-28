@@ -20,14 +20,14 @@ const Header = () => {
         <ul>
           <li>
             <a className={styles.active} href="">
-              en
+              user
             </a>
           </li>
           <li>
-            <a href="">två</a>
+            <a href="">stats</a>
           </li>
           <li>
-            <a href="">tre</a>
+            <a href="">logout</a>
           </li>
         </ul>
       </nav>

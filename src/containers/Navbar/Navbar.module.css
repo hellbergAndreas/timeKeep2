@@ -1,0 +1,98 @@
+.header {
+  padding: 20px 50px;
+  border: 1px solid #f7f7f7;
+  border-radius: 8px;
+  -webkit-box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+          box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+  margin-bottom: 20px;
+  margin: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 140px;
+}
+
+.logo {
+  border-radius: 8px;
+  -webkit-box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+          box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+  color: #ff705f;
+  height: 60px;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+  padding: 0px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.logo:hover {
+  color: white;
+  background-color: #ff6f5fc5;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  -webkit-box-shadow: 7px 7px 17px #fff, -7px -7px 17px rgba(70, 70, 70, 0.15);
+          box-shadow: 7px 7px 17px #fff, -7px -7px 17px rgba(70, 70, 70, 0.15);
+}
+
+.nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 8px;
+  width: 300px;
+  -webkit-box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+          box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+}
+
+li {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-radius: 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 50px;
+  width: 60px;
+}
+
+li:hover {
+  background-color: #705fff;
+}
+
+li a {
+  text-decoration: none;
+  color: #705fff;
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+li a:hover {
+  color: white;
+}
+
+li:hover a {
+  color: white;
+}
+/*# sourceMappingURL=Navbar.module.css.map */

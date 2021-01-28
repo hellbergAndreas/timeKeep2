@@ -12,9 +12,9 @@ export default ({ type }) => {
   return (
     <div className={styles.header}>
       <Header>{type}</Header>
-      <Button onClick={handleClick}>
+      {/* <Button onClick={handleClick}>
         Add {type === "categorys" ? "category" : "activity"}
-      </Button>
+      </Button> */}
       {!hidden && (
         <FormCard type={type} setHidden={setHidden} hidden={hidden}></FormCard>
       )}

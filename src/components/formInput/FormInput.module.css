@@ -1,0 +1,88 @@
+.inputWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 80px;
+  position: relative;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.input {
+  border: none;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgba(232, 232, 232, 0.128);
+  -webkit-box-shadow: inset 0px -2px 5px white, inset 0px 2px 5px rgba(0, 0, 0, 0.15);
+          box-shadow: inset 0px -2px 5px white, inset 0px 2px 5px rgba(0, 0, 0, 0.15);
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  color: #504f56d6;
+  font-size: 20px;
+  padding-left: 10px;
+  margin-top: 40px;
+}
+
+.input:focus {
+  border: none;
+  outline: none;
+  background-color: rgba(243, 243, 243, 0.128);
+}
+
+.inputWrapper label {
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.inputWrapper label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border-bottom: 3px solid #705fff;
+  -webkit-transform: translateX(-105%);
+          transform: translateX(-105%);
+}
+
+.contentName {
+  position: absolute;
+  top: 50px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.inputWrapper input:focus + .labelName .contentName,
+.inputWrapper input:valid + .labelName .contentName {
+  -webkit-transform: translateY(-250%);
+          transform: translateY(-250%);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  color: #705fff;
+  font-size: 14px;
+}
+
+.labelName {
+  color: #504f56d6;
+}
+
+.inputWrapper input:focus + .labelName::after,
+.inputWrapper input:valid + .labelName::after {
+  -webkit-transform: translateX(-2%);
+          transform: translateX(-2%);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+/*# sourceMappingURL=FormInput.module.css.map */

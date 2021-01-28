@@ -5,19 +5,20 @@ import { AuthProvider } from "./context/AuthContext"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import LoginPage from "./pages/LoginPage/LoginPage"
 import Dashboard from "./pages/Dashboard/Dashboard"
-import { CategoryProvider } from "./context/CategoryContext"
+import { SessionProvider } from "./context/SessionContext"
+
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <AuthProvider>
-          <CategoryProvider>
+          <SessionProvider>
             <Switch>
               <Route exact path="/" component={Dashboard} />
 
               <Route path="/login" component={LoginPage} />
             </Switch>
-          </CategoryProvider>
+          </SessionProvider>
         </AuthProvider>
       </BrowserRouter>
     </div>

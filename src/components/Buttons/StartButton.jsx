@@ -1,72 +1,72 @@
 import React, { useEffect, useState } from "react"
+import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
 import { useAuth } from "../../context/AuthContext"
 import { useCategory } from "../../context/CategoryContext"
+import { useSession } from "../../context/SessionContext"
 import UserKit from "../../data/UserKit"
 import Button, { ButtonShape } from "./Button"
-
+import styles from "./StartButton.module.scss"
 const StartButton = () => {
   const {
     category,
     activity,
-    session,
     setSession,
     timeGoes,
     setTimeGoes,
-  } = useCategory()
+    confirmSessionHidden,
+    setConfirmSessionHidden,
+  } = useSession()
   const { currentUser } = useAuth()
+
   const [sessionComplete, setSessionComplete] = useState(false)
   const userKit = new UserKit()
 
-  const handleClick = () => {
+  const checkIfCategoryAndActivityIsSet = () => {
+    let sessionDetail = {
+      category,
+      activity,
+    }
+    if (activity === null) {
+      sessionDetail.activity = "misc"
+    }
+    if (category === null) {
+      sessionDetail.category = "misc"
+    }
+    return sessionDetail
+  }
+  const startAndStopTime = () => {
     const date = new Date()
     if (!timeGoes) {
-      console.log("start time")
       setSession({ start: date })
       setTimeGoes(!timeGoes)
       setSessionComplete(false)
     }
     if (timeGoes) {
-      console.log("stop time")
+      let sessionDetail = checkIfCategoryAndActivityIsSet()
+      setConfirmSessionHidden(!confirmSessionHidden)
       setSession((prevState) => {
         return {
           ...prevState,
           stop: date,
-          category,
-          activity,
+          category: sessionDetail.category,
+          activity: sessionDetail.activity,
         }
       })
       setTimeGoes(!timeGoes)
       setSessionComplete(true)
     }
   }
-  useEffect(() => {
-    if (sessionComplete) {
-      userKit.addSession(session, currentUser.uid)
-    }
-  }, [sessionComplete])
 
   return (
-    <Button
-      color={"green"}
-      shape={ButtonShape.ROUND_LARGE}
-      onClick={handleClick}
-    >
-      Go
-    </Button>
+    <div className={styles.startButton}>
+      <Button
+        color={"green"}
+        shape={ButtonShape.ROUND_LARGE}
+        onClick={startAndStopTime}
+      >
+        Go
+      </Button>
+    </div>
   )
 }
 export default StartButton
-
-// setSession((prevState) => {
-//   return {
-//     start: !timeGoes ? date : prevState.start,
-//     stop: timeGoes && date,
-//     category,
-//     activity,
-//     time: timeGoes && date - prevState.start,
-//   }
-// })
-// setTimeGoes(!timeGoes)
-// if (timeGoes) {
-//   setSesssionComplete(false)
-// }
