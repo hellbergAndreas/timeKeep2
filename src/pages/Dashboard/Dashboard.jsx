@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import Button from "../../components/Buttons/Button"
+
 import ListContainer from "../../containers/ListContainer/ListContainer"
 import Navbar from "../../containers/Navbar/Navbar"
 
 import { useAuth } from "../../context/AuthContext"
+import { useUser } from "../../context/UserContext"
 import styles from "./Dashboard.module.scss"
 import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeaderContainer"
-import { useCategory } from "../../context/CategoryContext"
 
 import StartButton from "../../components/Buttons/StartButton"
 import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
 import { useSession } from "../../context/SessionContext"
+import UserKit from "../../data/UserKit"
+
 const Dashboard = () => {
   const { currentUser } = useAuth()
-  const { category, activity } = useSession()
 
+  const { category, activity } = useSession()
+  const userKit = new UserKit()
   const history = useHistory()
 
   useEffect(() => {
     !currentUser && history.push("/login")
-    //getting idToken from user
+
     if (currentUser) {
-      return currentUser.getIdToken().then((token) => {
-        sessionStorage.setItem("sessionToken", token)
-        // return console.log({ token })
-      })
+      //get all user sessions, categories and activities
+      userKit
+        .getSessions(currentUser.uid)
+        .then((res) => res.json())
+        .then((data) => console.log(data))
     }
   }, [currentUser])
 

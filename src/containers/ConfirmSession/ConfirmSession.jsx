@@ -1,17 +1,24 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./ConfirmSession.module.css"
 import cx from "classnames"
 import { useSession } from "../../context/SessionContext"
-import Button from "../../components/Buttons/Button"
+import Button, { ButtonShape } from "../../components/Buttons/Button"
 import UserKit from "../../data/UserKit"
 import Header from "../../components/Header/Header"
+import FormInput from "../../components/FormInput/FormInput"
+import { useAuth } from "../../context/AuthContext"
+
 const ConfirmSession = () => {
   const userKit = new UserKit()
+  const { currentUser } = useAuth()
+  const [keys, setKeys] = useState([])
+  const [inputValue, setInputValue] = useState("")
   const {
     session,
     confirmSessionHidden,
     setConfirmSessionHidden,
   } = useSession()
+
   useEffect(() => {
     console.log(session)
     console.log(confirmSessionHidden)
@@ -19,22 +26,71 @@ const ConfirmSession = () => {
 
   const close = () => {
     setConfirmSessionHidden(!confirmSessionHidden)
+    setInputValue("")
   }
   const confirmSession = () => {
-    // userKit.addSession(session, currentUser.uid)
-    // alert()
-    // setConfirmSessionHidden(!confirmSessionHidden)
-    console.log(session)
+    let completeSession = {
+      ...session,
+      keys,
+    }
+    userKit.addSession(completeSession, currentUser.uid)
+    setKeys([])
+    setConfirmSessionHidden(!confirmSessionHidden)
+  }
+  const handleChange = (name, value) => {
+    setInputValue(value)
+  }
+  const onKeyUp = (e) => {
+    if (e.code === "Enter" && !keys.includes(inputValue)) {
+      setKeys((prevState) => {
+        return [...prevState, inputValue]
+      })
+      setInputValue("")
+    }
+  }
+
+  const renderSessionCard = () => {
+    return (
+      <div className={styles.card}>
+        <div className={styles.header}>
+          <Header color={"green"}>Session Complete!</Header>
+        </div>
+        <div className={styles.abortButton}>
+          <Button shape={ButtonShape.ROUND_SMALL} onClick={close}>
+            X
+          </Button>
+        </div>
+        <p className={styles.totalTime}>
+          Total time: {session.stop - session.start}
+        </p>
+        <div className={styles.keys}>
+          {keys.map((key) => {
+            return <div>{key}</div>
+          })}
+        </div>
+        <div className={styles.input}>
+          <FormInput
+            handleChange={handleChange}
+            onKeyUp={onKeyUp}
+            required={true}
+            value={inputValue}
+            label={"Add keys"}
+          ></FormInput>
+        </div>
+        <div className={styles.uploadImageButton}>
+          <Button>Upload Image</Button>
+        </div>
+        <div className={styles.confirmButton}>
+          <Button onClick={confirmSession}>Confirm</Button>
+        </div>
+      </div>
+    )
   }
   return (
     <div
       className={cx(styles.background, confirmSessionHidden && styles.hidden)}
     >
-      <div className={styles.card}>
-        <Header color={"green"}>Session Complete!</Header>
-        <Button onClick={close}>Abort</Button>
-        <Button onClick={confirmSession}>Confirm</Button>
-      </div>
+      {session && renderSessionCard()}
     </div>
   )
 }

@@ -53,7 +53,6 @@ app.post("/categories", FBAuth, (req, res) => {
     userId: user.userId,
   }
   db.collection("categories")
-
     .add(newCategory)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully` })
@@ -99,7 +98,20 @@ app.post(`/getActivities`, (req, res) => {
   return db
     .collection(`activities`)
     .where("userId", "==", req.body.userId)
-    .where("parent", "==", req.body.parent)
+    .get()
+    .then((data) => {
+      let activities = []
+      data.forEach((doc) => {
+        activities.push(doc.data())
+      })
+      return res.json(activities)
+    })
+    .catch((err) => console.error(err))
+})
+app.post(`/getSessions`, (req, res) => {
+  return db
+    .collection(`sessions`)
+    .where("userId", "==", req.body.userId)
     .get()
     .then((data) => {
       let activities = []

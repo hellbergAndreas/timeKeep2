@@ -1,3 +1,4 @@
+@import "../../sharedCSS.css";
 .background {
   background-color: rgba(0, 0, 0, 0.238);
   position: absolute;
@@ -10,10 +11,46 @@
   align-items: center;
 }
 .card {
-  height: 400px;
+  height: 500px;
   width: 800px;
-  background-color: white;
+  padding: 40px;
+  background-color: #ebf2fa;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 8px;
+  position: relative;
+}
+.header {
+  grid-column: 1 / -1;
+  place-self: center;
+  align-self: start;
+}
+.totalTime {
+  grid-column: 1 / -1;
+  place-self: center;
+  align-self: start;
+  margin-top: -40px;
 }
 .hidden {
   visibility: hidden;
+}
+
+.confirmButton {
+  grid-column: 2;
+  place-self: end;
+}
+
+.abortButton {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
+.uploadImageButton {
+  grid-column: 1;
+  align-self: end;
+}
+.input {
+  grid-column: 1;
+  align-self: end;
+  margin-bottom: -40px;
 }

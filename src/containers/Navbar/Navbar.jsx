@@ -3,9 +3,11 @@ import Button, { ButtonShape } from "../../components/Buttons/Button"
 import { useAuth } from "../../context/AuthContext"
 import styles from "./Navbar.module.scss"
 import logoutSvg from "./logout.svg"
+import { useUser } from "../../context/UserContext"
 
 const Header = () => {
   const { logout, currentUser } = useAuth()
+  const { test } = useUser()
   const handleLogOut = async () => {
     try {
       await logout()

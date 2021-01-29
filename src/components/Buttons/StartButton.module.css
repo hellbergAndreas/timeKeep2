@@ -4,3 +4,8 @@
   left: 20%;
 }
 /*# sourceMappingURL=StartButton.module.css.map */
+.startButton button {
+  color: red;
+  font-size: 20px;
+  font-weight: bolder;
+}

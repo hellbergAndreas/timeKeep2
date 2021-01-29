@@ -1,32 +1,16 @@
 // import React, { useContext, useState } from "react"
 
-// const CategoryContext = React.createContext()
+// const UserContext = React.createContext()
 
 // export const useCategory = () => {
-//   return useContext(CategoryContext)
+//   return useContext(UserContext)
 // }
-// export const CategoryProvider = ({ children }) => {
-//   const [category, setCategory] = useState(null)
-//   const [activity, setActivity] = useState(null)
-//   const [timeGoes, setTimeGoes] = useState(false)
-//   const [session, setSession] = useState()
-//   const [confirmSessionHidden, setConfirmSessionHidden] = useState()
+// export const UserProvider = ({ children }) => {
+//   const [test, setTest] = useState(null)
 
 //   const value = {
-//     category,
-//     setCategory,
-//     activity,
-//     setActivity,
-//     session,
-//     setSession,
-//     timeGoes,
-//     setTimeGoes,
-//     confirmSessionHidden,
-//     setConfirmSessionHidden,
+//     test,
+//     setTest,
 //   }
-//   return (
-//     <CategoryContext.Provider value={value}>
-//       {children}
-//     </CategoryContext.Provider>
-//   )
+//   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 // }

@@ -3,6 +3,7 @@ import ListObject from "../../components/ListObject/ListObject"
 import { useAuth } from "../../context/AuthContext"
 
 import { useSession } from "../../context/SessionContext"
+import { useUser } from "../../context/UserContext"
 import UserKit from "../../data/UserKit"
 import styles from "./ListContainer.module.scss"
 
@@ -16,6 +17,8 @@ const CategoryContainer = ({ listFetch }) => {
     setActivity,
     timeGoes,
   } = useSession()
+
+  const { setUserActivities, userActivities } = useUser()
 
   const userKit = new UserKit()
 
@@ -43,23 +46,33 @@ const CategoryContainer = ({ listFetch }) => {
         })
     }
   }, [])
+
   useEffect(() => {
-    if (category && listFetch === "activity" && currentUser) {
-      userKit
-        .getActivities(currentUser.uid, category)
-        .then((res) => res.json())
-        .then((data) => {
-          setList(data)
-        })
-    }
-    if (!category && listFetch === "activity") {
-      setList([])
+    let filteredActivities
+    if (listFetch === "activity" && userActivities) {
+      filteredActivities = userActivities.filter((activity) => {
+        return activity.parent === category
+      })
+      setList(filteredActivities)
     }
   }, [category])
+
+  useEffect(() => {
+    //fetching all activities
+    if (listFetch === "activity" && currentUser) {
+      userKit
+        .getActivities(currentUser.uid)
+        .then((res) => res.json())
+        .then((data) => {
+          setUserActivities(data)
+        })
+    }
+  }, [])
   const renderCategorys = () => {
     return list.map((item) => {
       return (
         <ListObject
+          key={item.name}
           category={category}
           activity={activity}
           timeGoes={timeGoes}
