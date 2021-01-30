@@ -35,15 +35,14 @@ const Dashboard = () => {
   }, [currentUser])
 
   useEffect(() => {
-    calculateTotalTime(userSessions)
-    console.log(userSessions)
+    setUserTotal(calculateTotalTime(userSessions))
   }, [userSessions])
   return (
     <div>
       <Navbar></Navbar>
       <section className={styles.mainSection}>
         <StartButton></StartButton>
-        <TimeDisplay time={userTotal}></TimeDisplay>
+        <TimeDisplay total={userTotal}></TimeDisplay>
         <div className={styles.categorySection}>
           <ListHeaderContainer type="categorys"></ListHeaderContainer>
           <ListContainer listFetch="category"></ListContainer>
