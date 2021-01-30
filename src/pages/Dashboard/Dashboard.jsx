@@ -13,11 +13,12 @@ import StartButton from "../../components/Buttons/StartButton"
 import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
 import { useSession } from "../../context/SessionContext"
 import UserKit from "../../data/UserKit"
+import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
+import { calculateTotalTime } from "../../utils/calculateTotalTime"
 
 const Dashboard = () => {
   const { currentUser } = useAuth()
-
-  const { category, activity } = useSession()
+  const { userTotal, setUserTotal, userSessions, setUserSessions } = useUser()
   const userKit = new UserKit()
   const history = useHistory()
 
@@ -25,19 +26,24 @@ const Dashboard = () => {
     !currentUser && history.push("/login")
 
     if (currentUser) {
-      //get all user sessions, categories and activities
+      //get all user sessions
       userKit
         .getSessions(currentUser.uid)
         .then((res) => res.json())
-        .then((data) => console.log(data))
+        .then((data) => setUserSessions(data))
     }
   }, [currentUser])
 
+  useEffect(() => {
+    calculateTotalTime(userSessions)
+    console.log(userSessions)
+  }, [userSessions])
   return (
     <div>
       <Navbar></Navbar>
       <section className={styles.mainSection}>
         <StartButton></StartButton>
+        <TimeDisplay time={userTotal}></TimeDisplay>
         <div className={styles.categorySection}>
           <ListHeaderContainer type="categorys"></ListHeaderContainer>
           <ListContainer listFetch="category"></ListContainer>

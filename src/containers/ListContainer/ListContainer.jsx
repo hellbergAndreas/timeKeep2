@@ -7,6 +7,10 @@ import { useUser } from "../../context/UserContext"
 import UserKit from "../../data/UserKit"
 import styles from "./ListContainer.module.scss"
 
+// listContainer is rendered twice on the dashboard
+// one time for Categories, and one time for Activities.
+// on mount, userCategories and userActivites are fetched from the db
+//
 const CategoryContainer = ({ listFetch }) => {
   const [list, setList] = useState([])
   const { currentUser } = useAuth()
@@ -36,7 +40,6 @@ const CategoryContainer = ({ listFetch }) => {
 
   useEffect(() => {
     // fetching all categorys
-
     if (listFetch === "category" && currentUser) {
       userKit
         .getCategories(currentUser.uid)
@@ -47,6 +50,8 @@ const CategoryContainer = ({ listFetch }) => {
     }
   }, [])
 
+  // when user presses a category, we filter through the activites
+  // returning the ones matching the active category.
   useEffect(() => {
     let filteredActivities
     if (listFetch === "activity" && userActivities) {

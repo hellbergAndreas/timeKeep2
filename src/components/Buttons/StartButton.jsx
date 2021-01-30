@@ -36,6 +36,7 @@ const StartButton = () => {
   }
   const startAndStopTime = () => {
     const date = new Date()
+    // const date = Date.parse(unparsed)
     if (!timeGoes) {
       setSession({ start: date })
       setTimeGoes(!timeGoes)

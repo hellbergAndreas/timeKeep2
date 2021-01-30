@@ -98,20 +98,7 @@ app.post(`/getActivities`, (req, res) => {
   return db
     .collection(`activities`)
     .where("userId", "==", req.body.userId)
-    .get()
-    .then((data) => {
-      let activities = []
-      data.forEach((doc) => {
-        activities.push(doc.data())
-      })
-      return res.json(activities)
-    })
-    .catch((err) => console.error(err))
-})
-app.post(`/getSessions`, (req, res) => {
-  return db
-    .collection(`sessions`)
-    .where("userId", "==", req.body.userId)
+
     .get()
     .then((data) => {
       let activities = []
@@ -132,6 +119,23 @@ app.post(`/sessions`, (req, res) => {
       res.status(500).json({ error: "something went wrong" })
       console.log(err)
     })
+})
+app.post(`/getSessions`, (req, res) => {
+  return db
+    .collection(`sessions`)
+    .where("userId", "==", req.body.userId)
+    .get()
+    .then((data) => {
+      let sessions = []
+      data.forEach((doc) => {
+        let session = {
+          ...doc.data(),
+        }
+        sessions.push(session)
+      })
+      return res.json(sessions)
+    })
+    .catch((err) => console.error(err))
 })
 app.post("/users", (req, res) => {
   const newUser = {

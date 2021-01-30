@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const [userCategories, setUserCategories] = useState(null)
   const [userActivities, setUserActivities] = useState(null)
   const [userSessions, setUserSessions] = useState(null)
+  const [userTotal, setUserTotal] = useState(0)
   const value = {
     userCategories,
     setUserCategories,
@@ -16,6 +17,8 @@ export const UserProvider = ({ children }) => {
     setUserActivities,
     userSessions,
     setUserSessions,
+    userTotal,
+    setUserTotal,
   }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
