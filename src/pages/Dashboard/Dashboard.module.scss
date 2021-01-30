@@ -1,7 +1,10 @@
+@import "../../sharedCSS.scss";
+
 .mainSection {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: $baseColor;
 }
 
 .categorySection {
