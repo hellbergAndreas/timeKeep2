@@ -5,6 +5,7 @@ const UserContext = React.createContext()
 export const useUser = () => {
   return useContext(UserContext)
 }
+
 export const UserProvider = ({ children }) => {
   const [userCategories, setUserCategories] = useState(null)
   const [userActivities, setUserActivities] = useState(null)

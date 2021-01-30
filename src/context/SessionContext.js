@@ -5,6 +5,8 @@ const SessionContext = React.createContext()
 export const useSession = () => {
   return useContext(SessionContext)
 }
+// when a user creates a session, the database wants to know what category and activity
+// the session relates to.
 export const SessionProvider = ({ children }) => {
   const [category, setCategory] = useState(null)
   const [activity, setActivity] = useState(null)

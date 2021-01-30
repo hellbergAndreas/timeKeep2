@@ -11,14 +11,17 @@ import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeader
 
 import StartButton from "../../components/Buttons/StartButton"
 import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
-import { useSession } from "../../context/SessionContext"
+
 import UserKit from "../../data/UserKit"
 import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
+import { useSession } from "../../context/SessionContext"
 
 const Dashboard = () => {
   const { currentUser } = useAuth()
-  const { userTotal, setUserTotal, userSessions, setUserSessions } = useUser()
+  const { setUserSessions } = useUser()
+  const { category, activity, session } = useSession()
+
   const userKit = new UserKit()
   const history = useHistory()
 
@@ -34,15 +37,18 @@ const Dashboard = () => {
     }
   }, [currentUser])
 
-  useEffect(() => {
-    setUserTotal(calculateTotalTime(userSessions))
-  }, [userSessions])
   return (
     <div>
       <Navbar></Navbar>
       <section className={styles.mainSection}>
         <StartButton></StartButton>
-        <TimeDisplay total={userTotal}></TimeDisplay>
+        <TimeDisplay name={"total"} all={true}></TimeDisplay>
+        {category && (
+          <TimeDisplay name={category} category={category}></TimeDisplay>
+        )}
+        {activity && (
+          <TimeDisplay name={activity} activity={activity}></TimeDisplay>
+        )}
         <div className={styles.categorySection}>
           <ListHeaderContainer type="categorys"></ListHeaderContainer>
           <ListContainer listFetch="category"></ListContainer>

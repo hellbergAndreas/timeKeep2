@@ -7,6 +7,7 @@ import UserKit from "../../data/UserKit"
 import Header from "../../components/Header/Header"
 import FormInput from "../../components/FormInput/FormInput"
 import { useAuth } from "../../context/AuthContext"
+import { useUser } from "../../context/UserContext"
 
 const ConfirmSession = () => {
   const userKit = new UserKit()
@@ -18,9 +19,9 @@ const ConfirmSession = () => {
     confirmSessionHidden,
     setConfirmSessionHidden,
   } = useSession()
+  const { setUserSessions } = useUser()
 
   useEffect(() => {
-    console.log(session)
     console.log(confirmSessionHidden)
   }, [session])
 
@@ -35,6 +36,9 @@ const ConfirmSession = () => {
     }
     userKit.addSession(completeSession, currentUser.uid)
     setKeys([])
+    setUserSessions((prevState) => {
+      return [...prevState, completeSession]
+    })
     setConfirmSessionHidden(!confirmSessionHidden)
   }
   const handleChange = (name, value) => {

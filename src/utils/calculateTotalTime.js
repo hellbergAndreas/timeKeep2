@@ -1,4 +1,4 @@
-export const calculateTotalTime = (sessions) => {
+export const calculateTotalTime = (sessions, category, activity) => {
   let total = 0
   if (sessions) {
     sessions.forEach((session) => {
@@ -6,5 +6,6 @@ export const calculateTotalTime = (sessions) => {
       //   console.log(new Date(session.start))
     })
   }
+
   return total
 }
