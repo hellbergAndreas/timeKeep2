@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 
 import { auth } from "../firebase"
-import { UserProvider } from "./CategoryContext"
+import { UserProvider } from "./UserContext"
 import { SessionProvider } from "./SessionContext"
 
 const AuthContext = React.createContext()
@@ -42,7 +42,9 @@ export const AuthProvider = ({ children }) => {
   }
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      <SessionProvider>
+        <UserProvider>{!loading && children}</UserProvider>
+      </SessionProvider>
     </AuthContext.Provider>
   )
 }

@@ -1,42 +1,43 @@
-import React, { useEffect } from "react"
-import Button, { ButtonShape } from "../../components/Buttons/Button"
+import React from "react"
+
 import { useAuth } from "../../context/AuthContext"
 import styles from "./Navbar.module.scss"
-import logoutSvg from "./logout.svg"
-import { useUser } from "../../context/UserContext"
+
+import { Link, useHistory } from "react-router-dom"
 
 const Header = () => {
-  const { logout, currentUser } = useAuth()
-  const { test } = useUser()
+  const { logout } = useAuth()
+  const history = useHistory()
+
   const handleLogOut = async () => {
     try {
       await logout()
     } catch {}
   }
-
+  const goHome = () => {
+    history.push("/")
+  }
   return (
     <section className={styles.header}>
-      <h2 className={styles.logo}>timeKeep</h2>
+      <h2 onClick={goHome} className={styles.logo}>
+        timeKeep
+      </h2>
 
-      <nav onClick={handleLogOut} className={styles.nav}>
+      <nav className={styles.nav}>
         <ul>
           <li>
-            <a className={styles.active} href="">
-              user
-            </a>
+            <Link to="/user">User</Link>
           </li>
           <li>
-            <a href="">stats</a>
+            <Link to="/stats">stats</Link>
           </li>
           <li>
-            <a href="">logout</a>
+            <Link onClick={handleLogOut} to="/">
+              Logout
+            </Link>
           </li>
         </ul>
       </nav>
-      {/* <div>welcome {currentUser && currentUser.email}</div> */}
-      {/* <Button shape={ButtonShape.ROUND_SMALL} onClick={handleLogOut}>
-        Log out
-      </Button> */}
     </section>
   )
 }

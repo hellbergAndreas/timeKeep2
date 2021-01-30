@@ -1,26 +1,22 @@
 import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
-
 import ListContainer from "../../containers/ListContainer/ListContainer"
 import Navbar from "../../containers/Navbar/Navbar"
-
 import { useAuth } from "../../context/AuthContext"
 import { useUser } from "../../context/UserContext"
 import styles from "./Dashboard.module.scss"
 import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeaderContainer"
-
 import StartButton from "../../components/Buttons/StartButton"
 import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
-
 import UserKit from "../../data/UserKit"
 import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
-import { calculateTotalTime } from "../../utils/calculateTotalTime"
+
 import { useSession } from "../../context/SessionContext"
 
 const Dashboard = () => {
   const { currentUser } = useAuth()
   const { setUserSessions } = useUser()
-  const { category, activity, session } = useSession()
+  const { category, activity } = useSession()
 
   const userKit = new UserKit()
   const history = useHistory()

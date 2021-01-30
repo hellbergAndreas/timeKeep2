@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import styles from "./FormInput.module.scss"
 const FormInput = ({ label, handleChange, type, required, onKeyUp, value }) => {
   let name = label.split(" ")[0].toLowerCase()
