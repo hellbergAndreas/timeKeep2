@@ -6,3 +6,15 @@ $green: #5fff70;
 
 $textColor: #504f56d6;
 $headerColor1: #2f2e39;
+
+$backgroundColor: linear-gradient(to right top, #f1c02d, #e5721f);
+$cardColor: linear-gradient(
+  to right bottom,
+  rgba(255, 255, 255, 0.334),
+  rgba(255, 255, 255, 0.135)
+);
+$cardColor2: linear-gradient(
+  to right bottom,
+  rgba(255, 255, 255, 0.525),
+  rgba(255, 255, 255, 0.32)
+);

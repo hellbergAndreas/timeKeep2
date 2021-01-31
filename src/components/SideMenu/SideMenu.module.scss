@@ -1,8 +1,9 @@
+@import "../../sharedCSS.scss";
 .menu {
   width: 300px;
 
   border-radius: 8px;
-  margin-left: 40px;
-  box-shadow: -7px -7px 17px #fff, 7px 7px 17px rgba(70, 70, 70, 0.15);
+
   padding: 20px;
+  background: $cardColor;
 }

@@ -6,9 +6,9 @@ import { msConverter } from "../../utils/msConverter"
 import styles from "./TimeDisplay.module.scss"
 
 // timeDisplay receives all user Sessions to calculate the total time of all the sessions.
-// on the Dashboard timeDisplay is rendered three times,
-// one for showing the total of all sessions,
-// one for showing the total of a choosen category,
+// on the Dashboard timeDisplay is rendered three times:
+// one for showing the total of all sessions
+// one for showing the total of a choosen category
 // and one for showing the total of a choosen activity
 const TimeDisplay = ({ category, activity, all, name }) => {
   const { userSessions } = useUser()

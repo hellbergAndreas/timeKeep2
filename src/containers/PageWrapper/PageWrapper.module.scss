@@ -1,0 +1,81 @@
+@import "../../sharedCSS.scss";
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  background: $backgroundColor;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 60px;
+}
+.content {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+.header {
+  padding: 20px 50px;
+
+  border-radius: 8px;
+  margin-top: 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 140px;
+  background: $cardColor2;
+  backdrop-filter: blur(8px);
+  margin-bottom: 20px;
+
+  // box-shadow: -3px -4px 10px rgba(175, 232, 230, 0.258),
+  //   0px 4px 15px rgba(14, 159, 142, 0.382);
+}
+
+.logo {
+  border-radius: 8px;
+
+  color: $orange;
+  height: 60px;
+  transition: all 0.6s;
+  padding: 0px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: $orangeLight;
+    transition: all 0.2s ease;
+  }
+}
+
+.nav ul {
+  display: flex;
+  border-radius: 8px;
+  width: 300px;
+}
+li {
+  list-style: none;
+  display: flex;
+  flex: 1;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 60px;
+  &:hover {
+    background-color: $purple;
+  }
+}
+
+li a {
+  text-decoration: none;
+  color: $purple;
+  font-weight: bolder;
+  font-size: 25px;
+  &:hover {
+    color: white;
+  }
+}
+li:hover a {
+  color: white;
+}

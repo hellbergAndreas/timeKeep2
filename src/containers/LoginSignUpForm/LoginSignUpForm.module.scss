@@ -1,4 +1,13 @@
 @import "../../sharedCSS.scss";
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right top, #65bddf, #6cebcb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .memberLink {
   color: $purple;
   margin-top: 20px;
@@ -16,21 +25,20 @@
   color: blue;
 }
 
-.form {
-  margin-top: 40px;
-}
 .formWrapper {
   padding: 50px;
-}
-
-@media (min-width: 700px) {
-  .formWrapper {
-    width: 800px;
-    padding: 70px 170px;
-    border-radius: 8px;
-    box-shadow: 0px -6px 10px rgba(255, 255, 255, 1),
-      0px 4px 15px rgba(0, 0, 0, 0.15);
-    max-height: auto;
-    margin-top: 5%;
-  }
+  width: 800px;
+  padding: 70px 170px;
+  border-radius: 8px;
+  max-height: auto;
+  background: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  backdrop-filter: blur(2rem);
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 20px;
 }

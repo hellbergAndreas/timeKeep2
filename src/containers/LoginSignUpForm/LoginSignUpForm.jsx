@@ -51,26 +51,31 @@ const LoginSignUpForm = () => {
   }
 
   return (
-    <div className={styles.formWrapper}>
-      <Header border={"border"}>{member ? "Login" : "Register"}</Header>
-      <form className={styles.form}>
-        <FormInput
-          required
-          handleChange={handleChange}
-          label="Email"
-        ></FormInput>
-        <FormInput
-          required={true}
-          handleChange={handleChange}
-          label="Password"
-        ></FormInput>
+    <div className={styles.background}>
+      <div className={styles.formWrapper}>
+        <Header border={"border"}>{member ? "Login" : "Register"}</Header>
+
+        <div>
+          <FormInput
+            required
+            handleChange={handleChange}
+            label="Email"
+          ></FormInput>
+        </div>
+        <div>
+          <FormInput
+            required={true}
+            handleChange={handleChange}
+            label="Password"
+          ></FormInput>
+        </div>
         <Button shape={ButtonShape.RECT_LARGE} onClick={(e) => handleSubmit(e)}>
           {member ? "Login" : "Register"}
         </Button>
-      </form>
 
-      <div className={styles.memberLink} onClick={addMember}>
-        {member ? "Not a member?" : "Already a member?"}
+        <div className={styles.memberLink} onClick={addMember}>
+          {member ? "Not a member?" : "Already a member?"}
+        </div>
       </div>
     </div>
   )

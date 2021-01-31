@@ -15,8 +15,8 @@ const FormInput = ({ label, handleChange, type, required, onKeyUp, value }) => {
         className={styles.input}
         value={value}
       ></input>
-      <label className={styles.labelName}>
-        <span className={styles.contentName}> {label}</span>
+      <label className={styles.inputWrapper__label}>
+        <span className={styles.inputWrapper__label__name}> {label}</span>
       </label>
     </div>
   )

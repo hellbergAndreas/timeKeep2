@@ -1,73 +1,59 @@
 @import "../../sharedCSS.scss";
 .inputWrapper {
-  display: flex;
-  flex-direction: column;
-  height: 80px;
   position: relative;
-  justify-content: end;
-  margin-bottom: 20px;
+  height: 55px;
+  width: 80%;
   overflow: hidden;
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+  &__label {
+    &__name {
+      position: absolute;
+      bottom: 5px;
+      transition: all 0.3s ease;
+    }
+  }
 }
-
-.input {
+.inputWrapper input {
+  width: 100%;
+  height: 100%;
   border: none;
-  height: 40px;
-  border-radius: 5px;
-  background-color: rgba(232, 232, 232, 0.128);
-  box-shadow: inset 0px -2px 5px rgb(255, 255, 255),
-    inset 0px 2px 5px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s linear;
-  color: $textColor;
-  font-size: 20px;
-  padding-left: 10px;
-  margin-top: 40px;
-}
-
-.input:focus {
-  border: none;
+  padding-top: 20px;
   outline: none;
-  background-color: rgba(243, 243, 243, 0.128);
+  font-size: 18px;
+  background: rgba(0, 0, 255, 0);
+  &:focus,
+  &:valid {
+    & + label span {
+      color: $purple;
+      font-size: 14px;
+      transform: translateY(-150%);
+    }
+    & + label:after {
+      transform: translateX(0%);
+    }
+  }
 }
-
 .inputWrapper label {
   position: absolute;
   bottom: 0px;
-  left: 5px;
-  width: 100%;
+  left: 0%;
   height: 100%;
-  pointer-events: none;
-}
+  width: 100%;
 
-.inputWrapper label::after {
+  pointer-events: none;
+  border-bottom: 1px solid black;
+}
+.inputWrapper label:after {
   content: "";
   position: absolute;
-
-  left: 0;
-  bottom: 0;
   height: 100%;
   width: 100%;
   border-bottom: 3px solid $purple;
-  transform: translateX(-105%);
-}
-.contentName {
-  position: absolute;
-  top: 50px;
-  transition: all 0.3s ease;
-}
-.inputWrapper input:focus + .labelName .contentName,
-.inputWrapper input:valid + .labelName .contentName {
-  transform: translateY(-250%);
-  transition: all 0.3s ease;
-  color: $purple;
-  font-size: 14px;
-}
-
-.labelName {
-  color: $textColor;
-}
-
-.inputWrapper input:focus + .labelName::after,
-.inputWrapper input:valid + .labelName::after {
-  transform: translateX(-2%);
-  transition: all 0.5s ease;
+  left: 0px;
+  bottom: -1px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
