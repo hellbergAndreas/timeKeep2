@@ -1,0 +1,19 @@
+@import "../../sharedCSS.scss";
+
+.card {
+  background: $cardColor2;
+  border-radius: 8px;
+  width: 80%;
+
+  height: 80%;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__header {
+    background-color: white;
+    padding: 9px 4px;
+    border-radius: 8px;
+  }
+}

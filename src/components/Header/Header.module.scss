@@ -1,22 +1,26 @@
 @import "../../sharedCSS.scss";
 .header {
-  margin: 20px 0px;
   font-size: 30px;
   font-weight: bold;
   color: $textColorWhite;
+  margin: 0;
+  padding: 0;
 }
-.border {
-  border-bottom: 5px solid $purple;
-  width: 120px;
-}
-
-.purple {
-  color: $purple;
-}
-.orange {
-  color: $orange;
+.black {
+  color: $textColorOrange;
 }
 
-.green {
-  color: $green;
+.headerSmall {
+  font-size: 16px;
+}
+.headerSmaller {
+  font-size: 12px;
+}
+
+.headerLarge {
+  font-size: 22px;
+}
+
+.headerLarger {
+  font-size: 28px;
 }

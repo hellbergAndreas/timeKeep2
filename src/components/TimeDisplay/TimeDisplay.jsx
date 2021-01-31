@@ -3,6 +3,7 @@ import { useSession } from "../../context/SessionContext"
 
 import { useUser } from "../../context/UserContext"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
+import { getSessions } from "../../utils/getSessions"
 import { msConverter } from "../../utils/msConverter"
 import styles from "./TimeDisplay.module.scss"
 
@@ -11,9 +12,9 @@ import styles from "./TimeDisplay.module.scss"
 // one for showing the total of all sessions,
 // one for showing the total of a choosen category,
 // and one for showing the total of a choosen activity
-const TimeDisplay = ({ filter, all, name }) => {
+const TimeDisplay = ({ filter, name }) => {
   const { userSessions } = useUser()
-  const { category, activity } = useSession()
+  const { category, activity, timeGoes } = useSession()
   const [sessions, setSessions] = useState()
   const [total, setTotal] = useState()
   const [time, setTime] = useState({
@@ -23,22 +24,12 @@ const TimeDisplay = ({ filter, all, name }) => {
   })
 
   useEffect(() => {
-    if (filter === "categories" && userSessions) {
-      const filteredSessions = userSessions.filter(
-        (session) => session.category === category
-      )
-      setSessions(filteredSessions)
-    }
-    if (filter === "activities" && userSessions) {
-      const filteredSessions = userSessions.filter(
-        (session) => session.activity === activity
-      )
-      setSessions(filteredSessions)
-    }
-    if (all) {
+    if (filter === "total") {
       setSessions(userSessions)
+    } else {
+      setSessions(getSessions(name, filter, userSessions))
     }
-  }, [category, activity])
+  }, [category, activity, userSessions])
 
   useEffect(() => {
     setTotal(calculateTotalTime(sessions))

@@ -25,13 +25,19 @@ const Dashboard = () => {
           <StartButton></StartButton>
         </div>
         <div className={styles.total}>
-          <TimeDisplay name={"total"} all={true}></TimeDisplay>
+          <TimeDisplay name={"total"} filter={"total"}></TimeDisplay>
         </div>
         {category && (
-          <DetailedCategoryCard filter="categories"></DetailedCategoryCard>
+          <DetailedCategoryCard
+            name={category}
+            filter="category"
+          ></DetailedCategoryCard>
         )}
         {activity && (
-          <DetailedCategoryCard filter="activities"></DetailedCategoryCard>
+          <DetailedCategoryCard
+            name={activity}
+            filter="activity"
+          ></DetailedCategoryCard>
         )}
         <div className={cx(styles.listSection, styles.categories)}>
           <ListHeaderContainer type="categories"></ListHeaderContainer>
