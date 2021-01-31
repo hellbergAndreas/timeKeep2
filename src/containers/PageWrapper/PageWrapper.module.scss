@@ -1,8 +1,8 @@
 @import "../../sharedCSS.scss";
 
 .background {
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   background: $backgroundColor;
   overflow: hidden;
   position: relative;
@@ -63,13 +63,12 @@ li {
   height: 50px;
   width: 60px;
   &:hover {
-    background-color: $purple;
   }
 }
 
 li a {
   text-decoration: none;
-  color: $purple;
+  color: $textColorWhite;
   font-weight: bolder;
   font-size: 25px;
   &:hover {

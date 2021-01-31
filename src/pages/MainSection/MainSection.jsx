@@ -12,6 +12,8 @@ import UserKit from "../../data/UserKit"
 import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
 
 import { useSession } from "../../context/SessionContext"
+import cx from "classnames"
+import DetailedCategoryCard from "../../components/DetailedCategoryCard/DetailedCategoryCard"
 
 const Dashboard = () => {
   const { category, activity } = useSession()
@@ -19,20 +21,24 @@ const Dashboard = () => {
   return (
     <div>
       <section className={styles.mainSection}>
-        <StartButton></StartButton>
-        <TimeDisplay name={"total"} all={true}></TimeDisplay>
+        <div className={styles.mainSection__startButton}>
+          <StartButton></StartButton>
+        </div>
+        <div className={styles.total}>
+          <TimeDisplay name={"total"} all={true}></TimeDisplay>
+        </div>
         {category && (
-          <TimeDisplay name={category} category={category}></TimeDisplay>
+          <DetailedCategoryCard filter="categories"></DetailedCategoryCard>
         )}
         {activity && (
-          <TimeDisplay name={activity} activity={activity}></TimeDisplay>
+          <DetailedCategoryCard filter="activities"></DetailedCategoryCard>
         )}
-        <div className={styles.categorySection}>
+        <div className={cx(styles.listSection, styles.categories)}>
           <ListHeaderContainer type="categories"></ListHeaderContainer>
           <ListContainer listFetch="category"></ListContainer>
         </div>
 
-        <div className={styles.activitySection}>
+        <div className={cx(styles.listSection, styles.activities)}>
           <ListHeaderContainer type="activities"></ListHeaderContainer>
           <ListContainer listFetch="activity"></ListContainer>
         </div>

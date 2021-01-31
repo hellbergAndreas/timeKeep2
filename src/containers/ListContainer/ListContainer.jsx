@@ -73,7 +73,7 @@ const CategoryContainer = ({ listFetch }) => {
         })
     }
   }, [])
-  const renderCategorys = () => {
+  const renderCategories = () => {
     return list.map((item) => {
       return (
         <ListObject
@@ -90,7 +90,7 @@ const CategoryContainer = ({ listFetch }) => {
       )
     })
   }
-  return <section className={styles.section}>{renderCategorys()}</section>
+  return <section className={styles.container}>{renderCategories()}</section>
 }
 
 export default CategoryContainer
