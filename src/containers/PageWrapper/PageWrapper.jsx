@@ -9,9 +9,9 @@ import { useUser } from "../../context/UserContext"
 import MainSection from "../../pages/MainSection/MainSection"
 import SideMenu from "../../components/SideMenu/SideMenu"
 
-const PageWrapper = () => {
+const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
-  const { setUserSessions } = useUser()
+  const { setUserSessions, userSessions } = useUser()
   const history = useHistory()
   const userKit = new UserKit()
 
@@ -28,7 +28,7 @@ const PageWrapper = () => {
   useEffect(() => {
     !currentUser && history.push("/login")
 
-    if (currentUser) {
+    if (currentUser && !userSessions) {
       currentUser
         .getIdToken()
         .then((token) => {
@@ -44,24 +44,26 @@ const PageWrapper = () => {
   }, [currentUser])
   return (
     <section className={styles.background}>
-      <section className={styles.header}>
-        <h2 onClick={goHome} className={styles.logo}>
-          timeKeep
-        </h2>
-        <nav className={styles.nav}>
-          <ul>
-            <li>
-              <Link onClick={handleLogOut} to="/">
-                Logout
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </section>
-      <section className={styles.content}>
-        <SideMenu></SideMenu>
-        <MainSection></MainSection>
-      </section>
+      <div className={styles.contentWrapper}>
+        <section className={styles.header}>
+          <h2 onClick={goHome} className={styles.logo}>
+            timeKeep
+          </h2>
+          <nav className={styles.nav}>
+            <ul>
+              <li>
+                <Link onClick={handleLogOut} to="/">
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </section>
+        <section className={styles.content}>
+          <SideMenu></SideMenu>
+          {content}
+        </section>
+      </div>
     </section>
   )
 }

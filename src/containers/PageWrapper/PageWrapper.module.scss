@@ -7,10 +7,17 @@
   overflow: hidden;
   position: relative;
   padding: 20px 60px;
+  display: flex;
+  justify-content: center;
 }
 .content {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: minmax(100px, 300px) 4fr;
+  gap: 20px;
+}
+.contentWrapper {
+  max-width: 1600px;
+  flex: 1;
 }
 .header {
   padding: 20px 50px;

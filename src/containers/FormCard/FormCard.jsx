@@ -37,7 +37,6 @@ export default ({ hidden, setHidden, type }) => {
               ...prevState,
               {
                 description: inputs.description,
-                category: inputs.category,
                 name: inputs.category,
                 userId: currentUser.uid,
               },
@@ -61,7 +60,6 @@ export default ({ hidden, setHidden, type }) => {
           })
         }
       })
-      console.log(inputs)
     }
   }
   const handleChange = (name, value) => {

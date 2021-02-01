@@ -1,9 +1,10 @@
 @import "../../sharedCSS.scss";
 .menu {
-  width: 300px;
-
   border-radius: 8px;
-
   padding: 20px;
   background: $cardColor;
+  &__navbar {
+    display: flex;
+    flex-direction: column;
+  }
 }

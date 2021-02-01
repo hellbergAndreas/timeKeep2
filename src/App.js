@@ -7,15 +7,35 @@ import StatsPage from "./pages/StatsPage/StatsPage"
 import UserPage from "./pages/UserPage/UserPage"
 import PageWrapper from "./containers/PageWrapper/PageWrapper"
 
+import MainSection from "./pages/MainSection/MainSection"
+import SessionsPage from "./pages/SessionsPage/SessionsPage"
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <AuthProvider>
           <Switch>
-            <Route exact path="/" component={PageWrapper} />
-            {/* <Route exact path="/stats" component={StatsPage} /> */}
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <PageWrapper content={<MainSection></MainSection>} />
+              )}
+            />
+            <Route
+              exact
+              path="/stats"
+              component={() => (
+                <PageWrapper content={<StatsPage></StatsPage>} />
+              )}
+            />
             <Route path="/login" component={LoginPage} />
+            <Route
+              path="/sessions"
+              component={() => (
+                <PageWrapper content={<SessionsPage></SessionsPage>} />
+              )}
+            />
             {/* <Route exact path="/user" component={UserPage} /> */}
           </Switch>
         </AuthProvider>
