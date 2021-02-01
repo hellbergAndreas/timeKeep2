@@ -14,6 +14,7 @@ import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
 import { useSession } from "../../context/SessionContext"
 import cx from "classnames"
 import DetailedCategoryCard from "../../components/DetailedCategoryCard/DetailedCategoryCard"
+import FormCard from "../../containers/FormCard/FormCard"
 
 const Dashboard = () => {
   const { category, activity } = useSession()

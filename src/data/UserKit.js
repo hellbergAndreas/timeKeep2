@@ -28,7 +28,7 @@ export default class {
     const payload = { userId: user }
     return fetch(url, {
       method: "POST",
-      headers: this.getPublicHeaders(),
+      headers: this.getPrivateHeaders(),
       body: JSON.stringify(payload),
     })
   }

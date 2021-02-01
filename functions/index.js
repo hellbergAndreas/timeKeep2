@@ -80,7 +80,7 @@ app.post("/activities", (req, res) => {
       console.log(err)
     })
 })
-app.post(`/getCategories`, (req, res) => {
+app.post(`/getCategories`, FBAuth, (req, res) => {
   return db
     .collection(`categories`)
     .where("userId", "==", req.body.userId)

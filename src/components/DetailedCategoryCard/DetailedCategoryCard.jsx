@@ -11,7 +11,7 @@ const DetailedCategoryCard = ({ name, filter }) => {
   const { userSessions } = useUser()
   useEffect(() => {
     setSessions(getSessions(name, filter, userSessions))
-  }, [name])
+  }, [name, userSessions])
   return (
     <div className={styles.card}>
       <div className={styles.card__header}>

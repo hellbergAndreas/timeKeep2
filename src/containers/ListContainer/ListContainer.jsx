@@ -22,7 +22,12 @@ const CategoryContainer = ({ listFetch }) => {
     timeGoes,
   } = useSession()
 
-  const { setUserActivities, userActivities } = useUser()
+  const {
+    setUserActivities,
+    userActivities,
+    setUserCategories,
+    userCategories,
+  } = useUser()
 
   const userKit = new UserKit()
 
@@ -45,10 +50,15 @@ const CategoryContainer = ({ listFetch }) => {
         .getCategories(currentUser.uid)
         .then((res) => res.json())
         .then((data) => {
-          setList(data)
+          setUserCategories(data)
         })
     }
   }, [])
+  useEffect(() => {
+    if (listFetch === "category") {
+      setList(userCategories)
+    }
+  }, [userCategories])
 
   // when user presses a category, we filter through the activites
   // returning the ones matching the active category.
@@ -60,7 +70,7 @@ const CategoryContainer = ({ listFetch }) => {
       })
       setList(filteredActivities)
     }
-  }, [category])
+  }, [category, userActivities])
 
   useEffect(() => {
     //fetching all activities
@@ -73,6 +83,9 @@ const CategoryContainer = ({ listFetch }) => {
         })
     }
   }, [])
+  useEffect(() => {
+    console.log(userActivities)
+  }, [userActivities])
   const renderCategories = () => {
     return list.map((item) => {
       return (
@@ -90,7 +103,9 @@ const CategoryContainer = ({ listFetch }) => {
       )
     })
   }
-  return <section className={styles.container}>{renderCategories()}</section>
+  return (
+    <section className={styles.container}>{list && renderCategories()}</section>
+  )
 }
 
 export default CategoryContainer

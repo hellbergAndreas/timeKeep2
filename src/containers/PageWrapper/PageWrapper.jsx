@@ -23,15 +23,23 @@ const PageWrapper = () => {
   const goHome = () => {
     history.push("/")
   }
+  // all sessions are collected from the db to calculate total
+  // time
   useEffect(() => {
     !currentUser && history.push("/login")
 
     if (currentUser) {
-      //get all user sessions
-      userKit
-        .getSessions(currentUser.uid)
-        .then((res) => res.json())
-        .then((data) => setUserSessions(data))
+      currentUser
+        .getIdToken()
+        .then((token) => {
+          sessionStorage.setItem("sessionToken", token)
+        })
+        .then(() => {
+          userKit
+            .getSessions(currentUser.uid)
+            .then((res) => res.json())
+            .then((data) => setUserSessions(data))
+        })
     }
   }, [currentUser])
   return (

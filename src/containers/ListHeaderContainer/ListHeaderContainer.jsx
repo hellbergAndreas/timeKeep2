@@ -8,15 +8,16 @@ import styles from "./ListHeaderContainer.module.scss"
 export default ({ type }) => {
   const [hidden, setHidden] = useState(true)
 
-  const handleClick = () => {
-    setHidden(!hidden)
+  const handleClick = (e) => {
+    // setHidden(!hidden)
+    console.log(e.innerHTML)
   }
   return (
     <div className={styles.header}>
       <Header>{type}</Header>
-      {/* <Button onClick={handleClick}>
-        Add {type === "categorys" ? "category" : "activity"}
-      </Button> */}
+      <Button onClick={(e) => handleClick(e)}>
+        Add {type === "categories" ? "category" : "activity"}
+      </Button>
       {!hidden && (
         <FormCard type={type} setHidden={setHidden} hidden={hidden}></FormCard>
       )}
