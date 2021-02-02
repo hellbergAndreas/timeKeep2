@@ -44,6 +44,9 @@ const PageWrapper = ({ content }) => {
   }, [currentUser])
   return (
     <section className={styles.background}>
+      <div className={styles.background__circle}></div>
+      <div className={styles.background__circle2}></div>
+      <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
         <section className={styles.header}>
           <h2 onClick={goHome} className={styles.logo}>

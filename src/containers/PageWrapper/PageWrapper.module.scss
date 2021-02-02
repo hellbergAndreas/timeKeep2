@@ -9,11 +9,40 @@
   padding: 20px 60px;
   display: flex;
   justify-content: center;
+  &__blur {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    // backdrop-filter: blur(2px);
+  }
+  &__circle {
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    background: $circleColor;
+    position: absolute;
+    top: 26%;
+    left: 5%;
+    z-index: 0;
+  }
+  &__circle2 {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: $circleColor;
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    z-index: 0;
+  }
 }
 .content {
   display: grid;
   grid-template-columns: minmax(100px, 300px) 4fr;
   gap: 20px;
+  z-index: 1;
+  position: relative;
 }
 .contentWrapper {
   max-width: 1600px;
@@ -32,7 +61,9 @@
   background: $cardColor2;
   backdrop-filter: blur(8px);
   margin-bottom: 20px;
-
+  border: 1px solid rgba(5, 33, 49, 0.272);
+  -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff;
+  box-shadow: inset 2px 2px 5px 0px #ffffff;
   // box-shadow: -3px -4px 10px rgba(175, 232, 230, 0.258),
   //   0px 4px 15px rgba(14, 159, 142, 0.382);
 }

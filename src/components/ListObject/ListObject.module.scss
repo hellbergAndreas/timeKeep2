@@ -19,7 +19,8 @@ button:focus {
   font-weight: bold;
   margin: 20px 0px;
   margin-right: 20px;
-  color: $textColorOrange;
+  color: $textColorDarker;
+
   height: 90px;
 
   min-width: 145px;
@@ -28,11 +29,13 @@ button:focus {
   border-radius: 8px;
 
   position: relative;
-  background: $cardColor2;
+  background: $cardColor4;
+  border: 1px solid rgba(5, 18, 49, 0.108);
 
   cursor: pointer;
   &:hover {
     color: $textColorWhite;
+    transform: scale(1.135);
   }
 }
 
@@ -90,6 +93,7 @@ button:focus {
 
 .active {
   color: $textColorWhite;
+  transform: scale(1.135);
 }
 
 .disabled {

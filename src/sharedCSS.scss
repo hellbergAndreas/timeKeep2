@@ -4,11 +4,12 @@ $orange: #ff705f;
 $orangeLight: #ff6f5fc5;
 $green: #5fff70;
 
-$textColorWhite: #fffbdf;
-$textColorOrange: #b77100;
+$textColorWhite: #dbfcff;
+$textColorDark: #629084;
+$textColorDarker: #2a4941;
 $headerColor1: #2f2e39;
 
-$backgroundColor: linear-gradient(to right top, #f1c02d, #e5721f);
+$backgroundColor: linear-gradient(to right top, #65bddf, #6cebcb);
 $cardColor: linear-gradient(
   to right bottom,
   rgba(255, 255, 255, 0.334),
@@ -16,6 +17,29 @@ $cardColor: linear-gradient(
 );
 $cardColor2: linear-gradient(
   to right bottom,
-  rgba(255, 255, 255, 0.525),
-  rgba(255, 255, 255, 0.32)
+  rgba(234, 251, 255, 0.697),
+  rgba(233, 251, 255, 0.539)
+);
+
+$circleColor: linear-gradient(
+  to right bottom,
+  rgb(246, 253, 255),
+  rgba(233, 251, 255, 0.176)
+);
+
+$cardColor3: linear-gradient(
+  to right bottom,
+  rgba(234, 251, 255, 0.888),
+  rgba(196, 234, 243, 0.683)
+);
+
+$cardColor4: linear-gradient(
+  to right bottom,
+  rgba(54, 39, 139, 0.265),
+  rgba(38, 166, 155, 0.464)
+);
+$cardColor5: linear-gradient(
+  to right bottom,
+  rgba(109, 108, 108, 0.436),
+  rgba(32, 101, 121, 0.183)
 );

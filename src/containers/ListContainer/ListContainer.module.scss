@@ -1,3 +1,38 @@
-.container {
+@import "../../sharedCSS.scss";
+.carousel {
+  position: relative;
+}
+
+.switchLeft {
+  position: absolute;
+  left: -25px;
+}
+
+.switchRight {
+  position: absolute;
+  right: -25px;
+}
+
+.sliderButton {
+  height: 70px;
+  font-weight: bolder;
+  width: 20px;
+
+  margin-top: 30px;
+  color: $textColorDark;
+  background: $cardColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carouselBox {
+  height: 150px;
+  width: 700px;
+  // overflow: scroll;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  padding-bottom: 10px !important;
   display: flex;
 }

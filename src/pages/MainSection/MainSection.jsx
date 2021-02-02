@@ -95,8 +95,8 @@ const Dashboard = () => {
             list={filteredActivities}
           ></ListContainer>
         </div>
-        <ConfirmSession></ConfirmSession>
       </section>
+      <ConfirmSession></ConfirmSession>
     </div>
   )
 }

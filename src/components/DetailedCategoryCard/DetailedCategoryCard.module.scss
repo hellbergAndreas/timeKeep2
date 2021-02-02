@@ -4,16 +4,29 @@
   background: $cardColor2;
   border-radius: 8px;
   width: 80%;
-
   height: 80%;
   padding: 10px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  grid-column: 2;
+  grid-row: 2;
+  place-self: center;
+
+  position: absolute;
+  margin-top: -80px;
+  height: 400px;
+  width: 400px;
 
   &__header {
     background-color: white;
     padding: 9px 4px;
     border-radius: 8px;
   }
+}
+
+.categories {
+  margin-top: 80px;
+  margin-left: 10px;
+  background-color: white;
 }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { useSession } from "../../context/SessionContext"
+
 import { useUser } from "../../context/UserContext"
 import { getSessions } from "../../utils/getSessions"
 import Header, { HeaderSize } from "../Header/Header"
 import TimeDisplay from "../TimeDisplay/TimeDisplay"
 import styles from "./DetailedCategoryCard.module.scss"
-
+import cx from "classnames"
 const DetailedCategoryCard = ({ name, filter }) => {
   const [sessions, setSessions] = useState([])
   const { userSessions } = useUser()
@@ -13,7 +13,9 @@ const DetailedCategoryCard = ({ name, filter }) => {
     setSessions(getSessions(name, filter, userSessions))
   }, [name, userSessions])
   return (
-    <div className={styles.card}>
+    <div
+      className={cx(styles.card, filter === "activity" && styles.categories)}
+    >
       <div className={styles.card__header}>
         <Header size={HeaderSize.HEADER_LARGE} color={"black"}>
           {name}

@@ -2,7 +2,13 @@
 .menu {
   border-radius: 8px;
   padding: 20px;
-  background: $cardColor;
+  background: $cardColor2;
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(5, 33, 49, 0.272);
+  -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff;
+  box-shadow: inset 2px 2px 5px 0px #ffffff;
+  &__user {
+  }
   &__navbar {
     display: flex;
     flex-direction: column;
