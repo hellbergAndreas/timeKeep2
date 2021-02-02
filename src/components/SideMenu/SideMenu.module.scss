@@ -8,9 +8,16 @@
   -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff;
   box-shadow: inset 2px 2px 5px 0px #ffffff;
   &__user {
+    height: 150px;
   }
   &__navbar {
     display: flex;
     flex-direction: column;
+  }
+  &__navbar a {
+    margin-bottom: 100px;
+    text-decoration: none;
+    color: $purple;
+    font-weight: bolder;
   }
 }

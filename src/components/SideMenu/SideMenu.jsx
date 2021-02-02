@@ -8,8 +8,8 @@ const SideMenu = () => {
       <div className={styles.menu__user}>IamUser</div>
       <ul className={styles.menu__navbar}>
         <Link to="/">Start</Link>
-        <Link to="/stats">Stats</Link>
         <Link to="/sessions">Sessions</Link>
+        <Link to="/stats">Stats</Link>
       </ul>
     </div>
   )

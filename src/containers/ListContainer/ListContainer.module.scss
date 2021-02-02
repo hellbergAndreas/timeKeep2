@@ -28,11 +28,12 @@
 
 .carouselBox {
   height: 150px;
-  width: 700px;
-  // overflow: scroll;
+  width: 650px;
+
+  overflow: scroll;
   overflow: hidden;
   white-space: nowrap;
   display: inline-block;
-  padding-bottom: 10px !important;
+
   display: flex;
 }
