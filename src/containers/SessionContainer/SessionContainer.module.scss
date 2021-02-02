@@ -1,0 +1,11 @@
+@import "../../sharedCSS.scss";
+
+.wrapper {
+  padding: 0px 60px;
+  margin-top: 20px;
+  &__container {
+    height: 50px;
+    background: $cardColor5;
+    min-height: 100px;
+  }
+}
