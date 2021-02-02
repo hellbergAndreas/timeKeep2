@@ -1,7 +1,13 @@
 import React from "react"
+import Input from "../../components/Input/Input"
+import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
-  return <div>I am sessions</div>
+  return (
+    <section className={styles.sessionsSection}>
+      <Input name="Search" required={true} label={"Search"}></Input>
+    </section>
+  )
 }
 
 export default SessionsPage
