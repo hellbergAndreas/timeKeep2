@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useHistory } from "react-router-dom"
+
 import ListContainer from "../../containers/ListContainer/ListContainer"
 import { useAuth } from "../../context/AuthContext"
 import { useUser } from "../../context/UserContext"
@@ -12,6 +12,7 @@ import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
 import { useSession } from "../../context/SessionContext"
 import cx from "classnames"
 import DetailedCategoryCard from "../../components/DetailedCategoryCard/DetailedCategoryCard"
+import Timer from "../../components/Timer/Timer"
 
 const Dashboard = () => {
   const { category, activity } = useSession()
@@ -27,7 +28,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     // fetching all categorys
-    if (currentUser && !userCategories) {
+
+    if (currentUser) {
+      console.log("fetching categories")
       userKit
         .getCategories(currentUser.uid)
         .then((res) => res.json())
@@ -39,7 +42,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     //fetching all activities
-    if (currentUser && !userActivities) {
+    if (currentUser) {
+      console.log("fetching activities")
       userKit
         .getActivities(currentUser.uid)
         .then((res) => res.json())
@@ -63,6 +67,7 @@ const Dashboard = () => {
     <div>
       <section className={styles.mainSection}>
         <div className={styles.mainSection__startButton}>
+          <Timer></Timer>
           <StartButton></StartButton>
         </div>
         <div className={styles.total}>

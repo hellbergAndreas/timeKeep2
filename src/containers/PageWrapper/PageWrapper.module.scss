@@ -17,8 +17,8 @@
     // backdrop-filter: blur(2px);
   }
   &__circle {
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
     border-radius: 50%;
     background: $circleColor;
     position: absolute;
@@ -27,8 +27,8 @@
     z-index: 0;
   }
   &__circle2 {
-    height: 200px;
-    width: 200px;
+    height: 400px;
+    width: 400px;
     border-radius: 50%;
     background: $circleColor;
     position: absolute;

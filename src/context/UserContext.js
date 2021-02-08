@@ -10,8 +10,8 @@ export const useUser = () => {
 // from the database.
 
 export const UserProvider = ({ children }) => {
-  const [userCategories, setUserCategories] = useState(null)
-  const [userActivities, setUserActivities] = useState(null)
+  const [userCategories, setUserCategories] = useState([])
+  const [userActivities, setUserActivities] = useState([])
   const [userSessions, setUserSessions] = useState(null)
 
   const value = {

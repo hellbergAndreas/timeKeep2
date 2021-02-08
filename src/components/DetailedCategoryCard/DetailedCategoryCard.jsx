@@ -15,7 +15,13 @@ const DetailedCategoryCard = ({ name, filter }) => {
     setSessions(getSessions(name, filter, userSessions))
   }, [name, userSessions])
   return (
-    <div className={cx(styles.card, filter === "activity" && styles.activity)}>
+    <div
+      className={cx(
+        styles.card,
+        filter === "activity" && styles.activity,
+        activity && filter === "category" ? styles.opacity : ""
+      )}
+    >
       <div
         className={
           activity && filter === "category" ? styles.faded : styles.hidden

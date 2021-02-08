@@ -64,21 +64,24 @@ const CategoryContainer = ({ type, list }) => {
   }
 
   const renderCategories = () => {
-    return list.map((item) => {
-      return (
-        <ListObject
-          key={item.name}
-          category={category}
-          activity={activity}
-          timeGoes={timeGoes}
-          canBeDeactivated={true}
-          name={item.name}
-          onClick={handleClick}
-        >
-          {item.name}
-        </ListObject>
-      )
-    })
+    if (list) {
+      console.log(list)
+      return list.map((item) => {
+        return (
+          <ListObject
+            key={item.name}
+            category={category}
+            activity={activity}
+            timeGoes={timeGoes}
+            canBeDeactivated={true}
+            name={item.name}
+            onClick={handleClick}
+          >
+            {item.name}
+          </ListObject>
+        )
+      })
+    }
   }
   return (
     <section className={styles.carousel}>

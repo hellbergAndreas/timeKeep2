@@ -1,10 +1,12 @@
 import React, { useState } from "react"
 import Input from "../../components/Input/Input"
 import SessionContainer from "../../containers/SessionContainer/SessionContainer"
+import { useUser } from "../../context/UserContext"
 import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
-  const [list, setList] = useState()
+  const { userSessions } = useUser()
+  const [filteredList, setFilteredList] = useState([])
 
   const handleChange = () => {}
   return (
@@ -19,7 +21,7 @@ const SessionsPage = () => {
           ></Input>
         </div>
         <div className={styles.section__list}>
-          <SessionContainer></SessionContainer>
+          <SessionContainer list={userSessions}></SessionContainer>
         </div>
       </div>
     </section>
