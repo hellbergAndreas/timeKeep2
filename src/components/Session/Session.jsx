@@ -13,19 +13,24 @@ const Session = ({ session }) => {
 
   return (
     <div className={styles.session}>
-      {date &&
-        `${date.getFullYear()}-${lowerThan10(date.getMonth())}-${lowerThan10(
-          date.getDate()
-        )} `}
-      <p>
-        {date.getHours &&
-          `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
-      </p>
-      <p>
-        {dateStop.getHours &&
-          `${dateStop.getHours()}:${dateStop.getMinutes()}:${dateStop.getSeconds()}`}
-      </p>
-      <p>{(dateStop - date) / 1000}</p>
+      <div className={styles.session__year}>
+        {date &&
+          `${date.getFullYear()}-${lowerThan10(
+            date.getMonth() + 1
+          )}-${lowerThan10(date.getDate())} `}
+      </div>
+      <div className={styles.session__time}>
+        <p className={styles.session__time__timeStart}>
+          {date.getHours &&
+            `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
+        </p>
+        -
+        <p className={styles.session__time__timeStop}>
+          {dateStop.getHours &&
+            `${dateStop.getHours()}:${dateStop.getMinutes()}:${dateStop.getSeconds()}`}
+        </p>
+      </div>
+      <p className={styles.session__totalTime}>{(dateStop - date) / 1000}</p>
     </div>
   )
 }
