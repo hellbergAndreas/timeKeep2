@@ -7,16 +7,12 @@ import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
   const { userSessions, userActivities, userCategories } = useUser()
-  const [filter, setFilter] = useState({
-    categories: [],
-    activities: [],
-    keys: [],
-  })
-
   const [filteredList, setFilteredList] = useState([])
-  useEffect(() => {
-    console.log(filter)
-  }, [filter])
+  const [filteredActivities, setFilteredActivities] = useState()
+  const [categoryFilter, setCategoryFilter] = useState([])
+  const [activityFilter, setactivityFilter] = useState()
+  const [keyFilter, setkeyFilter] = useState()
+
   useEffect(() => {
     // looping through the sessions, converting the timestamps back to javascript date-object...........................
     let sessions = []
@@ -35,6 +31,9 @@ const SessionsPage = () => {
     }
   }, [userSessions])
 
+  useEffect(() => {
+    console.log(categoryFilter)
+  }, [categoryFilter])
   const handleChange = () => {}
   return (
     <section className={styles.section}>
@@ -50,16 +49,16 @@ const SessionsPage = () => {
         <div className={styles.section__filters}>
           <CategoryFilter
             name={"categories"}
-            setFilter={setFilter}
-            filter={filter}
+            setFilter={setCategoryFilter}
+            filter={categoryFilter}
             display={userCategories}
           ></CategoryFilter>
-          <CategoryFilter
+          {/* <CategoryFilter
             name={"activities"}
             filter={filter}
             setFilter={setFilter}
             display={userActivities}
-          ></CategoryFilter>
+          ></CategoryFilter> */}
         </div>
         <div className={styles.section__list}>
           <SessionContainer list={filteredList}></SessionContainer>

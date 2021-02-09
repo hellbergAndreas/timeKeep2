@@ -1,25 +1,19 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useUser } from "../../context/UserContext"
 import styles from "./CategoryFilter.module.scss"
 
 const CategoryFilter = ({ name, display, setFilter, filter }) => {
-  const handleClick = (catName) => {
-    if (filter[name].includes(catName)) {
-      let newFilter = filter[name].filter((cat) => {
-        return cat != catName
+  const handleClick = (name) => {
+    if (filter.includes(name)) {
+      let newFilter = filter.filter((cat) => {
+        return cat != name
       })
       setFilter((prevState) => {
-        return {
-          ...prevState,
-          [name]: [...newFilter],
-        }
+        return newFilter
       })
     } else {
       setFilter((prevState) => {
-        return {
-          ...prevState,
-          [name]: [...prevState[name], catName],
-        }
+        return [...prevState, name]
       })
     }
   }
