@@ -22,12 +22,16 @@ const Session = ({ session }) => {
       <div className={styles.session__time}>
         <p className={styles.session__time__timeStart}>
           {date.getHours &&
-            `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
+            `${lowerThan10(date.getHours())}:${lowerThan10(
+              date.getMinutes()
+            )}:${lowerThan10(date.getSeconds())}`}
         </p>
         -
         <p className={styles.session__time__timeStop}>
           {dateStop.getHours &&
-            `${dateStop.getHours()}:${dateStop.getMinutes()}:${dateStop.getSeconds()}`}
+            `${lowerThan10(dateStop.getHours())}:${lowerThan10(
+              dateStop.getMinutes()
+            )}:${lowerThan10(dateStop.getSeconds())}`}
         </p>
       </div>
       <p className={styles.session__totalTime}>{(dateStop - date) / 1000}</p>

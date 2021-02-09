@@ -7,7 +7,11 @@ const SessionContainer = ({ list }) => {
       <div className={styles.wrapper__container}>
         {list &&
           list.map((session) => {
-            return <Session session={session} />
+            return (
+              <div key={session.start}>
+                <Session session={session} />
+              </div>
+            )
           })}
       </div>
     </div>

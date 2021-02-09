@@ -22,7 +22,7 @@ const CategoryContainer = ({ type, list }) => {
   } = useSession()
 
   const slideLeft = () => {
-    console.log(sliders.current.scrollLeft)
+    // console.log(sliders.current.scrollLeft)
     sliders.current.scrollLeft -= 150
     // let scrollAmount = 0
     // sliders.scrollTo({
@@ -65,7 +65,6 @@ const CategoryContainer = ({ type, list }) => {
 
   const renderCategories = () => {
     if (list) {
-      console.log(list)
       return list.map((item) => {
         return (
           <ListObject
