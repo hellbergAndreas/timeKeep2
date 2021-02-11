@@ -3,17 +3,27 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  background: $cardColor;
-  min-height: 700px;
+
+  height: 700px;
   border-radius: 8px;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(122, 195, 238, 0.923);
-  box-shadow: inset 2px 2px 5px 0px #ffffff57;
-  -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff58;
-  &__list {
+  &__left {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(122, 195, 238, 0.923);
+    box-shadow: inset 2px 2px 5px 0px #ffffff57;
+    -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff58;
+    background: $cardColor;
     grid-row: 1 / -1;
-    overflow: scroll;
-    height: 700px;
+    display: flex;
+    flex-direction: column;
+
+    &__filters {
+      padding: 20px;
+    }
+
+    &__list {
+      overflow: scroll;
+      height: 100%;
+    }
   }
   &__input {
     display: flex;

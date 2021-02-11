@@ -2,16 +2,4 @@
 .categoryFilter {
   display: flex;
   flex-wrap: wrap;
-  &__category {
-    background: $cardColor5;
-    padding: 6px;
-    font-size: 12px;
-    font-weight: bolder;
-    color: white;
-    margin: 5px 10px;
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
-  }
 }

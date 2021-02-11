@@ -34,6 +34,15 @@ const Session = ({ session }) => {
             )}:${lowerThan10(dateStop.getSeconds())}`}
         </p>
       </div>
+      <div>
+        <p> {session.category}</p>
+        <p>{session.activity}</p>
+        <p>
+          {session.keys.map((key) => {
+            return <div>{key}</div>
+          })}
+        </p>
+      </div>
       <p className={styles.session__totalTime}>{(dateStop - date) / 1000}</p>
     </div>
   )

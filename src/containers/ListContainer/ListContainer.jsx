@@ -64,7 +64,7 @@ const CategoryContainer = ({ type, list }) => {
   }
 
   const renderCategories = () => {
-    if (list) {
+    if (list.length > 0) {
       return list.map((item) => {
         return (
           <ListObject
