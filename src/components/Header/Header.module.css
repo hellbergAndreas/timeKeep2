@@ -1,0 +1,32 @@
+.header {
+  font-size: 30px;
+  font-weight: bold;
+  color: #dbfcff;
+  margin: 0;
+  padding: 0;
+}
+
+.black {
+  color: #629084;
+}
+
+.purple {
+  color: #705fff;
+}
+
+.headerSmall {
+  font-size: 16px;
+}
+
+.headerSmaller {
+  font-size: 12px;
+}
+
+.headerLarge {
+  font-size: 22px;
+}
+
+.headerLarger {
+  font-size: 28px;
+}
+/*# sourceMappingURL=Header.module.css.map */

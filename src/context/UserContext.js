@@ -1,18 +1,19 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState } from "react";
 
-const UserContext = React.createContext()
+const UserContext = React.createContext();
 
 export const useUser = () => {
-  return useContext(UserContext)
-}
+  return useContext(UserContext);
+};
 
 // when app is initiated, all user Sessions categories and activities are fetched
 // from the database.
 
 export const UserProvider = ({ children }) => {
-  const [userCategories, setUserCategories] = useState([])
-  const [userActivities, setUserActivities] = useState([])
-  const [userSessions, setUserSessions] = useState(null)
+  const [userCategories, setUserCategories] = useState([]);
+  const [userActivities, setUserActivities] = useState([]);
+  const [userSessions, setUserSessions] = useState(null);
+  const [userSessionsArray, setUserSessionsArray] = useState([]);
 
   const value = {
     userCategories,
@@ -21,6 +22,8 @@ export const UserProvider = ({ children }) => {
     setUserActivities,
     userSessions,
     setUserSessions,
-  }
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
-}
+    userSessionsArray,
+    setUserSessionsArray
+  };
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};

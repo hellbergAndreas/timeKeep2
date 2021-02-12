@@ -1,0 +1,71 @@
+.inputWrapper {
+  position: relative;
+  height: 55px;
+  width: 80%;
+  overflow: hidden;
+  -ms-grid-column: 1;
+  grid-column: 1;
+  -ms-grid-row: 2;
+  grid-row: 2;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.inputWrapper__label__name {
+  position: absolute;
+  bottom: 5px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.inputWrapper input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding-top: 20px;
+  outline: none;
+  font-size: 18px;
+  background: rgba(0, 0, 255, 0);
+}
+
+.inputWrapper input:focus + label span, .inputWrapper input:valid + label span {
+  color: #705fff;
+  font-size: 14px;
+  -webkit-transform: translateY(-150%);
+          transform: translateY(-150%);
+}
+
+.inputWrapper input:focus + label:after, .inputWrapper input:valid + label:after {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+}
+
+.inputWrapper label {
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid black;
+}
+
+.inputWrapper label:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-bottom: 3px solid #705fff;
+  left: 0px;
+  bottom: -1px;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+/*# sourceMappingURL=FormInput.module.css.map */

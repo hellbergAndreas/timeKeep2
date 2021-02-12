@@ -1,14 +1,22 @@
-import React, { useEffect } from "react"
-import Input from "../Input/Input"
-import styles from "./DetailedSession.module.scss"
+import React, { useEffect, useState } from "react";
+import Input from "../Input/Input";
+import styles from "./DetailedSession.module.scss";
 
 const DetailedSession = ({ session }) => {
+  const [date, setDate] = useState("");
+  const [dateStop, setDateStop] = useState("");
+
+  useEffect(() => {
+
+
+
+  }, [session]);
   const renderCard = () => {
     if (session) {
-      console.log(session)
+      console.log(session);
       return (
         <div className={styles.card__content}>
-          {/* {/* <div className={styles.card__content__header}> {session.start}</div> */}
+          {session && session.start.getFullYear()}
 
           <p>category {session.category && session.category}</p>
           <p>{session.parent && `category ${session.parent}`}</p>
@@ -22,7 +30,7 @@ const DetailedSession = ({ session }) => {
                   <div
                     className={styles.card__content__keys__content__key}
                   >{`${key}`}</div>
-                )
+                );
               })}
             </div>
             <div className={styles.card__content__keys__inputWrapper}>
@@ -30,10 +38,10 @@ const DetailedSession = ({ session }) => {
             </div>
           </div>
         </div>
-      )
+      );
     }
-  }
-  return <div className={styles.card}>i show detal{renderCard()}</div>
-}
+  };
+  return <div className={styles.card}>i show detal{renderCard()}</div>;
+};
 
-export default DetailedSession
+export default DetailedSession;

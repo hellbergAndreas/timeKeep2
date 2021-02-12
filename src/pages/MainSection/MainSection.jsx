@@ -1,67 +1,45 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
-import ListContainer from "../../containers/ListContainer/ListContainer"
-import { useAuth } from "../../context/AuthContext"
-import { useUser } from "../../context/UserContext"
-import styles from "./MainSection.module.scss"
-import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeaderContainer"
-import StartButton from "../../components/Buttons/StartButton"
-import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession"
-import UserKit from "../../data/UserKit"
-import TimeDisplay from "../../components/TimeDisplay/TimeDisplay"
-import { useSession } from "../../context/SessionContext"
-import cx from "classnames"
-import DetailedCategoryCard from "../../components/DetailedCategoryCard/DetailedCategoryCard"
-import Timer from "../../components/Timer/Timer"
+import ListContainer from "../../containers/ListContainer/ListContainer";
+import { useAuth } from "../../context/AuthContext";
+import { useUser } from "../../context/UserContext";
+import styles from "./MainSection.module.scss";
+import ListHeaderContainer from "../../containers/ListHeaderContainer/ListHeaderContainer";
+import StartButton from "../../components/Buttons/StartButton";
+import ConfirmSession from "../../containers/ConfirmSession/ConfirmSession";
+import UserKit from "../../data/UserKit";
+import TimeDisplay from "../../components/TimeDisplay/TimeDisplay";
+import { useSession } from "../../context/SessionContext";
+import cx from "classnames";
+import DetailedCategoryCard from "../../components/DetailedCategoryCard/DetailedCategoryCard";
+import Timer from "../../components/Timer/Timer";
 
 const Dashboard = () => {
-  const { category, activity } = useSession()
-  const { currentUser } = useAuth()
-  const [filteredActivities, setFilteredActivities] = useState([])
+  const { category, activity } = useSession();
+  const { currentUser } = useAuth();
+  const [filteredActivities, setFilteredActivities] = useState([]);
   const {
     setUserActivities,
     userActivities,
     setUserCategories,
     userCategories,
-  } = useUser()
-  const userKit = new UserKit()
+    userSessionsArray,
 
-  useEffect(() => {
-    // fetching all categorys
 
-    if (currentUser) {
-      console.log("fetching categories")
-      userKit
-        .getCategories(currentUser.uid)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserCategories(data)
-        })
-    }
-  }, [])
+  } = useUser();
 
-  useEffect(() => {
-    //fetching all activities
-    if (currentUser) {
-      console.log("fetching activities")
-      userKit
-        .getActivities(currentUser.uid)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserActivities(data)
-        })
-    }
-  }, [])
+
+
 
   // filtering activities based on category
   useEffect(() => {
     if (userActivities) {
       let filtered = userActivities.filter((activity) => {
-        return activity.parent === category
-      })
-      setFilteredActivities(filtered)
+        return activity.parent === category;
+      });
+      setFilteredActivities(filtered);
     }
-  }, [category, userActivities])
+  }, [category, userActivities]);
 
   return (
     <div>
@@ -103,6 +81,6 @@ const Dashboard = () => {
       </section>
       <ConfirmSession></ConfirmSession>
     </div>
-  )
-}
-export default Dashboard
+  );
+};
+export default Dashboard;

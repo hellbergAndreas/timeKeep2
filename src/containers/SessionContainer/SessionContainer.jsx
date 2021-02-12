@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react"
-import Session from "../../components/Session/Session"
-import styles from "./SessionContainer.module.scss"
+import React, { useEffect, useState } from "react";
+import Session from "../../components/Session/Session";
+import styles from "./SessionContainer.module.scss";
 const SessionContainer = ({ list, handleClick }) => {
-  const [sortedList, setSortedList] = useState([])
-  useEffect(() => {
-    let sortedSessions = list.sort((a, b) => b.start - a.start)
+  const [sortedList, setSortedList] = useState([]);
 
-    setSortedList(sortedSessions)
-  }, [list])
+
   useEffect(() => {
-    console.log("online")
-  }, [sortedList])
+    const sortedSessions = list.sort((a, b) => b.start - a.start);
+    setSortedList(sortedSessions);
+  }, [list]);
+
 
   return (
     <div className={styles.wrapper}>
@@ -20,10 +19,10 @@ const SessionContainer = ({ list, handleClick }) => {
             <div onClick={() => handleClick(session)} key={session.start}>
               <Session session={session} />
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
-}
-export default SessionContainer
+  );
+};
+export default SessionContainer;
