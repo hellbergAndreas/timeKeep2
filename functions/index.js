@@ -120,18 +120,32 @@ app.post(`/sessions`, (req, res) => {
       console.log(err)
     })
 })
+// app.post(`/updateSession`, (req, res) => {
+//   doc.collection(`/sessions/`)
+//     .add(req.body)
+//     .then((doc) => {
+//       return res.json({ message: `document ${doc.id} created successfully` })
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: "something went wrong" })
+//       console.log(err)
+//     })
+// })
 app.post(`/getSessions`, (req, res) => {
   return db
     .collection(`sessions`)
     .where("userId", "==", req.body.userId)
     .get()
     .then((data) => {
-      let sessions = []
+      let sessions = {}
       data.forEach((doc) => {
         let session = {
           ...doc.data(),
         }
-        sessions.push(session)
+        sessions = {
+          ...sessions,
+          [doc.id]: session,
+        }
       })
       return res.json(sessions)
     })

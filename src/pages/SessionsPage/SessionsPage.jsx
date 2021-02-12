@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import DetailedSession from "../../components/DetailedSession/DetailedSession"
-import Input from "../../components/Input/Input"
+
 import CategoryFilter from "../../containers/CategoryFilter/CategoryFilter"
 import SessionContainer from "../../containers/SessionContainer/SessionContainer"
 import { useUser } from "../../context/UserContext"
@@ -8,6 +8,7 @@ import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
   const { userSessions, userActivities, userCategories } = useUser()
+  const [sessionsArray, setSessionsArray] = useState([])
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
   const [activityFilter, setActivityFilter] = useState([])
@@ -16,10 +17,21 @@ const SessionsPage = () => {
   const [session, setSession] = useState(null)
 
   useEffect(() => {
-    // looping through the sessions, converting the timestamps back to javascript date-object.....
-    let sessions = []
+    // turns object into array
     if (userSessions) {
-      userSessions.forEach((session) => {
+      let array = []
+      Object.keys(userSessions).map((session) => {
+        array.push(userSessions[session])
+      })
+      setSessionsArray(array)
+    }
+  }, [userSessions])
+
+  // looping through the sessions, converting the timestamps back to javascript date-object.....
+  useEffect(() => {
+    let sessions = []
+    if (sessionsArray) {
+      sessionsArray.forEach((session) => {
         let sesh = {
           ...session,
           start: new Date(Date.parse(session.start)),
@@ -27,16 +39,15 @@ const SessionsPage = () => {
         sessions.push(sesh)
       })
 
-      const sortedSessions = sessions.sort((a, b) => a.start - b.start)
-
-      setFilteredList(sortedSessions)
+      setFilteredList(sessions)
     }
-  }, [userSessions])
+  }, [sessionsArray])
 
+  // looping through all sessions and collecting all key values for the key filter.
   useEffect(() => {
     let array = []
-    userSessions &&
-      userSessions.forEach((session) => {
+    sessionsArray &&
+      sessionsArray.forEach((session) => {
         if (session.keys.length > 0) {
           session.keys.forEach((key) => {
             !array.includes(key) && array.push({ name: key }) && array.push(key)
@@ -44,18 +55,16 @@ const SessionsPage = () => {
         }
         setKeys(array)
       })
-  }, [userSessions])
+  }, [sessionsArray])
 
-  useEffect(() => {}, [keys])
-
+  // filtering through the list
   useEffect(() => {
-    console.log(categoryFilter)
-    console.log(activityFilter)
-    console.log(keyFilter)
-    let filtered = userSessions
+    // console.log(categoryFilter)
+    // console.log(activityFilter)
+    // console.log(keyFilter)
+    let filtered = sessionsArray
 
     // filter by category
-
     if (categoryFilter.length > 0) {
       categoryFilter.forEach((filter) => {
         filtered = filtered.filter((session) => {
@@ -78,24 +87,14 @@ const SessionsPage = () => {
         })
       })
     }
+
     setFilteredList(filtered)
   }, [categoryFilter, activityFilter, keyFilter])
-  useEffect(() => {
-    // console.log(categoryFilter)
-    // console.log(activityFilter)
-  }, [keyFilter])
+
   const handleChange = () => {}
   return (
     <section className={styles.section}>
       <div className={styles.section__left}>
-        {/* <div className={styles.section__list__input}> */}
-        {/* <Input
-            handleChange={handleChange}
-            name="Search"
-            required={true}
-            label={"Search"}
-          ></Input>
-        </div> */}
         <div className={styles.section__left__filters}>
           <CategoryFilter
             name={"categories"}

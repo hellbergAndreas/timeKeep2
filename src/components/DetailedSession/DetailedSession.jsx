@@ -8,7 +8,7 @@ const DetailedSession = ({ session }) => {
       console.log(session)
       return (
         <div className={styles.card__content}>
-          <div className={styles.card__content__header}> {session.start}</div>
+          {/* {/* <div className={styles.card__content__header}> {session.start}</div> */}
 
           <p>category {session.category && session.category}</p>
           <p>{session.parent && `category ${session.parent}`}</p>

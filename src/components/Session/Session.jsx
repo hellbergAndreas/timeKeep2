@@ -38,8 +38,8 @@ const Session = ({ session }) => {
         <p> {session.category}</p>
         <p>{session.activity}</p>
         <p>
-          {session.keys.map((key) => {
-            return <div>{key}</div>
+          {session.keys.map((key, index) => {
+            return <div key={index}>{key}</div>
           })}
         </p>
       </div>

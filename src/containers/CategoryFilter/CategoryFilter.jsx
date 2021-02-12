@@ -30,9 +30,9 @@ const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
   return (
     <div className={styles.categoryFilter}>
       <h6>{name}</h6>
-      {filteredDisplay.map((cat) => {
+      {filteredDisplay.map((cat, index) => {
         return (
-          <FilterButton onClick={handleClick} name={cat.name}>
+          <FilterButton key={index} onClick={handleClick} name={cat.name}>
             {cat.name}
           </FilterButton>
         )
