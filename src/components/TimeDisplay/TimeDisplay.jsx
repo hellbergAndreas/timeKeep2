@@ -13,7 +13,7 @@ import styles from "./TimeDisplay.module.scss"
 // one for showing the total of a choosen category,
 // and one for showing the total of a choosen activity
 const TimeDisplay = ({ filter, name }) => {
-  const { userSessions } = useUser()
+  const { userSessionsArray } = useUser()
   const { category, activity, timeGoes } = useSession()
   const [sessions, setSessions] = useState()
   const [total, setTotal] = useState()
@@ -25,11 +25,11 @@ const TimeDisplay = ({ filter, name }) => {
 
   useEffect(() => {
     if (filter === "total") {
-      setSessions(userSessions)
+      setSessions(userSessionsArray)
     } else {
-      setSessions(getSessions(name, filter, userSessions))
+      setSessions(getSessions(name, filter, userSessionsArray))
     }
-  }, [category, activity, userSessions])
+  }, [category, activity, userSessionsArray])
 
   useEffect(() => {
     setTotal(calculateTotalTime(sessions))

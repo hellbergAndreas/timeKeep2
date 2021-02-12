@@ -1,11 +1,10 @@
 export const getSessions = (name, filter, userSessionsArray) => {
-  let filteredSessions = [];
-  if (userSessionsArray) {
-    filteredSessions = userSessionsArray.filter((session) => {
-      return session[filter] === name;
-    });
-  }
-  console.log(userSessionsArray);
+  let filteredSessions = []
 
-  return filteredSessions;
-};
+  filteredSessions = userSessionsArray.filter((session) => {
+    return session[filter] === name
+  })
+
+  console.log(name, filter, userSessionsArray)
+  return filteredSessions
+}

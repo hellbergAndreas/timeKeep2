@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
-import { useUser } from "../../context/UserContext";
-import { getSessions } from "../../utils/getSessions";
-import Header, { HeaderSize } from "../Header/Header";
-import TimeDisplay from "../TimeDisplay/TimeDisplay";
-import styles from "./DetailedCategoryCard.module.scss";
-import cx from "classnames";
-import { useSession } from "../../context/SessionContext";
+import { useUser } from "../../context/UserContext"
+import { getSessions } from "../../utils/getSessions"
+import Header, { HeaderSize } from "../Header/Header"
+import TimeDisplay from "../TimeDisplay/TimeDisplay"
+import styles from "./DetailedCategoryCard.module.scss"
+import cx from "classnames"
+import { useSession } from "../../context/SessionContext"
 const DetailedCategoryCard = ({ name, filter }) => {
-  const [sessions, setSessions] = useState([]);
-  const { activity } = useSession();
-  const { userSessionsArray } = useUser();
+  const [sessions, setSessions] = useState([])
+  const { activity } = useSession()
+  const { userSessionsArray } = useUser()
   useEffect(() => {
-    setSessions(getSessions(name, filter, userSessionsArray));
-
-  }, [name, userSessionsArray]);
+    setSessions(getSessions(name, filter, userSessionsArray))
+  }, [name, userSessionsArray])
   return (
     <div
       className={cx(
@@ -61,6 +60,6 @@ const DetailedCategoryCard = ({ name, filter }) => {
         </div>
       </p>
     </div>
-  );
-};
-export default DetailedCategoryCard;
+  )
+}
+export default DetailedCategoryCard
