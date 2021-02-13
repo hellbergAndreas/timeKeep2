@@ -14,7 +14,7 @@ import styles from "./TimeDisplay.module.scss"
 // and one for showing the total of a choosen activity
 const TimeDisplay = ({ filter, name }) => {
   const { userSessionsArray } = useUser()
-  const { category, activity, timeGoes } = useSession()
+  const { category, activity } = useSession()
   const [sessions, setSessions] = useState()
   const [total, setTotal] = useState()
   const [time, setTime] = useState({

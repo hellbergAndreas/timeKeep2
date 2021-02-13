@@ -18,7 +18,6 @@ const PageWrapper = ({ content }) => {
     setUserCategories,
     setUserActivities,
     setUserSessionsArray,
-    userSessionsArray,
   } = useUser()
   const history = useHistory()
   const userKit = new UserKit()
@@ -31,10 +30,14 @@ const PageWrapper = ({ content }) => {
   const goHome = () => {
     history.push("/")
   }
-  // fetching all categorys
-  // fetch all sessions, puts them into array and changes the datestamp to valid javascript date
+
+  // when fetchinig the sessions from firebase, we receive them in an Object.
+  // but for the application to be able to sort the sessions, we need them in an array.
+  //firebase also changes the datestamp so when fetching them , we have to
+  // convert the firebase-timestamp to a valid javascript date. the new array with
+  // the correct timestamp is set to context "userSessionsArray"
+
   useEffect(() => {
-    // turns object into array
     if (userSessions) {
       let array = []
       Object.keys(userSessions).map((session) => {
@@ -57,6 +60,7 @@ const PageWrapper = ({ content }) => {
   useEffect(() => {
     !currentUser && history.push("/login")
 
+    // fetching categories, activities and sessions from db
     currentUser
       .getIdToken()
       .then((token) => {

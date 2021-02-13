@@ -54,7 +54,7 @@ const DetailedCategoryCard = ({ name, filter }) => {
           activity && filter === "category" ? styles.hidden : null
         )}
       >
-        time spent:{" "}
+        time spent:
         <div className={styles.data}>
           <TimeDisplay name={name} filter={filter}></TimeDisplay>
         </div>

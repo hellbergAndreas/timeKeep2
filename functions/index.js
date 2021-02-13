@@ -120,17 +120,18 @@ app.post(`/sessions`, (req, res) => {
       console.log(err)
     })
 })
-// app.post(`/updateSession`, (req, res) => {
-//   doc.collection(`/sessions/`)
-//     .add(req.body)
-//     .then((doc) => {
-//       return res.json({ message: `document ${doc.id} created successfully` })
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: "something went wrong" })
-//       console.log(err)
-//     })
-// })
+app.post(`/updateSession`, (req, res) => {
+  doc
+    .collection(`/sessions/${req.body.id}`)
+    .update(req.body)
+    .then((doc) => {
+      return res.json({ message: `document ${doc.id} updated successfully` })
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something went wrong" })
+      console.log(err)
+    })
+})
 app.post(`/getSessions`, (req, res) => {
   return db
     .collection(`sessions`)
@@ -141,6 +142,7 @@ app.post(`/getSessions`, (req, res) => {
       data.forEach((doc) => {
         let session = {
           ...doc.data(),
+          id: doc.id,
         }
         sessions = {
           ...sessions,

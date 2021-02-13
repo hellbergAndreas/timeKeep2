@@ -8,7 +8,7 @@ import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
   const { userSessionsArray, userActivities, userCategories } = useUser()
-  const [sessionsArray, setSessionsArray] = useState([])
+  const [sessionsArray] = useState([])
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
   const [activityFilter, setActivityFilter] = useState([])
@@ -58,9 +58,8 @@ const SessionsPage = () => {
       })
     }
 
-    console.log(filtered)
     setFilteredList(filtered)
-  }, [categoryFilter, activityFilter, keyFilter, sessionsArray])
+  }, [categoryFilter, activityFilter, keyFilter, userSessionsArray])
 
   return (
     <section className={styles.section}>

@@ -69,6 +69,17 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
+  async updateSession(id, session) {
+    const url = `${ROOT_URL}sessions`
+
+    const payload = session
+    console.log(payload)
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPublicHeaders(),
+      body: JSON.stringify(payload),
+    })
+  }
 
   async addUser(user) {
     const url = `${ROOT_URL}users`
