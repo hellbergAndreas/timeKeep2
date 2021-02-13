@@ -8,12 +8,12 @@ const SessionContainer = ({ list, handleClick }) => {
 
     setSortedList(sortedSessions)
   }, [list])
-  useEffect(() => {}, [sortedList])
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper__container}>
         {sortedList.map((session) => {
+          console.log(session.id)
           return (
             <div onClick={() => handleClick(session)} key={session.start}>
               <Session session={session} />

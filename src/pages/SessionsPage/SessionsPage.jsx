@@ -8,7 +8,7 @@ import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
   const { userSessionsArray, userActivities, userCategories } = useUser()
-  const [sessionsArray] = useState([])
+  const [sessionsArray, setSessionsArray] = useState([])
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
   const [activityFilter, setActivityFilter] = useState([])

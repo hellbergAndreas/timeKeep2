@@ -5,9 +5,8 @@ import Input from "../Input/Input"
 import styles from "./DetailedSession.module.scss"
 
 const DetailedSession = ({ session }) => {
-  const [date, setDate] = useState("")
-  const [dateStop, setDateStop] = useState("")
-  const { userSessions } = useUser()
+  const { userSessions, setUserSessions } = useUser()
+  const [updatedSession, setUpdatedSession] = useState(null)
 
   const [inputValue, setInputValue] = useState({ key: "" })
   const userKit = new UserKit()
@@ -19,54 +18,89 @@ const DetailedSession = ({ session }) => {
   }
 
   useEffect(() => {
-    console.log(inputValue)
-  }, [inputValue])
+    setUpdatedSession(session)
+  }, [session])
 
-  const submit = (e) => {
+  const addKeys = (e) => {
     if (e.code === "Enter" && inputValue.key.length > 0) {
-      // userKit
-      //   .updateSession(session)
-      //   .then((res) => res.json())
-      //   .then(console.log(data))
-
-      userSessions[session.id].keys.push(inputValue.key)
-      setInputValue({ key: "" })
+      if (!updatedSession.keys.includes(inputValue.key)) {
+        setUpdatedSession((prevState) => {
+          return {
+            ...prevState,
+            keys: [...prevState.keys, inputValue.key],
+          }
+        })
+        setInputValue({ key: "" })
+      }
     }
   }
-
-  useEffect(() => {}, [session])
+  const removeKey = (key) => {
+    setUpdatedSession((prevState) => {
+      const array = prevState.keys.splice(prevState.keys.indexOf(key))
+      console.log(prevState.keys)
+      return {
+        ...prevState,
+        keys: array,
+      }
+    })
+  }
+  const submit = () => {
+    userKit
+      .updateSession(updatedSession)
+      .then((res) => res.json())
+      .then(() =>
+        setUserSessions((prevState) => {
+          return {
+            ...prevState,
+            [session.id]: updatedSession,
+          }
+        })
+      )
+  }
+  useEffect(() => {
+    console.log(updatedSession)
+  }, [updatedSession])
   const renderCard = () => {
     if (session) {
-      console.log(session)
       return (
         <div className={styles.card__content}>
-          {session && session.start.getFullYear()}
+          {updatedSession && (
+            <div>
+              {updatedSession.start.getFullYear()}
 
-          <p>category {session.category && session.category}</p>
-          <p>{session.parent && `category ${session.parent}`}</p>
-          <p>{session.activity && `activity ${session.activity}`}</p>
-          <p>{!session.image && "upload image"}</p>
+              <p>category {updatedSession.category}</p>
+              <p>
+                {updatedSession.parent && `category ${updatedSession.parent}`}
+              </p>
+              <p>{`activity ${updatedSession.activity}`}</p>
+              <p>{!updatedSession.image && "upload image"}</p>
+            </div>
+          )}
+
           <div className={styles.card__content__keys}>
             <p>Keys</p>
             <div className={styles.card__content__keys__content}>
-              {session.keys.map((key) => {
-                return (
-                  <div
-                    className={styles.card__content__keys__content__key}
-                  >{`${key}`}</div>
-                )
-              })}
+              {updatedSession &&
+                updatedSession.keys.map((key) => {
+                  return (
+                    <div
+                      onClick={() => removeKey(key)}
+                      className={styles.card__content__keys__content__key}
+                    >{`${key}`}</div>
+                  )
+                })}
             </div>
             <div className={styles.card__content__keys__inputWrapper}>
               <Input
                 name={"key"}
                 value={inputValue.key}
                 handleChange={handleChange}
-                onKeyUp={submit}
+                onKeyUp={addKeys}
                 required
                 label={"add keys"}
               ></Input>
             </div>
+            <button onClick={submit}>submit</button>
           </div>
         </div>
       )

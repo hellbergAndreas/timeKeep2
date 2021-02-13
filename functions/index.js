@@ -113,7 +113,10 @@ app.post(`/sessions`, (req, res) => {
   db.collection(`sessions`)
     .add(req.body)
     .then((doc) => {
-      return res.json({ message: `document ${doc.id} created successfully` })
+      return res.json({
+        message: `document ${doc.id} created successfully`,
+        id: doc.id,
+      })
     })
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" })
@@ -121,8 +124,7 @@ app.post(`/sessions`, (req, res) => {
     })
 })
 app.post(`/updateSession`, (req, res) => {
-  doc
-    .collection(`/sessions/${req.body.id}`)
+  db.doc(`/sessions/${req.body.id}`)
     .update(req.body)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} updated successfully` })
