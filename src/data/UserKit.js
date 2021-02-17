@@ -100,6 +100,15 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
+  async uploadImage(image) {
+    const url = `${ROOT_URL}image`
+    return fetch(url, {
+      method: "POST",
+      mode: "no-cors", // no-cors, *cors, same-origin
+      headers: this.getPrivateHeaders(),
+      body: image,
+    })
+  }
   getPublicHeaders() {
     return {
       "Content-Type": "application/json",

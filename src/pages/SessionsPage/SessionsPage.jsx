@@ -14,7 +14,8 @@ const SessionsPage = () => {
   const [activityFilter, setActivityFilter] = useState([])
   const [keyFilter, setKeyFilter] = useState([])
   const [keys, setKeys] = useState([])
-  const [session, setSession] = useState(null)
+  const [session, setSession] = useState([])
+  const [compare, setCompare] = useState([false, false])
 
   // looping through all sessions and collecting all key values for the key filter.
   useEffect(() => {
@@ -30,6 +31,9 @@ const SessionsPage = () => {
     })
   }, [userSessionsArray])
 
+  useEffect(() => {
+    console.log(session)
+  }, [session])
   // filtering through the list
   // note, make three utils functions
   useEffect(() => {
@@ -88,13 +92,26 @@ const SessionsPage = () => {
         </div>
         <div className={styles.section__left__list}>
           <SessionContainer
+            compare={compare}
+            sessions={session}
             handleClick={setSession}
             list={filteredList}
           ></SessionContainer>
         </div>
       </div>
       <div className={styles.right}>
-        <DetailedSession session={session}></DetailedSession>
+        <DetailedSession
+          slot={0}
+          compare={compare}
+          setCompare={setCompare}
+          session={session[0] && session[0]}
+        ></DetailedSession>
+        <DetailedSession
+          slot={1}
+          compare={compare}
+          setCompare={setCompare}
+          session={session[1] && session[1]}
+        ></DetailedSession>
       </div>
     </section>
   )

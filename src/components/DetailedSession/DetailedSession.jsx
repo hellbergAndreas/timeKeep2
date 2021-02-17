@@ -4,9 +4,10 @@ import UserKit from "../../data/UserKit"
 import Input from "../Input/Input"
 import styles from "./DetailedSession.module.scss"
 
-const DetailedSession = ({ session }) => {
+const DetailedSession = ({ session, setCompare, slot, compare }) => {
   const { userSessions, setUserSessions } = useUser()
   const [updatedSession, setUpdatedSession] = useState(null)
+  const [image, setImage] = useState(null)
 
   const [inputValue, setInputValue] = useState({ key: "" })
   const userKit = new UserKit()
@@ -36,8 +37,9 @@ const DetailedSession = ({ session }) => {
   }
   const removeKey = (key) => {
     setUpdatedSession((prevState) => {
-      const array = prevState.keys.splice(prevState.keys.indexOf(key))
-      console.log(prevState.keys)
+      const array = prevState.keys.slice()
+      array.splice(prevState.keys.indexOf(key), 1)
+
       return {
         ...prevState,
         keys: array,
@@ -57,13 +59,35 @@ const DetailedSession = ({ session }) => {
         })
       )
   }
-  useEffect(() => {
-    console.log(updatedSession)
-  }, [updatedSession])
+
+  const onClick = () => {
+    if (slot === 0) {
+      let newState = [!compare[0], false]
+      setCompare(newState)
+    }
+    if (slot === 1) {
+      let newState = [false, !compare[1]]
+      setCompare(newState)
+    }
+  }
+
+  const handleChooseFile = (e) => {
+    setImage(e.target.files[0])
+  }
+  const upload = () => {
+    const fd = new FormData()
+
+    fd.append("image", image, image.name)
+
+    userKit.uploadImage(fd)
+  }
   const renderCard = () => {
     if (session) {
       return (
         <div className={styles.card__content}>
+          <button className={compare[slot] && styles.active} onClick={onClick}>
+            compare
+          </button>
           {updatedSession && (
             <div>
               {updatedSession.start.getFullYear()}
@@ -73,7 +97,9 @@ const DetailedSession = ({ session }) => {
                 {updatedSession.parent && `category ${updatedSession.parent}`}
               </p>
               <p>{`activity ${updatedSession.activity}`}</p>
-              <p>{!updatedSession.image && "upload image"}</p>
+
+              <input type="file" onChange={(e) => handleChooseFile(e)}></input>
+              <button onClick={upload}>upload</button>
             </div>
           )}
 
@@ -106,7 +132,7 @@ const DetailedSession = ({ session }) => {
       )
     }
   }
-  return <div className={styles.card}>i show detal{renderCard()}</div>
+  return <div className={styles.card}>{renderCard()}</div>
 }
 
 export default DetailedSession
