@@ -114,6 +114,14 @@ export default class {
       body: image,
     })
   }
+  async transfer(payload) {
+    const url = `${ROOT_URL}transfer`
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPrivateHeaders(),
+      body: JSON.stringify(payload),
+    })
+  }
   async setSessionImage(payload) {
     const url = `${ROOT_URL}setImage`
     return fetch(url, {

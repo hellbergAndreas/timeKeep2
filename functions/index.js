@@ -87,7 +87,11 @@ app.post(`/getCategories`, FBAuth, (req, res) => {
     .then((data) => {
       let categories = []
       data.forEach((doc) => {
-        categories.push(doc.data())
+        let category = {
+          ...doc.data(),
+          id: doc.id,
+        }
+        categories.push(category)
       })
       return res.json(categories)
     })
@@ -138,7 +142,11 @@ app.post(`/getActivities`, FBAuth, (req, res) => {
     .then((data) => {
       let activities = []
       data.forEach((doc) => {
-        activities.push(doc.data())
+        let activity = {
+          ...doc.data(),
+          id: doc.id,
+        }
+        activities.push(activity)
       })
       return res.json(activities)
     })
@@ -182,6 +190,21 @@ app.post("/users", (req, res) => {
       return res.json({ message: `document ${doc.id} created successfully` })
     })
     .catch((err) => console.error(err))
+})
+
+app.post("/transfer", (req, res) => {
+  db.collection("sessions")
+    .add(req.body)
+    .then((doc) => {
+      return res.json({
+        message: `document ${doc.id} created successfully`,
+        id: doc.id,
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something went wrong" })
+      console.log(err)
+    })
 })
 
 const uploadImage = (req, res) => {

@@ -40,7 +40,9 @@ const SessionsPage = () => {
     let filtered = userSessionsArray
     // filter by category
     if (categoryFilter.length > 0) {
+      console.log(categoryFilter)
       categoryFilter.forEach((filter) => {
+        console.log(userSessionsArray)
         filtered = filtered.filter((session) => {
           return session.category === filter
         })

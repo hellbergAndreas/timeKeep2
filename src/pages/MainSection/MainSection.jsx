@@ -18,21 +18,21 @@ const Dashboard = () => {
   const { category, activity } = useSession()
 
   const [filteredActivities, setFilteredActivities] = useState([])
-  const {
-    userActivities,
-
-    userCategories,
-  } = useUser()
+  const { userActivities, userCategories } = useUser()
 
   // filtering activities based on category
   useEffect(() => {
     if (userActivities) {
       let filtered = userActivities.filter((activity) => {
-        return activity.parent === category
+        return activity.parent === category.id
       })
       setFilteredActivities(filtered)
     }
   }, [category, userActivities])
+
+  useEffect(() => {
+    console.log(category)
+  }, [category])
 
   return (
     <div>
@@ -44,15 +44,15 @@ const Dashboard = () => {
         <div className={styles.total}>
           <TimeDisplay name={"total"} filter={"total"}></TimeDisplay>
         </div>
-        {category && (
+        {category.id && (
           <DetailedCategoryCard
-            name={category}
+            category={category}
             filter="category"
           ></DetailedCategoryCard>
         )}
-        {activity && (
+        {activity.id && (
           <DetailedCategoryCard
-            name={activity}
+            category={activity}
             filter="activity"
           ></DetailedCategoryCard>
         )}

@@ -8,8 +8,8 @@ export const useSession = () => {
 // when a user creates a session, the database wants to know what category and activity
 // the session relates to.
 export const SessionProvider = ({ children }) => {
-  const [category, setCategory] = useState(null)
-  const [activity, setActivity] = useState(null)
+  const [category, setCategory] = useState({ id: null, name: null })
+  const [activity, setActivity] = useState({ id: null, name: null })
   const [timeGoes, setTimeGoes] = useState(false)
   const [session, setSession] = useState()
   const [confirmSessionHidden, setConfirmSessionHidden] = useState(true)

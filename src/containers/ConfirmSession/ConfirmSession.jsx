@@ -32,6 +32,8 @@ const ConfirmSession = () => {
   const confirmSession = () => {
     let completeSession = {
       ...session,
+      activity: session.activity.id,
+      category: session.category.id,
       keys,
     }
     userKit

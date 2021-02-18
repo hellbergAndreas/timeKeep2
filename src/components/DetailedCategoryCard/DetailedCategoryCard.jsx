@@ -7,35 +7,36 @@ import TimeDisplay from "../TimeDisplay/TimeDisplay"
 import styles from "./DetailedCategoryCard.module.scss"
 import cx from "classnames"
 import { useSession } from "../../context/SessionContext"
-const DetailedCategoryCard = ({ name, filter }) => {
+const DetailedCategoryCard = ({ category, filter }) => {
   const [sessions, setSessions] = useState([])
   const { activity } = useSession()
   const { userSessionsArray } = useUser()
   useEffect(() => {
-    setSessions(getSessions(name, filter, userSessionsArray))
-  }, [name, userSessionsArray])
+    setSessions(getSessions(category.id, filter, userSessionsArray))
+    console.log(category)
+  }, [category, userSessionsArray])
   return (
     <div
       className={cx(
         styles.card,
         filter === "activity" && styles.activity,
-        activity && filter === "category" ? styles.opacity : ""
+        activity.id && filter === "category" ? styles.opacity : ""
       )}
     >
       <div
         className={
-          activity && filter === "category" ? styles.faded : styles.hidden
+          activity.id && filter === "category" ? styles.faded : styles.hidden
         }
       ></div>
       <div className={styles.card__header}>
         <Header size={HeaderSize.HEADER_LARGE} color={"purple"}>
-          {name}
+          {category.name}
         </Header>
       </div>
       <p
         className={cx(
           styles.card__item,
-          activity && filter === "category" ? styles.hidden : null
+          activity.id && filter === "category" ? styles.hidden : null
         )}
       >
         sessions complete: <div className={styles.data}>{sessions.length}</div>
@@ -43,7 +44,7 @@ const DetailedCategoryCard = ({ name, filter }) => {
       <p
         className={cx(
           styles.card__item,
-          activity && filter === "category" ? styles.hidden : null
+          activity.id && filter === "category" ? styles.hidden : null
         )}
       >
         average session length: <div className={styles.data}>?</div>
@@ -51,12 +52,12 @@ const DetailedCategoryCard = ({ name, filter }) => {
       <p
         className={cx(
           styles.card__item,
-          activity && filter === "category" ? styles.hidden : null
+          activity.id && filter === "category" ? styles.hidden : null
         )}
       >
         time spent:
         <div className={styles.data}>
-          <TimeDisplay name={name} filter={filter}></TimeDisplay>
+          <TimeDisplay name={category.id} filter={filter}></TimeDisplay>
         </div>
       </p>
     </div>

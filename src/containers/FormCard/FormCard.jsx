@@ -53,7 +53,7 @@ export default ({ hidden, setHidden, type }) => {
               {
                 description: inputs.description,
                 name: inputs.activity,
-                parent: category,
+                parent: category.id,
                 userId: currentUser.uid,
               },
             ]

@@ -92,6 +92,7 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
         }
         userKit.setSessionImage(payload)
       })
+      .then(() => {})
   }
   const renderCard = () => {
     if (session) {
@@ -114,7 +115,12 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
               <button onClick={upload}>upload</button>
             </div>
           )}
-
+          <div className={styles.card__content__imageWrapper}>
+            <img
+              className={styles.card__content__imageWrapper__image}
+              src={session.imageUrl}
+            ></img>
+          </div>
           <div className={styles.card__content__keys}>
             <p>Keys</p>
             <div className={styles.card__content__keys__content}>

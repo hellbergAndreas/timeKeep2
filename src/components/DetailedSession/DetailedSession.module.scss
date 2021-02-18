@@ -3,6 +3,17 @@
   background: $cardColor;
   min-height: 400px;
   &__content {
+    &__imageWrapper {
+      height: 400px;
+      width: 400px;
+      &__image {
+        display: block;
+        max-width: 400px;
+        max-height: 400px;
+        width: auto;
+        height: auto;
+      }
+    }
     &__keys {
       margin-top: 20px;
       &__content {

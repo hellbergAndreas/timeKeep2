@@ -51,15 +51,18 @@ const CategoryContainer = ({ type, list }) => {
     // }
   }
 
-  const handleClick = (name) => {
+  const handleClick = (id, name) => {
     if (type === "categories") {
-      setCategory(name)
-      category === name && setCategory(null)
-      setActivity(null)
+      setCategory({ id, name })
+      category.id === id && setCategory({ id: null })
+      setActivity({ id: null })
     }
     if (type === "activities") {
-      setActivity(name)
-      activity === name && setActivity(null)
+      setActivity({
+        id,
+        name,
+      })
+      activity.id && activity.id === id && setActivity({ id: null })
     }
   }
 
@@ -68,7 +71,8 @@ const CategoryContainer = ({ type, list }) => {
       return list.map((item) => {
         return (
           <ListObject
-            key={item.name}
+            key={item.id}
+            id={item.id}
             category={category}
             activity={activity}
             timeGoes={timeGoes}
