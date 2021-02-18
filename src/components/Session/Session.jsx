@@ -38,9 +38,10 @@ const Session = ({ session }) => {
         <p> {session.category}</p>
         <p>{session.activity}</p>
         <p>
-          {session.keys.map((key, index) => {
-            return <div key={index}>{key}</div>
-          })}
+          {session.keys &&
+            session.keys.map((key, index) => {
+              return <div key={index}>{key}</div>
+            })}
         </p>
       </div>
       <p className={styles.session__totalTime}>{(dateStop - date) / 1000}</p>

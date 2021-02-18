@@ -1,7 +1,6 @@
 const functions = require("firebase-functions")
 const express = require("express")
 const cors = require("cors")
-
 const app = express()
 const admin = require("firebase-admin")
 admin.initializeApp()
@@ -62,7 +61,7 @@ app.post("/categories", FBAuth, (req, res) => {
       console.log(err)
     })
 })
-app.post("/activities", (req, res) => {
+app.post("/activities", FBAuth, (req, res) => {
   let user = req.body
   const newActivity = {
     parent: user.parent,
@@ -94,21 +93,7 @@ app.post(`/getCategories`, FBAuth, (req, res) => {
     })
     .catch((err) => console.error(err))
 })
-app.post(`/getActivities`, (req, res) => {
-  return db
-    .collection(`activities`)
-    .where("userId", "==", req.body.userId)
 
-    .get()
-    .then((data) => {
-      let activities = []
-      data.forEach((doc) => {
-        activities.push(doc.data())
-      })
-      return res.json(activities)
-    })
-    .catch((err) => console.error(err))
-})
 app.post(`/sessions`, (req, res) => {
   db.collection(`sessions`)
     .add(req.body)
@@ -134,7 +119,32 @@ app.post(`/updateSession`, (req, res) => {
       console.log(err)
     })
 })
-app.post(`/getSessions`, (req, res) => {
+app.post("/setImage", (req, res) => {
+  db.doc(`/sessions/${req.body.id}`)
+    .update({ imageUrl: req.body.imageUrl })
+    .then((doc) => {
+      return res.json({ message: `document ${doc.id} updated successfully` })
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something went wrong" })
+      console.log(err)
+    })
+})
+app.post(`/getActivities`, FBAuth, (req, res) => {
+  return db
+    .collection(`activities`)
+    .where("userId", "==", req.body.userId)
+    .get()
+    .then((data) => {
+      let activities = []
+      data.forEach((doc) => {
+        activities.push(doc.data())
+      })
+      return res.json(activities)
+    })
+    .catch((err) => console.error(err))
+})
+app.post(`/getSessions`, FBAuth, (req, res) => {
   return db
     .collection(`sessions`)
     .where("userId", "==", req.body.userId)
@@ -180,12 +190,11 @@ const uploadImage = (req, res) => {
   const os = require("os")
   const fs = require("fs")
   const busboy = new BusBoy({ headers: req.headers })
-
   let imageFileName
   let imageToBeUploaded = {}
   busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
     const imageExtension = filename.split(".")[filename.split(".").length - 1]
-    imageFileName = ` ${Math.round(
+    imageFileName = `${Math.round(
       Math.random() * 100000000000
     )}.${imageExtension}`
     const filepath = path.join(os.tmpdir(), imageFileName)
@@ -205,11 +214,12 @@ const uploadImage = (req, res) => {
         },
       })
       .then(() => {
-        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${app.storageBucket}/o/${imageFileName}?alt=media`
-        // return db.doc(`sessions/${req.session.id}`).update({ imageUrl })
+        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/timekeep2.appspot.com/o/${imageFileName}?alt=media`
+        // // return db.doc(`sessions/${sessionId}`).update({ imageUrl })
+        return res.json({ message: imageUrl })
       })
       .then(() => {
-        return res.json({ message: "Image uploaded successfully" })
+        // return res.json({ message: "Image uploaded successfully" })
       })
       .catch((err) => {
         console.log(error(err))
@@ -219,7 +229,7 @@ const uploadImage = (req, res) => {
   busboy.end(req.rawBody)
 }
 
-app.post("/image", uploadImage)
+app.post("/image", FBAuth, uploadImage)
 
 exports.api = functions.https.onRequest(app)
 

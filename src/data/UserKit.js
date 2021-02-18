@@ -41,7 +41,7 @@ export default class {
     const url = `${ROOT_URL}getActivities`
     return fetch(url, {
       method: "POST",
-      headers: this.getPublicHeaders(),
+      headers: this.getPrivateHeaders(),
       body: JSON.stringify(payload),
     })
   }
@@ -51,7 +51,7 @@ export default class {
 
     return fetch(url, {
       method: "POST",
-      headers: this.getPublicHeaders(),
+      headers: this.getPrivateHeaders(),
       body: JSON.stringify(payload),
     })
   }
@@ -104,9 +104,22 @@ export default class {
     const url = `${ROOT_URL}image`
     return fetch(url, {
       method: "POST",
-      mode: "no-cors", // no-cors, *cors, same-origin
-      headers: this.getPrivateHeaders(),
+      // mode: "no-cors", // no-cors, *cors, same-origin
+
+      headers: {
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${this.getSessionToken()}`,
+      },
+      // headers: this.getPrivateHeaders(),
       body: image,
+    })
+  }
+  async setSessionImage(payload) {
+    const url = `${ROOT_URL}setImage`
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPrivateHeaders(),
+      body: JSON.stringify(payload),
     })
   }
   getPublicHeaders() {

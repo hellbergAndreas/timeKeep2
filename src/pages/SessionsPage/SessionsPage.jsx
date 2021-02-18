@@ -22,7 +22,7 @@ const SessionsPage = () => {
     let array = []
 
     userSessionsArray.forEach((session) => {
-      if (session.keys.length > 0) {
+      if (session.keys && session.keys.length > 0) {
         session.keys.forEach((key) => {
           !array.includes(key) && array.push({ name: key }) && array.push(key)
         })

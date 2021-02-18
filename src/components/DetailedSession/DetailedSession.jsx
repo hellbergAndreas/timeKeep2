@@ -72,14 +72,26 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
   }
 
   const handleChooseFile = (e) => {
-    setImage(e.target.files[0])
+    let img = e.target.files[0]
+
+    setImage(img)
   }
   const upload = () => {
     const fd = new FormData()
-
+    let imageUrl
     fd.append("image", image, image.name)
-
-    userKit.uploadImage(fd)
+    fd.append("session", session.id)
+    userKit
+      .uploadImage(fd)
+      .then((res) => res.json())
+      .then((data) => (imageUrl = data.message))
+      .then(() => {
+        let payload = {
+          id: session.id,
+          imageUrl,
+        }
+        userKit.setSessionImage(payload)
+      })
   }
   const renderCard = () => {
     if (session) {
