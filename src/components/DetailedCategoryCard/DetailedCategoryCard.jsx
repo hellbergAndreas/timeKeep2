@@ -11,9 +11,9 @@ const DetailedCategoryCard = ({ category, filter }) => {
   const [sessions, setSessions] = useState([])
   const { activity } = useSession()
   const { userSessionsArray } = useUser()
+
   useEffect(() => {
     setSessions(getSessions(category.id, filter, userSessionsArray))
-    console.log(category)
   }, [category, userSessionsArray])
   return (
     <div

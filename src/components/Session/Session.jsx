@@ -35,8 +35,8 @@ const Session = ({ session }) => {
         </p>
       </div>
       <div>
-        <p> {session.category}</p>
-        <p>{session.activity}</p>
+        <p> {session.categoryName}</p>
+        <p>{session.activityName}</p>
         <p>
           {session.keys &&
             session.keys.map((key, index) => {

@@ -19,11 +19,16 @@ const ConfirmSession = () => {
     confirmSessionHidden,
     setConfirmSessionHidden,
   } = useSession()
-  const { setUserSessions, userSessions } = useUser()
+  const {
+    setUserSessions,
+    setUserSessionsArray,
+    activitiesObject,
+    categoriesObject,
+  } = useUser()
 
   useEffect(() => {
-    console.log(confirmSessionHidden)
-  }, [session])
+    console.log(activitiesObject)
+  }, [activitiesObject])
 
   const close = () => {
     setConfirmSessionHidden(!confirmSessionHidden)
@@ -39,12 +44,15 @@ const ConfirmSession = () => {
     userKit
       .addSession(completeSession, currentUser.uid)
       .then((res) => res.json())
-      .then((data) => {
-        setUserSessions((prevState) => {
-          return {
-            ...prevState,
-            [data.id]: completeSession,
-          }
+      .then(() => {
+        completeSession = {
+          ...completeSession,
+          activityName: activitiesObject[session.activity.id].name,
+          categoryName: categoriesObject[session.category.id].name,
+        }
+
+        setUserSessionsArray((prevState) => {
+          return [...prevState, completeSession]
         })
       })
 

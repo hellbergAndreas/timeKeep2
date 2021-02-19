@@ -24,7 +24,13 @@ const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
   }
 
   useEffect(() => {
-    setFilteredDisplay(display)
+    let noDuplicates = []
+    display.forEach((el) => {
+      if (!noDuplicates.includes(el.name)) {
+        noDuplicates.push(el.name)
+      }
+    })
+    setFilteredDisplay(noDuplicates)
   }, [display])
 
   return (
@@ -32,8 +38,8 @@ const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
       <h6>{name}</h6>
       {filteredDisplay.map((cat, index) => {
         return (
-          <FilterButton key={index} onClick={handleClick} name={cat.name}>
-            {cat.name}
+          <FilterButton key={index} onClick={handleClick} name={cat}>
+            {cat}
           </FilterButton>
         )
       })}

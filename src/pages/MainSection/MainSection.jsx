@@ -30,10 +30,6 @@ const Dashboard = () => {
     }
   }, [category, userActivities])
 
-  useEffect(() => {
-    console.log(category)
-  }, [category])
-
   return (
     <div>
       <section className={styles.mainSection}>

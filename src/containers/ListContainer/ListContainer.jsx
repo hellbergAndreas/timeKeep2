@@ -15,6 +15,7 @@ const CategoryContainer = ({ type, list }) => {
   const sliders = useRef(null)
   const {
     category,
+
     setCategory,
     activity,
     setActivity,

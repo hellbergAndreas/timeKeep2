@@ -22,7 +22,7 @@ const CategoryObject = ({
         activity.id === id && styles.active
       )}
     >
-      {children}
+      <div className={styles.text}>{children}</div>
     </button>
   )
 }

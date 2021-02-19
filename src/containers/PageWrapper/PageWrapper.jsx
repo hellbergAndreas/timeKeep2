@@ -498,14 +498,18 @@ const vilppu = [
 ]
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
-  const [activitiesObject, setActivitiesObject] = useState()
-  const [categoriesObject, setCategoriesObject] = useState()
+
   const {
     setUserSessions,
     userSessions,
     setUserCategories,
     setUserActivities,
     setUserSessionsArray,
+    categoriesObject,
+    setCategoriesObject,
+    activitiesObject,
+    setActivitiesObject,
+    userSessionsArray,
     userActivities,
     userCategories,
   } = useUser()
@@ -527,6 +531,10 @@ const PageWrapper = ({ content }) => {
       userKit.transfer(payload)
     })
   }
+
+  useEffect(() => {
+    console.log(activitiesObject)
+  }, [activitiesObject])
   const handleLogOut = async () => {
     try {
       await logout()
@@ -543,30 +551,6 @@ const PageWrapper = ({ content }) => {
   // the correct timestamp is set to context "userSessionsArray"
 
   useEffect(() => {
-    if (userSessions) {
-      let array = []
-      Object.keys(userSessions).map((session) => {
-        array.push(userSessions[session])
-      })
-
-      let sessions = []
-      array.forEach((session) => {
-        let sesh = {
-          ...session,
-          start: new Date(Date.parse(session.start)),
-          activityName: activitiesObject[session.activity].name,
-          categoryName: categoriesObject[session.category].name,
-        }
-        sessions.push(sesh)
-      })
-
-      setUserSessionsArray(sessions)
-    }
-  }, [userSessions])
-
-  useEffect(() => {}, [userActivities])
-
-  useEffect(() => {
     !currentUser && history.push("/login")
 
     // fetching categories, activities and sessions from db
@@ -577,12 +561,6 @@ const PageWrapper = ({ content }) => {
       })
       .then(() => {
         userKit
-          .getSessions(currentUser.uid)
-          .then((res) => res.json())
-          .then((data) => setUserSessions(data))
-      })
-      .then(() => {
-        userKit
           .getActivities(currentUser.uid)
           .then((res) => res.json())
           .then((data) => {
@@ -590,8 +568,8 @@ const PageWrapper = ({ content }) => {
             Object.keys(data).forEach((object) => {
               array.push(data[object])
             })
-            setUserActivities(array)
             setActivitiesObject(data)
+            setUserActivities(array)
           })
       })
       .then(() => {
@@ -603,12 +581,58 @@ const PageWrapper = ({ content }) => {
             Object.keys(data).forEach((object) => {
               array.push(data[object])
             })
-
             setCategoriesObject(data)
             setUserCategories(array)
           })
       })
+      .then(() => {
+        userKit
+          .getSessions(currentUser.uid)
+          .then((res) => res.json())
+          .then((data) => setUserSessions(data))
+      })
   }, [currentUser])
+
+  useEffect(() => {
+    if (activitiesObject && userSessions && categoriesObject) {
+      let array = []
+      Object.keys(userSessions).map((session) => {
+        array.push(userSessions[session])
+      })
+      let sessions = []
+      array.forEach((session) => {
+        let sesh = {
+          ...session,
+          start: new Date(Date.parse(session.start)),
+          activityName: activitiesObject[session.activity].name,
+          categoryName: categoriesObject[session.category].name,
+        }
+        sessions.push(sesh)
+      })
+      setUserSessionsArray(sessions)
+    }
+  }, [userSessions])
+
+  // useEffect(() => {
+  //   if (activitiesObject && userSessions && categoriesObject) {
+  //     let array = []
+  //     Object.keys(userSessions).map((session) => {
+  //       array.push(userSessions[session])
+  //     })
+  //     let sessions = []
+  //     array.forEach((session) => {
+  //       let sesh = {
+  //         ...session,
+  //         start: new Date(Date.parse(session.start)),
+  //         activityName: activitiesObject[session.activity].name,
+  //         categoryName: categoriesObject[session.category].name,
+  //       }
+  //       sessions.push(sesh)
+  //     })
+  //     setUserSessionsArray(sessions)
+  //     console.log(activitiesObject)
+  //   }
+  // }, [activitiesObject, userSessions, categoriesObject])
   return (
     <section className={styles.background}>
       <div className={styles.background__circle}></div>
@@ -619,6 +643,7 @@ const PageWrapper = ({ content }) => {
           <h2 onClick={goHome} className={styles.logo}>
             timeKeep
           </h2>
+
           <nav className={styles.nav}>
             <ul>
               <li>

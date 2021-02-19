@@ -16,50 +16,73 @@ export default ({ hidden, setHidden, type }) => {
     userActivities,
     setUserCategories,
     setUserActivities,
+    setActivitiesObject,
+    setCategoriesObject,
   } = useUser()
 
   const userKit = new UserKit()
 
   const handleClick = () => {
-    console.log(currentUser.uid)
-    const inputs = {
+    let inputs = {
       ...inputValues,
       email: currentUser.email,
-      parent: category,
       userId: currentUser.uid,
     }
     if (type === "categories") {
-      console.log(inputs)
-      userKit.addCategory(inputs).then((res) => {
-        if (res.status <= 200) {
+      userKit
+        .addCategory(inputs)
+        .then((res) => {
+          if (res.status <= 200) {
+            return res.json()
+          }
+        })
+        .then((res) => {
+          let category = {
+            description: inputs.description,
+            name: inputs.category,
+            userId: currentUser.uid,
+            id: res.id,
+          }
+          setCategoriesObject((prevState) => {
+            return {
+              ...prevState,
+              [res.id]: category,
+            }
+          })
           setUserCategories((prevState) => {
-            return [
-              ...prevState,
-              {
-                description: inputs.description,
-                name: inputs.category,
-                userId: currentUser.uid,
-              },
-            ]
+            return [...prevState, category]
           })
-        }
-      })
+        })
     } else {
-      userKit.addActivity(inputs).then((res) => {
-        if (res.status <= 200) {
-          setUserActivities((prevState) => {
-            return [
+      inputs = {
+        ...inputs,
+        parent: category.id,
+      }
+      userKit
+        .addActivity(inputs)
+        .then((res) => {
+          if (res.status <= 200) {
+            return res.json()
+          }
+        })
+        .then((res) => {
+          let activity = {
+            description: inputs.description,
+            name: inputs.activity,
+            parent: category.id,
+            userId: currentUser.uid,
+            id: res.id,
+          }
+          setActivitiesObject((prevState) => {
+            return {
               ...prevState,
-              {
-                description: inputs.description,
-                name: inputs.activity,
-                parent: category.id,
-                userId: currentUser.uid,
-              },
-            ]
+              [res.id]: activity,
+            }
           })
-        }
-      })
+          setUserActivities((prevState) => {
+            return [...prevState, activity]
+          })
+        })
     }
   }
   const handleChange = (name, value) => {

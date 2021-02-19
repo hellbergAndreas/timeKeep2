@@ -105,11 +105,11 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
             <div>
               {updatedSession.start.getFullYear()}
 
-              <p>category {updatedSession.category}</p>
+              <p>category {updatedSession.categoryName}</p>
               <p>
                 {updatedSession.parent && `category ${updatedSession.parent}`}
               </p>
-              <p>{`activity ${updatedSession.activity}`}</p>
+              <p>{`activity ${updatedSession.activityName}`}</p>
 
               <input type="file" onChange={(e) => handleChooseFile(e)}></input>
               <button onClick={upload}>upload</button>

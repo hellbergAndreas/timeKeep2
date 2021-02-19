@@ -53,8 +53,12 @@ app.post("/categories", FBAuth, (req, res) => {
   }
   db.collection("categories")
     .add(newCategory)
+
     .then((doc) => {
-      return res.json({ message: `document ${doc.id} created successfully` })
+      return res.json({
+        message: `document ${doc.id} created successfully`,
+        id: doc.id,
+      })
     })
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" })
@@ -72,7 +76,10 @@ app.post("/activities", FBAuth, (req, res) => {
   db.collection("activities")
     .add(newActivity)
     .then((doc) => {
-      return res.json({ message: `document ${doc.id} created successfully` })
+      return res.json({
+        message: `document ${doc.id} created successfully`,
+        id: doc.id,
+      })
     })
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" })
