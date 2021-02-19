@@ -85,13 +85,16 @@ app.post(`/getCategories`, FBAuth, (req, res) => {
     .where("userId", "==", req.body.userId)
     .get()
     .then((data) => {
-      let categories = []
+      let categories = {}
       data.forEach((doc) => {
         let category = {
           ...doc.data(),
           id: doc.id,
         }
-        categories.push(category)
+        categories = {
+          ...categories,
+          [category.id]: category,
+        }
       })
       return res.json(categories)
     })
@@ -140,13 +143,16 @@ app.post(`/getActivities`, FBAuth, (req, res) => {
     .where("userId", "==", req.body.userId)
     .get()
     .then((data) => {
-      let activities = []
+      let activities = {}
       data.forEach((doc) => {
         let activity = {
           ...doc.data(),
           id: doc.id,
         }
-        activities.push(activity)
+        activities = {
+          ...activities,
+          [activity.id]: activity,
+        }
       })
       return res.json(activities)
     })

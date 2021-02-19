@@ -498,14 +498,18 @@ const vilppu = [
 ]
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
-
+  const [activitiesObject, setActivitiesObject] = useState()
+  const [categoriesObject, setCategoriesObject] = useState()
   const {
     setUserSessions,
     userSessions,
     setUserCategories,
     setUserActivities,
     setUserSessionsArray,
+    userActivities,
+    userCategories,
   } = useUser()
+
   const history = useHistory()
   const userKit = new UserKit()
 
@@ -550,6 +554,8 @@ const PageWrapper = ({ content }) => {
         let sesh = {
           ...session,
           start: new Date(Date.parse(session.start)),
+          activityName: activitiesObject[session.activity].name,
+          categoryName: categoriesObject[session.category].name,
         }
         sessions.push(sesh)
       })
@@ -557,6 +563,8 @@ const PageWrapper = ({ content }) => {
       setUserSessionsArray(sessions)
     }
   }, [userSessions])
+
+  useEffect(() => {}, [userActivities])
 
   useEffect(() => {
     !currentUser && history.push("/login")
@@ -578,7 +586,12 @@ const PageWrapper = ({ content }) => {
           .getActivities(currentUser.uid)
           .then((res) => res.json())
           .then((data) => {
-            setUserActivities(data)
+            let array = []
+            Object.keys(data).forEach((object) => {
+              array.push(data[object])
+            })
+            setUserActivities(array)
+            setActivitiesObject(data)
           })
       })
       .then(() => {
@@ -586,7 +599,13 @@ const PageWrapper = ({ content }) => {
           .getCategories(currentUser.uid)
           .then((res) => res.json())
           .then((data) => {
-            setUserCategories(data)
+            let array = []
+            Object.keys(data).forEach((object) => {
+              array.push(data[object])
+            })
+
+            setCategoriesObject(data)
+            setUserCategories(array)
           })
       })
   }, [currentUser])

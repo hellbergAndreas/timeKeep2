@@ -31,20 +31,17 @@ const SessionsPage = () => {
     })
   }, [userSessionsArray])
 
-  useEffect(() => {
-    console.log(session)
-  }, [session])
+  useEffect(() => {}, [session])
   // filtering through the list
   // note, make three utils functions
   useEffect(() => {
     let filtered = userSessionsArray
+
     // filter by category
     if (categoryFilter.length > 0) {
-      console.log(categoryFilter)
       categoryFilter.forEach((filter) => {
-        console.log(userSessionsArray)
         filtered = filtered.filter((session) => {
-          return session.category === filter
+          return session.categoryName === filter
         })
       })
     }
@@ -52,7 +49,7 @@ const SessionsPage = () => {
     if (activityFilter.length > 0) {
       activityFilter.forEach((filter) => {
         filtered = filtered.filter((session) => {
-          return session.activity === filter
+          return session.activityName === filter
         })
       })
     }
