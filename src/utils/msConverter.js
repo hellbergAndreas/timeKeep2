@@ -6,3 +6,11 @@ export const msConverter = (ms) => {
   const seconds = Math.floor(remainder % 60)
   return { hours, minutes, seconds }
 }
+
+export const lessThan10 = (number) => {
+  if (number < 10) {
+    return `0${number}`
+  } else {
+    return number
+  }
+}

@@ -498,6 +498,11 @@ const vilppu = [
 ]
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
+  const [loaded, setLoaded] = useState({
+    categoriesLoaded: false,
+    activitiesLoaded: false,
+    sessionsLoaded: false,
+  })
 
   const {
     setUserSessions,
@@ -532,9 +537,6 @@ const PageWrapper = ({ content }) => {
     })
   }
 
-  useEffect(() => {
-    console.log(activitiesObject)
-  }, [activitiesObject])
   const handleLogOut = async () => {
     try {
       await logout()
@@ -569,7 +571,16 @@ const PageWrapper = ({ content }) => {
               array.push(data[object])
             })
             setActivitiesObject(data)
+
             setUserActivities(array)
+          })
+          .then(() => {
+            setLoaded((prevState) => {
+              return {
+                ...prevState,
+                activitiesLoaded: true,
+              }
+            })
           })
       })
       .then(() => {
@@ -581,20 +592,44 @@ const PageWrapper = ({ content }) => {
             Object.keys(data).forEach((object) => {
               array.push(data[object])
             })
+
             setCategoriesObject(data)
             setUserCategories(array)
+          })
+          .then(() => {
+            setLoaded((prevState) => {
+              return {
+                ...prevState,
+                categoriesLoaded: true,
+              }
+            })
           })
       })
       .then(() => {
         userKit
           .getSessions(currentUser.uid)
           .then((res) => res.json())
-          .then((data) => setUserSessions(data))
+          .then((data) => {
+            setUserSessions(data)
+          })
+          .then(() => {
+            setLoaded((prevState) => {
+              return {
+                ...prevState,
+                sessionsLoaded: true,
+              }
+            })
+          })
       })
   }, [currentUser])
 
   useEffect(() => {
-    if (activitiesObject && userSessions && categoriesObject) {
+    if (
+      loaded.activitiesLoaded &&
+      loaded.categoriesLoaded &&
+      loaded.sessionsLoaded
+    ) {
+      console.log("fixing sessions")
       let array = []
       Object.keys(userSessions).map((session) => {
         array.push(userSessions[session])
@@ -611,28 +646,8 @@ const PageWrapper = ({ content }) => {
       })
       setUserSessionsArray(sessions)
     }
-  }, [userSessions])
+  }, [loaded])
 
-  // useEffect(() => {
-  //   if (activitiesObject && userSessions && categoriesObject) {
-  //     let array = []
-  //     Object.keys(userSessions).map((session) => {
-  //       array.push(userSessions[session])
-  //     })
-  //     let sessions = []
-  //     array.forEach((session) => {
-  //       let sesh = {
-  //         ...session,
-  //         start: new Date(Date.parse(session.start)),
-  //         activityName: activitiesObject[session.activity].name,
-  //         categoryName: categoriesObject[session.category].name,
-  //       }
-  //       sessions.push(sesh)
-  //     })
-  //     setUserSessionsArray(sessions)
-  //     console.log(activitiesObject)
-  //   }
-  // }, [activitiesObject, userSessions, categoriesObject])
   return (
     <section className={styles.background}>
       <div className={styles.background__circle}></div>

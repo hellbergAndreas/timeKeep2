@@ -58,6 +58,7 @@ export default ({ hidden, setHidden, type }) => {
         ...inputs,
         parent: category.id,
       }
+      // first send to db
       userKit
         .addActivity(inputs)
         .then((res) => {
@@ -65,6 +66,7 @@ export default ({ hidden, setHidden, type }) => {
             return res.json()
           }
         })
+        //then update local state to match db
         .then((res) => {
           let activity = {
             description: inputs.description,

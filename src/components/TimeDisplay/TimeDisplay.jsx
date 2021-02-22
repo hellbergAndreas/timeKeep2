@@ -4,7 +4,7 @@ import { useSession } from "../../context/SessionContext"
 import { useUser } from "../../context/UserContext"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
 import { getSessions } from "../../utils/getSessions"
-import { msConverter } from "../../utils/msConverter"
+import { lessThan10, msConverter } from "../../utils/msConverter"
 import styles from "./TimeDisplay.module.scss"
 
 // timeDisplay receives all user Sessions to calculate the total time of all the sessions.
