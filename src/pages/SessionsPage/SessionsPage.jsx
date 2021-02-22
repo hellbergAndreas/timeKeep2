@@ -12,6 +12,7 @@ const SessionsPage = () => {
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
   const [activityFilter, setActivityFilter] = useState([])
+  const [filterByImages, setFilterByImages] = useState(true)
   const [keyFilter, setKeyFilter] = useState([])
   const [keys, setKeys] = useState([])
   const [session, setSession] = useState([])
@@ -45,7 +46,7 @@ const SessionsPage = () => {
         })
       })
     }
-
+    // by activity
     if (activityFilter.length > 0) {
       activityFilter.forEach((filter) => {
         filtered = filtered.filter((session) => {
@@ -53,6 +54,8 @@ const SessionsPage = () => {
         })
       })
     }
+
+    // by keys
     if (keyFilter.length > 0) {
       keyFilter.forEach((filter) => {
         filtered = filtered.filter((session) => {
@@ -61,8 +64,21 @@ const SessionsPage = () => {
       })
     }
 
+    // by images
+    if (filterByImages === true) {
+      filtered = filtered.filter((session) => {
+        return session.imageUrl
+      })
+    }
+
     setFilteredList(filtered)
-  }, [categoryFilter, activityFilter, keyFilter, userSessionsArray])
+  }, [
+    categoryFilter,
+    activityFilter,
+    keyFilter,
+    userSessionsArray,
+    filterByImages,
+  ])
 
   return (
     <section className={styles.section}>
@@ -89,6 +105,9 @@ const SessionsPage = () => {
             display={keys}
           ></CategoryFilter>
         </div>
+        <button onClick={() => setFilterByImages(!filterByImages)}>
+          filter by images
+        </button>
         <div className={styles.section__left__list}>
           <SessionContainer
             compare={compare}

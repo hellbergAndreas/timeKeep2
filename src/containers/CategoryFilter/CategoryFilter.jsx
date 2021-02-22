@@ -33,9 +33,6 @@ const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
     setFilteredDisplay(noDuplicates)
   }, [display])
 
-  useEffect(() => {
-    console.log(filter)
-  }, [filter])
   return (
     <div className={styles.categoryFilter}>
       <h6>{name}</h6>
