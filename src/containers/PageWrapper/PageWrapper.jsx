@@ -592,7 +592,6 @@ const PageWrapper = ({ content }) => {
             Object.keys(data).forEach((object) => {
               array.push(data[object])
             })
-
             setCategoriesObject(data)
             setUserCategories(array)
           })
@@ -647,6 +646,10 @@ const PageWrapper = ({ content }) => {
       setUserSessionsArray(sessions)
     }
   }, [loaded])
+
+  useEffect(() => {
+    console.log(userSessionsArray)
+  }, [])
 
   return (
     <section className={styles.background}>

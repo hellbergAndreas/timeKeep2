@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import styles from "./ConfirmSession.module.css"
+import styles from "./ConfirmSession.module.scss"
 import cx from "classnames"
 import { useSession } from "../../context/SessionContext"
 import Button, { ButtonShape } from "../../components/Buttons/Button"

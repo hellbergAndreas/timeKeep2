@@ -1,7 +1,7 @@
-@import "../../sharedCSS.css";
+@import "../../sharedCSS.scss";
 .background {
   background-color: rgba(0, 0, 0, 0.238);
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -9,12 +9,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(20px);
 }
+
 .card {
   height: 500px;
   width: 800px;
   padding: 40px;
-  background-color: #ebf2fa;
+  background: $cardColor;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 8px;

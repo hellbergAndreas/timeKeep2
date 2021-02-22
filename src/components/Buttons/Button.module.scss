@@ -73,9 +73,10 @@ button:focus {
 }
 
 .rectLarge {
-  height: 60px;
+  height: 40px;
   width: 100px;
-  border-radius: 8px;
+  border-radius: 4px;
+  background: $cardColor;
 }
 
 .active {

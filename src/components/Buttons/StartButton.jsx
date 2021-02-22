@@ -60,13 +60,10 @@ const StartButton = () => {
 
   return (
     <div className={styles.startButton}>
-      <Button
-        color={"green"}
-        shape={ButtonShape.ROUND_LARGE}
-        onClick={startAndStopTime}
-      >
+      <Button shape={ButtonShape.RECT_LARGE} onClick={startAndStopTime}>
         Go
       </Button>
+      {/* <button onClick={startAndStopTime}>Go</button> */}
     </div>
   )
 }
