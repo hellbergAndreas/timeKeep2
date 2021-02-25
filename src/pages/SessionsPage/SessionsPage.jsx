@@ -12,7 +12,7 @@ const SessionsPage = () => {
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
   const [activityFilter, setActivityFilter] = useState([])
-  const [filterByImages, setFilterByImages] = useState(true)
+  const [filterByImages, setFilterByImages] = useState(false)
   const [keyFilter, setKeyFilter] = useState([])
   const [keys, setKeys] = useState([])
   const [session, setSession] = useState([])

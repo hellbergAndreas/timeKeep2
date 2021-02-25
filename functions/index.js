@@ -205,6 +205,8 @@ app.post("/users", (req, res) => {
     .catch((err) => console.error(err))
 })
 
+app.post("/deleteImage", (req, res) => {})
+
 app.post("/transfer", (req, res) => {
   db.collection("sessions")
     .add(req.body)

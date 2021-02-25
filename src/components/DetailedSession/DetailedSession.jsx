@@ -94,6 +94,7 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
       })
       .then(() => {})
   }
+
   const renderCard = () => {
     if (session) {
       return (
@@ -120,6 +121,7 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
               className={styles.card__content__imageWrapper__image}
               src={session.imageUrl}
             ></img>
+            <button onClick={handleDelete}>delete image</button>
           </div>
           <div className={styles.card__content__keys}>
             <p>Keys</p>

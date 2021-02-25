@@ -11,7 +11,9 @@ import { useUser } from "../../context/UserContext"
 
 const ConfirmSession = () => {
   const userKit = new UserKit()
+  const [image, setImage] = useState()
   const { currentUser } = useAuth()
+  const [imageUrl, setImageUrl] = useState(null)
   const [keys, setKeys] = useState([])
   const [inputValue, setInputValue] = useState("")
   const {
@@ -41,6 +43,12 @@ const ConfirmSession = () => {
       category: session.category.id,
       keys,
     }
+    if (imageUrl) {
+      completeSession = {
+        ...completeSession,
+        imageUrl: imageUrl,
+      }
+    }
     userKit
       .addSession(completeSession, currentUser.uid)
       .then((res) => res.json())
@@ -62,6 +70,20 @@ const ConfirmSession = () => {
   }
   const handleChange = (name, value) => {
     setInputValue(value)
+  }
+
+  const handleChooseFile = (e) => {
+    let img = e.target.files[0]
+    setImage(img)
+  }
+  const handleUpload = () => {
+    const fd = new FormData()
+    let imageUrl
+    fd.append("image", image, image.name)
+    userKit
+      .uploadImage(fd)
+      .then((res) => res.json())
+      .then((data) => setImageUrl(data.message))
   }
   const onKeyUp = (e) => {
     if (e.code === "Enter" && !keys.includes(inputValue)) {
@@ -86,6 +108,8 @@ const ConfirmSession = () => {
         <p className={styles.totalTime}>
           Total time: {session.stop - session.start}
         </p>
+        <input type="file" onChange={(e) => handleChooseFile(e)}></input>
+        {image && <button onClick={handleUpload}>Upload</button>}
         <div className={styles.keys}>
           {keys.map((key) => {
             return <div>{key}</div>
@@ -100,9 +124,7 @@ const ConfirmSession = () => {
             label={"Add keys"}
           ></FormInput>
         </div>
-        <div className={styles.uploadImageButton}>
-          <Button>Upload Image</Button>
-        </div>
+
         <div className={styles.confirmButton}>
           <Button onClick={confirmSession}>Confirm</Button>
         </div>

@@ -69,6 +69,7 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
+
   async updateSession(session) {
     const url = `${ROOT_URL}updateSession`
 
@@ -105,13 +106,26 @@ export default class {
     return fetch(url, {
       method: "POST",
       // mode: "no-cors", // no-cors, *cors, same-origin
-
       headers: {
         // "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${this.getSessionToken()}`,
       },
       // headers: this.getPrivateHeaders(),
       body: image,
+    })
+  }
+  async deleteImage(image) {
+    const url = `${ROOT_URL}deleteImage`
+
+    const payload = image
+
+    return fetch(url, {
+      method: "POST",
+      headers: {
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${this.getSessionToken()}`,
+      },
+      body: JSON.stringify(payload),
     })
   }
   async transfer(payload) {
