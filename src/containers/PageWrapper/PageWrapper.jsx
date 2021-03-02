@@ -657,7 +657,7 @@ const PageWrapper = ({ content }) => {
       <div className={styles.background__circle2}></div>
       <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
-        <section className={styles.header}>
+        {/* <section className={styles.header}>
           <h2 onClick={goHome} className={styles.logo}>
             timeKeep
           </h2>
@@ -672,7 +672,7 @@ const PageWrapper = ({ content }) => {
             </ul>
           </nav>
           <button onClick={handleTransfer}>Transfer</button>
-        </section>
+        </section> */}
         <section className={styles.content}>
           <SideMenu></SideMenu>
           {content}

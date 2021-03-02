@@ -16,7 +16,6 @@ const StartButton = () => {
     confirmSessionHidden,
     setConfirmSessionHidden,
   } = useSession()
-  const { currentUser } = useAuth()
 
   const [sessionComplete, setSessionComplete] = useState(false)
   const userKit = new UserKit()
@@ -37,7 +36,7 @@ const StartButton = () => {
   const startAndStopTime = () => {
     const date = new Date()
     // const date = Date.parse(unparsed)
-    if (!timeGoes) {
+    if (!timeGoes && activity.id) {
       setSession({ start: date })
       setTimeGoes(!timeGoes)
       setSessionComplete(false)

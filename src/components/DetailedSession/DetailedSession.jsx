@@ -62,6 +62,7 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
 
   const onClick = () => {
     if (slot === 0) {
+      console.log(compare[0])
       let newState = [!compare[0], false]
       setCompare(newState)
     }
@@ -99,42 +100,37 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
     if (session) {
       return (
         <div className={styles.card__content}>
-          <button className={compare[slot] && styles.active} onClick={onClick}>
-            compare
-          </button>
-          {updatedSession && (
-            <div>
-              {updatedSession.start.getFullYear()}
+          <div className={styles.card__content__left}>
+            <input type="file" onChange={(e) => handleChooseFile(e)}></input>
+            <button onClick={upload}>upload</button>
 
-              <p>category {updatedSession.categoryName}</p>
-              <p>
-                {updatedSession.parent && `category ${updatedSession.parent}`}
-              </p>
-              <p>{`activity ${updatedSession.activityName}`}</p>
-
-              <input type="file" onChange={(e) => handleChooseFile(e)}></input>
-              <button onClick={upload}>upload</button>
+            <div className={styles.card__content__imageWrapper}>
+              <img
+                className={styles.card__content__imageWrapper__image}
+                src={session.imageUrl}
+              ></img>
             </div>
-          )}
-          <div className={styles.card__content__imageWrapper}>
-            <img
-              className={styles.card__content__imageWrapper__image}
-              src={session.imageUrl}
-            ></img>
-            <button onClick={handleDelete}>delete image</button>
           </div>
-          <div className={styles.card__content__keys}>
-            <p>Keys</p>
-            <div className={styles.card__content__keys__content}>
-              {updatedSession &&
-                updatedSession.keys.map((key) => {
-                  return (
-                    <div
-                      onClick={() => removeKey(key)}
-                      className={styles.card__content__keys__content__key}
-                    >{`${key}`}</div>
-                  )
-                })}
+          <div className={styles.card__content_right}>
+            <button
+              className={compare[slot] && styles.active}
+              onClick={onClick}
+            >
+              compare
+            </button>
+            <div className={styles.card__content__keys}>
+              <p>Keys</p>
+              <div className={styles.card__content__keys__content}>
+                {updatedSession &&
+                  updatedSession.keys.map((key) => {
+                    return (
+                      <div
+                        onClick={() => removeKey(key)}
+                        className={styles.card__content__keys__content__key}
+                      >{`${key}`}</div>
+                    )
+                  })}
+              </div>
             </div>
             <div className={styles.card__content__keys__inputWrapper}>
               <Input
@@ -145,8 +141,8 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
                 required
                 label={"add keys"}
               ></Input>
+              <button onClick={submit}>Update</button>
             </div>
-            <button onClick={submit}>submit</button>
           </div>
         </div>
       )

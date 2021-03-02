@@ -43,6 +43,9 @@
   gap: 20px;
   z-index: 1;
   position: relative;
+  margin-top: 100px;
+  height: $height;
+  max-height: 800px;
 }
 .contentWrapper {
   max-width: 1600px;
@@ -57,7 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 140px;
+  height: 40px;
   background: $cardColor2;
   backdrop-filter: blur(8px);
   margin-bottom: 20px;

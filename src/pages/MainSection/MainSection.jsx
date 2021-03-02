@@ -40,6 +40,7 @@ const Dashboard = () => {
         <div className={styles.total}>
           <TimeDisplay name={"total"} filter={"total"}></TimeDisplay>
         </div>
+
         {category.id && (
           <DetailedCategoryCard
             category={category}

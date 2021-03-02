@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react"
+
+import { useUser } from "../../context/UserContext"
 import { lowerThan10 } from "../../utils/convertTimestamp"
 import styles from "./Session.module.scss"
 
 const Session = ({ session }) => {
   const [date, setDate] = useState("")
   const [dateStop, setDateStop] = useState("")
-
+  const [sessionTime, setSessionTime] = useState()
+  const { userSessionsArray } = useUser()
   useEffect(() => {
     setDate(new Date(Date.parse(session.start)))
     setDateStop(new Date(Date.parse(session.stop)))
   }, [session])
+
+  useEffect(() => {
+    let total = 0
+
+    let sortedList = userSessionsArray.sort((a, b) => a.start - b.start)
+    const iterations = sortedList.indexOf(session)
+
+    for (let i = 0; i <= iterations; i++) {
+      total +=
+        new Date(Date.parse(sortedList[i].stop)) -
+        new Date(Date.parse(sortedList[i].start))
+    }
+    setSessionTime(total)
+  }, [])
 
   return (
     <div className={styles.session}>
@@ -19,6 +36,7 @@ const Session = ({ session }) => {
             date.getMonth() + 1
           )}-${lowerThan10(date.getDate())} `}
       </div>
+      <p>{sessionTime}</p>
       <div className={styles.session__time}>
         <p className={styles.session__time__timeStart}>
           {date.getHours &&

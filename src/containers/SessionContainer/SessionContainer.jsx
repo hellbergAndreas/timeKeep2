@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Session from "../../components/Session/Session"
+import { useUser } from "../../context/UserContext"
 import styles from "./SessionContainer.module.scss"
-const SessionContainer = ({
-  list,
-  handleClick,
-  compare,
-
-  sessions,
-}) => {
+const SessionContainer = ({ list, handleClick, compare, sessions }) => {
   const [sortedList, setSortedList] = useState([])
   useEffect(() => {
     let sortedSessions = list.sort((a, b) => b.start - a.start)

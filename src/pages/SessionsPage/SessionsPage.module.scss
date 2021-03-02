@@ -4,7 +4,8 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 
-  height: 700px;
+  height: $height;
+  max-height: 800px;
   border-radius: 8px;
   &__left {
     backdrop-filter: blur(20px);

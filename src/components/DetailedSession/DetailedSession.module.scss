@@ -1,15 +1,18 @@
 @import "../../sharedCSS.scss";
 .card {
+  height: 100%;
   background: $cardColor;
-  min-height: 400px;
   &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     &__imageWrapper {
-      height: 400px;
-      width: 400px;
+      height: 250px;
+      width: 350px;
+
       &__image {
         display: block;
-        max-width: 400px;
-        max-height: 400px;
+        max-width: 350px;
+        max-height: 350px;
         width: auto;
         height: auto;
       }
@@ -25,6 +28,7 @@
       }
       &__inputWrapper {
         margin-top: 20px;
+        display: flex;
       }
     }
   }
