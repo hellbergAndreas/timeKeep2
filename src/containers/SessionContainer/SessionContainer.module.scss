@@ -3,9 +3,14 @@
 .wrapper {
   padding: 0px 60px;
   margin-top: 20px;
+
   &__container {
     height: 50px;
 
     min-height: 100px;
   }
+}
+
+.reverse {
+  margin: 0;
 }

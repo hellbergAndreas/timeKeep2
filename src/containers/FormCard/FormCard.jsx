@@ -12,8 +12,6 @@ export default ({ hidden, setHidden, type }) => {
   const { currentUser } = useAuth()
   const { category } = useSession()
   const {
-    userCategories,
-    userActivities,
     setUserCategories,
     setUserActivities,
     setActivitiesObject,
@@ -86,6 +84,7 @@ export default ({ hidden, setHidden, type }) => {
           })
         })
     }
+    setHidden(!hidden)
   }
   const handleChange = (name, value) => {
     setInputValues((prevState) => {

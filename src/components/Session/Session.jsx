@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 
 import { useUser } from "../../context/UserContext"
 import { lowerThan10 } from "../../utils/convertTimestamp"
+import TimeFormat from "../TimeFormat/TimeFormat"
 import styles from "./Session.module.scss"
 
 const Session = ({ session }) => {
@@ -36,8 +37,8 @@ const Session = ({ session }) => {
             date.getMonth() + 1
           )}-${lowerThan10(date.getDate())} `}
       </div>
-      <p>{sessionTime}</p>
-      <div className={styles.session__time}>
+
+      {/* <div className={styles.session__time}>
         <p className={styles.session__time__timeStart}>
           {date.getHours &&
             `${lowerThan10(date.getHours())}:${lowerThan10(
@@ -51,18 +52,21 @@ const Session = ({ session }) => {
               dateStop.getMinutes()
             )}:${lowerThan10(dateStop.getSeconds())}`}
         </p>
-      </div>
+      </div> */}
       <div>
-        <p> {session.categoryName}</p>
-        <p>{session.activityName}</p>
-        <p>
+        <div className={styles.session__keys}>
           {session.keys &&
             session.keys.map((key, index) => {
               return <div key={index}>{key}</div>
             })}
-        </p>
+        </div>
       </div>
-      <p className={styles.session__totalTime}>{(dateStop - date) / 1000}</p>
+      <p className={styles.session__totalProgress}>
+        <TimeFormat ms={sessionTime}></TimeFormat>
+      </p>
+      <p className={styles.session__totalTime}>
+        <TimeFormat ms={dateStop - date} />
+      </p>
     </div>
   )
 }

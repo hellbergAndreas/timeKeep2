@@ -14,6 +14,9 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   padding: 8px;
+  &__keys {
+    display: flex;
+  }
   &__year {
     background-color: white;
     margin-top: -20px;
@@ -40,6 +43,14 @@
     }
   }
   &__totalTime {
+    grid-column: 2;
+    grid-row: 2;
+    place-self: end;
+    font-weight: bold;
+    font-size: small;
+    margin-bottom: 20px;
+  }
+  &__totalProgress {
     grid-column: 2;
     grid-row: 2;
     place-self: end;

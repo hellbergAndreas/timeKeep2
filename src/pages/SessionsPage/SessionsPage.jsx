@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import DetailedSession from "../../components/DetailedSession/DetailedSession"
+import FullScreenImage from "../../components/FullScreenImage/FullScreenImage"
 
 import CategoryFilter from "../../containers/CategoryFilter/CategoryFilter"
 import SessionContainer from "../../containers/SessionContainer/SessionContainer"
@@ -8,7 +9,7 @@ import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
   const { userSessionsArray, userActivities, userCategories } = useUser()
-  const [sessionsArray, setSessionsArray] = useState([])
+
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
   const [activityFilter, setActivityFilter] = useState([])
@@ -17,11 +18,12 @@ const SessionsPage = () => {
   const [keys, setKeys] = useState([])
   const [session, setSession] = useState([])
   const [compare, setCompare] = useState([false, false])
+  const [images, setImages] = useState([false, false])
+  const [imageFullScreen, setImageFullScreen] = useState(false)
 
   // looping through all sessions and collecting all key values for the key filter.
   useEffect(() => {
     let array = []
-
     userSessionsArray.forEach((session) => {
       if (session.keys && session.keys.length > 0) {
         session.keys.forEach((key) => {
@@ -32,12 +34,11 @@ const SessionsPage = () => {
     })
   }, [userSessionsArray])
 
-  useEffect(() => {}, [session])
+  useEffect(() => {}, [images])
   // filtering through the list
   // note, make three utils functions
   useEffect(() => {
     let filtered = userSessionsArray
-
     // filter by category
     if (categoryFilter.length > 0) {
       categoryFilter.forEach((filter) => {
@@ -121,16 +122,26 @@ const SessionsPage = () => {
         <DetailedSession
           slot={0}
           compare={compare}
+          setImages={setImages}
           setCompare={setCompare}
           session={session[0] && session[0]}
+          setImageFullScreen={setImageFullScreen}
         ></DetailedSession>
         <DetailedSession
           slot={1}
           compare={compare}
           setCompare={setCompare}
+          setImages={setImages}
+          setImageFullScreen={setImageFullScreen}
           session={session[1] && session[1]}
         ></DetailedSession>
       </div>
+      {imageFullScreen && (
+        <FullScreenImage
+          images={images}
+          setImageFullScreen={setImageFullScreen}
+        />
+      )}
     </section>
   )
 }

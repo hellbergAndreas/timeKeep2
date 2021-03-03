@@ -4,11 +4,25 @@ import { useUser } from "../../context/UserContext"
 import styles from "./SessionContainer.module.scss"
 const SessionContainer = ({ list, handleClick, compare, sessions }) => {
   const [sortedList, setSortedList] = useState([])
+  const [reversed, setReversed] = useState(false)
   useEffect(() => {
     let sortedSessions = list.sort((a, b) => b.start - a.start)
-
     setSortedList(sortedSessions)
+    setReversed(true)
   }, [list])
+
+  const reverseSort = () => {
+    let reverseSort
+    if (reversed) {
+      reverseSort = sortedList.sort((a, b) => a.start - b.start)
+      setReversed(false)
+    }
+    if (!reversed) {
+      reverseSort = sortedList.sort((a, b) => b.start - a.start)
+      setReversed(true)
+    }
+    setSortedList(reverseSort)
+  }
 
   const onClick = (session) => {
     let newState = []
@@ -29,8 +43,11 @@ const SessionContainer = ({ list, handleClick, compare, sessions }) => {
   }
   return (
     <div className={styles.wrapper}>
+      <button className={styles.reverse} onClick={reverseSort}>
+        reverse
+      </button>
       <div className={styles.wrapper__container}>
-        {sortedList.map((session) => {
+        {list.map((session) => {
           return (
             <div onClick={() => onClick(session)} key={session.start}>
               <Session session={session} />

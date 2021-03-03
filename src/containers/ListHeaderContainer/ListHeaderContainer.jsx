@@ -14,19 +14,17 @@ export default ({ type }) => {
     if (type === "categories") {
       setHidden(!hidden)
     }
-    if (type === "activities" && category) {
+    if (type === "activities" && category.id) {
       setHidden(!hidden)
     }
   }
   return (
     <div className={styles.header}>
       <Header>{type}</Header>
-      <Button onClick={(e) => handleClick(e)}>
-        Add {type === "categories" ? "category" : "activity"}
-      </Button>
-      {!hidden && (
+
+      {/* {!hidden && (
         <FormCard type={type} setHidden={setHidden} hidden={hidden}></FormCard>
-      )}
+      )} */}
     </div>
   )
 }

@@ -43,7 +43,11 @@ const TimeDisplay = ({ filter, name }) => {
       minutes,
     })
   }, [total])
-  return <div>{` ${time.hours}: ${time.minutes}: ${time.seconds}`}</div>
+  return (
+    <div>{` ${lessThan10(time.hours)}: ${lessThan10(
+      time.minutes
+    )}: ${lessThan10(time.seconds)}`}</div>
+  )
 }
 
 export default TimeDisplay

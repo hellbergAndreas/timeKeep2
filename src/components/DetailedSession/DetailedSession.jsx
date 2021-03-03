@@ -4,7 +4,14 @@ import UserKit from "../../data/UserKit"
 import Input from "../Input/Input"
 import styles from "./DetailedSession.module.scss"
 
-const DetailedSession = ({ session, setCompare, slot, compare }) => {
+const DetailedSession = ({
+  session,
+  setCompare,
+  slot,
+  compare,
+  setImages,
+  setImageFullScreen,
+}) => {
   const { userSessions, setUserSessions } = useUser()
   const [updatedSession, setUpdatedSession] = useState(null)
   const [image, setImage] = useState(null)
@@ -18,6 +25,28 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
     })
   }
 
+  const handleImages = () => {
+    setImageFullScreen(true)
+  }
+
+  useEffect(() => {
+    if (session) {
+      if (!compare[0]) {
+        setImages((prevState) => {
+          let newState = [...prevState]
+          newState[0] = session.imageUrl
+          return newState
+        })
+      }
+      if (compare[0]) {
+        setImages((prevState) => {
+          let newState = [...prevState]
+          newState[1] = session.imageUrl
+          return newState
+        })
+      }
+    }
+  }, [session])
   useEffect(() => {
     setUpdatedSession(session)
   }, [session])
@@ -74,7 +103,6 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
 
   const handleChooseFile = (e) => {
     let img = e.target.files[0]
-
     setImage(img)
   }
   const upload = () => {
@@ -109,6 +137,7 @@ const DetailedSession = ({ session, setCompare, slot, compare }) => {
                 className={styles.card__content__imageWrapper__image}
                 src={session.imageUrl}
               ></img>
+              <button onClick={handleImages}>fullscreen</button>
             </div>
           </div>
           <div className={styles.card__content_right}>

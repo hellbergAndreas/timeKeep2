@@ -16,6 +16,7 @@ const ConfirmSession = () => {
   const [imageUrl, setImageUrl] = useState(null)
   const [keys, setKeys] = useState([])
   const [inputValue, setInputValue] = useState("")
+
   const {
     session,
     confirmSessionHidden,
