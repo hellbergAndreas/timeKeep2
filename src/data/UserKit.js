@@ -56,7 +56,8 @@ export default class {
     })
   }
   async addSession(session, user) {
-    const url = `${ROOT_URL}sessions`
+    console.log(user)
+    const url = `${ROOT_URL}addSession`
 
     const payload = {
       ...session,
@@ -136,6 +137,16 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
+  async moveSessions(payload) {
+    console.log(payload)
+    const url = `${ROOT_URL}moveSessions`
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPrivateHeaders(),
+      body: JSON.stringify(payload),
+    })
+  }
+
   async setSessionImage(payload) {
     const url = `${ROOT_URL}setImage`
     return fetch(url, {

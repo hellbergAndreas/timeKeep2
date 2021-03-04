@@ -25,6 +25,7 @@ const SessionContainer = ({ list, handleClick, compare, sessions }) => {
   }
 
   const onClick = (session) => {
+    console.log(session.id)
     let newState = []
 
     if (compare[0] === true) {

@@ -105,12 +105,28 @@ app.post(`/getCategories`, FBAuth, (req, res) => {
       })
       return res.json(categories)
     })
+
     .catch((err) => console.error(err))
 })
 
-app.post(`/sessions`, (req, res) => {
-  db.collection(`sessions`)
-    .add(req.body)
+app.post(`/addSession`, (req, res) => {
+  // db.doc(`Sessions/${req.body.userId}`)
+  //   .update({
+  //     sessions: admin.firestore.FieldValue.arrayUnion(req.body),
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ error: "something went wrong" })
+  //     console.log(err)
+  //   })
+  ////////////
+
+  db.doc(`Sessions/${req.body.userId}`).update({
+    ["sessionsMap." + req.body.id]: req.body,
+  })
+})
+app.post("/moveSessions", (req, res) => {
+  db.doc(`Sessions/${req.body.userId}`)
+    .set(req.body)
     .then((doc) => {
       return res.json({
         message: `document ${doc.id} created successfully`,
@@ -123,8 +139,10 @@ app.post(`/sessions`, (req, res) => {
     })
 })
 app.post(`/updateSession`, (req, res) => {
-  db.doc(`/sessions/${req.body.id}`)
-    .update(req.body)
+  db.doc(`/Sessions/${req.body.id}/`)
+    .update({
+      sessions: admin.firestore.FieldValue.arrayUnion(req.body),
+    })
     .then((doc) => {
       return res.json({ message: `document ${doc.id} updated successfully` })
     })
@@ -167,24 +185,29 @@ app.post(`/getActivities`, FBAuth, (req, res) => {
 })
 app.post(`/getSessions`, FBAuth, (req, res) => {
   return db
-    .collection(`sessions`)
-    .where("userId", "==", req.body.userId)
+    .doc(`Sessions/${req.body.userId}`)
     .get()
-    .then((data) => {
-      let sessions = {}
-      data.forEach((doc) => {
-        let session = {
-          ...doc.data(),
-          id: doc.id,
-        }
-        sessions = {
-          ...sessions,
-          [doc.id]: session,
-        }
-      })
-      return res.json(sessions)
+    .then((doc) => {
+      let response = doc.data().sessionsMap
+      return res.json(response)
     })
-    .catch((err) => console.error(err))
+  ////////
+  // db.collection("sessions")
+  //   .get()
+  //   .then((data) => {
+  //     let sessions = {}
+  //     data.forEach((doc) => {
+  //       let session = {
+  //         ...doc.data(),
+  //       }
+  //       sessions = {
+  //         ...sessions,
+  //         [doc.id]: { ...session },
+  //       }
+  //     })
+  //     return res.json(sessions)
+  //   })
+  //   .catch((err) => console.error(err))
 })
 app.post("/users", (req, res) => {
   const newUser = {

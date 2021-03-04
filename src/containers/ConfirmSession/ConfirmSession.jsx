@@ -29,20 +29,24 @@ const ConfirmSession = () => {
     categoriesObject,
   } = useUser()
 
-  useEffect(() => {
-    console.log(activitiesObject)
-  }, [activitiesObject])
-
   const close = () => {
     setConfirmSessionHidden(!confirmSessionHidden)
     setInputValue("")
   }
+  const ID = function () {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return "_" + Math.random().toString(36).substr(2, 9)
+  }
   const confirmSession = () => {
+    console.log(currentUser.uid)
     let completeSession = {
       ...session,
       activity: session.activity.id,
       category: session.category.id,
       keys,
+      id: `${ID()}${ID()}`,
     }
     if (imageUrl) {
       completeSession = {
