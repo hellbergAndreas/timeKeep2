@@ -38,7 +38,7 @@ const Session = ({ session }) => {
           )}-${lowerThan10(date.getDate())} `}
       </div>
 
-      {/* <div className={styles.session__time}>
+      <div className={styles.session__time}>
         <p className={styles.session__time__timeStart}>
           {date.getHours &&
             `${lowerThan10(date.getHours())}:${lowerThan10(
@@ -52,7 +52,7 @@ const Session = ({ session }) => {
               dateStop.getMinutes()
             )}:${lowerThan10(dateStop.getSeconds())}`}
         </p>
-      </div> */}
+      </div>
       <div>
         <div className={styles.session__keys}>
           {session.keys &&

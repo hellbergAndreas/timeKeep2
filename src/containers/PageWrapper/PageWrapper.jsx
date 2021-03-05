@@ -26,26 +26,6 @@ const PageWrapper = ({ content }) => {
     userKit.moveSessions(payload)
   }
 
-  // const handleTransfer = () => {
-  //   let figureDrawing = "HIb3YZQLEENccM14ctO4"
-  //   let anatomy = "WxDTWrtOxBBjAOAgx1OL"
-  //   let freestyle = "tnqABc4OBvIn3fRwDndq"
-
-  //   let brentEvistonFigureDrawing = "bsU7Mjezu7Eq1mzR3FD2"
-  //   vilppu.forEach((session) => {
-  // let payload = {
-  //   category: "tnqABc4OBvIn3fRwDndq",
-  //   activity: "R73N7yLXdC3UAogKVDHH",
-  //   userId: currentUser.uid,
-  //   start: new Date(session.date.seconds * 1000),
-  //   stop: new Date(session.to.seconds * 1000),
-  //   keys: [],
-  // }
-
-  //     userKit.transfer(payload)
-  //   })
-  // }
-
   const {
     setUserSessions,
     userSessions,
@@ -56,9 +36,6 @@ const PageWrapper = ({ content }) => {
     setCategoriesObject,
     activitiesObject,
     setActivitiesObject,
-    userSessionsArray,
-    userActivities,
-    userCategories,
   } = useUser()
 
   const history = useHistory()
@@ -137,7 +114,6 @@ const PageWrapper = ({ content }) => {
           .then((res) => res.json())
           .then((data) => {
             setUserSessions(data)
-            console.log(data)
           })
           .then(() => {
             setLoaded((prevState) => {
@@ -156,28 +132,34 @@ const PageWrapper = ({ content }) => {
       loaded.categoriesLoaded &&
       loaded.sessionsLoaded
     ) {
-      console.log("fixing sessions")
-      let array = []
-      Object.keys(userSessions).map((session) => {
-        array.push(userSessions[session])
-      })
-      let sessions = []
-      array.forEach((session) => {
-        let sesh = {
-          ...session,
-          start: new Date(Date.parse(session.start)),
-          activityName: activitiesObject[session.activity].name,
-          categoryName: categoriesObject[session.category].name,
-        }
-        sessions.push(sesh)
-      })
-      setUserSessionsArray(sessions)
+      console.log("my turn")
+      const map = {
+        step1: {
+          step2: "hej",
+        },
+      }
+      console.log(map.step1.step2)
+      sessionsMapToArray()
     }
-  }, [loaded])
+  }, [loaded, userSessions])
 
-  useEffect(() => {
-    console.log(userSessionsArray)
-  }, [])
+  const sessionsMapToArray = () => {
+    let array = []
+    Object.keys(userSessions).map((session) => {
+      array.push(userSessions[session])
+    })
+    let sessions = []
+    array.forEach((session) => {
+      let sesh = {
+        ...session,
+        start: new Date(Date.parse(session.start)),
+        activityName: activitiesObject[session.activity].name,
+        categoryName: categoriesObject[session.category].name,
+      }
+      sessions.push(sesh)
+    })
+    setUserSessionsArray(sessions)
+  }
 
   return (
     <section className={styles.background}>
@@ -213,3 +195,22 @@ const PageWrapper = ({ content }) => {
 }
 
 export default PageWrapper
+// const handleTransfer = () => {
+//   let figureDrawing = "HIb3YZQLEENccM14ctO4"
+//   let anatomy = "WxDTWrtOxBBjAOAgx1OL"
+//   let freestyle = "tnqABc4OBvIn3fRwDndq"
+
+//   let brentEvistonFigureDrawing = "bsU7Mjezu7Eq1mzR3FD2"
+//   vilppu.forEach((session) => {
+// let payload = {
+//   category: "tnqABc4OBvIn3fRwDndq",
+//   activity: "R73N7yLXdC3UAogKVDHH",
+//   userId: currentUser.uid,
+//   start: new Date(session.date.seconds * 1000),
+//   stop: new Date(session.to.seconds * 1000),
+//   keys: [],
+// }
+
+//     userKit.transfer(payload)
+//   })
+// }

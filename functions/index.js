@@ -109,21 +109,6 @@ app.post(`/getCategories`, FBAuth, (req, res) => {
     .catch((err) => console.error(err))
 })
 
-app.post(`/addSession`, (req, res) => {
-  // db.doc(`Sessions/${req.body.userId}`)
-  //   .update({
-  //     sessions: admin.firestore.FieldValue.arrayUnion(req.body),
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json({ error: "something went wrong" })
-  //     console.log(err)
-  //   })
-  ////////////
-
-  db.doc(`Sessions/${req.body.userId}`).update({
-    ["sessionsMap." + req.body.id]: req.body,
-  })
-})
 app.post("/moveSessions", (req, res) => {
   db.doc(`Sessions/${req.body.userId}`)
     .set(req.body)
@@ -139,9 +124,10 @@ app.post("/moveSessions", (req, res) => {
     })
 })
 app.post(`/updateSession`, (req, res) => {
-  db.doc(`/Sessions/${req.body.id}/`)
+  db.doc(`/Sessions/${req.body.userId}`)
     .update({
-      sessions: admin.firestore.FieldValue.arrayUnion(req.body),
+      ["sessionsMap." + req.body.id + "." + req.body.destination]: req.body
+        .update,
     })
     .then((doc) => {
       return res.json({ message: `document ${doc.id} updated successfully` })
@@ -149,11 +135,33 @@ app.post(`/updateSession`, (req, res) => {
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" })
       console.log(err)
+    })
+})
+app.post(`/addSession`, (req, res) => {
+  // db.doc(`Sessions/${req.body.userId}`)
+  //   .update({
+  //     sessions: admin.firestore.FieldValue.arrayUnion(req.body),
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ error: "something went wrong" })
+  //     console.log(err)
+  //   })
+  ////////////
+
+  db.doc(`Sessions/${req.body.userId}`)
+    .update({
+      ["sessionsMap." + req.body.id]: req.body,
+    })
+    .then((doc) => {
+      return res.json({
+        message: `document ${doc.id} updated successfully`,
+        id: doc.id,
+      })
     })
 })
 app.post("/setImage", (req, res) => {
-  db.doc(`/sessions/${req.body.id}`)
-    .update({ imageUrl: req.body.imageUrl })
+  db.doc(`/Sessions/${req.body.userId}`)
+    .update({ ["sessionsMap." + req.body.id + ".imageUrl"]: req.body.imageUrl })
     .then((doc) => {
       return res.json({ message: `document ${doc.id} updated successfully` })
     })
@@ -162,6 +170,7 @@ app.post("/setImage", (req, res) => {
       console.log(err)
     })
 })
+
 app.post(`/getActivities`, FBAuth, (req, res) => {
   return db
     .collection(`activities`)

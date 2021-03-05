@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useAuth } from "../../context/AuthContext"
 import { useUser } from "../../context/UserContext"
 import UserKit from "../../data/UserKit"
 import Input from "../Input/Input"
@@ -13,6 +14,7 @@ const DetailedSession = ({
   setImageFullScreen,
 }) => {
   const { userSessions, setUserSessions } = useUser()
+  const { currentUser } = useAuth()
   const [updatedSession, setUpdatedSession] = useState(null)
   const [image, setImage] = useState(null)
 
@@ -31,6 +33,7 @@ const DetailedSession = ({
 
   useEffect(() => {
     if (session) {
+      console.log(session)
       if (!compare[0]) {
         setImages((prevState) => {
           let newState = [...prevState]
@@ -50,6 +53,8 @@ const DetailedSession = ({
   useEffect(() => {
     setUpdatedSession(session)
   }, [session])
+
+  useEffect(() => {}, [updatedSession])
 
   const addKeys = (e) => {
     if (e.code === "Enter" && inputValue.key.length > 0) {
@@ -77,7 +82,7 @@ const DetailedSession = ({
   }
   const submit = () => {
     userKit
-      .updateSession(updatedSession)
+      .updateSession(currentUser.uid, session.id, "keys", updatedSession.keys)
       .then((res) => res.json())
       .then(() =>
         setUserSessions((prevState) => {
@@ -91,7 +96,6 @@ const DetailedSession = ({
 
   const onClick = () => {
     if (slot === 0) {
-      console.log(compare[0])
       let newState = [!compare[0], false]
       setCompare(newState)
     }
@@ -115,15 +119,35 @@ const DetailedSession = ({
       .then((res) => res.json())
       .then((data) => (imageUrl = data.message))
       .then(() => {
-        let payload = {
-          id: session.id,
-          imageUrl,
-        }
-        userKit.setSessionImage(payload)
+        userKit.updateSession(currentUser.uid, session.id, "imageUrl", imageUrl)
+        setUpdatedSession((prevState) => {
+          return {
+            ...prevState,
+            imageUrl,
+          }
+        })
+        setUserSessions((prevState) => {
+          return {
+            ...prevState,
+            [session.id]: { ...updatedSession, imageUrl },
+          }
+        })
       })
-      .then(() => {})
   }
 
+  const renderImage = () => {
+    if (updatedSession) {
+      if ("imageUrl" in updatedSession) {
+        console.log("we have an image")
+        return (
+          <img
+            className={styles.card__content__imageWrapper__image}
+            src={updatedSession.imageUrl}
+          ></img>
+        )
+      }
+    }
+  }
   const renderCard = () => {
     if (session) {
       return (
@@ -133,10 +157,8 @@ const DetailedSession = ({
             <button onClick={upload}>upload</button>
 
             <div className={styles.card__content__imageWrapper}>
-              <img
-                className={styles.card__content__imageWrapper__image}
-                src={session.imageUrl}
-              ></img>
+              {renderImage()}
+
               <button onClick={handleImages}>fullscreen</button>
             </div>
           </div>

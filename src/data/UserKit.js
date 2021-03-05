@@ -71,10 +71,14 @@ export default class {
     })
   }
 
-  async updateSession(session) {
+  async updateSession(userId, id, destination, update) {
     const url = `${ROOT_URL}updateSession`
-
-    const payload = session
+    const payload = {
+      userId,
+      id,
+      destination,
+      update,
+    }
 
     return fetch(url, {
       method: "POST",
@@ -147,8 +151,13 @@ export default class {
     })
   }
 
-  async setSessionImage(payload) {
+  async setSessionImage(imageUrl, id, userId) {
     const url = `${ROOT_URL}setImage`
+    const payload = {
+      imageUrl,
+      id,
+      userId,
+    }
     return fetch(url, {
       method: "POST",
       headers: this.getPrivateHeaders(),

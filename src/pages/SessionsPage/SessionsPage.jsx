@@ -38,6 +38,8 @@ const SessionsPage = () => {
   // filtering through the list
   // note, make three utils functions
   useEffect(() => {
+    console.log("filter activated")
+    console.log(userSessionsArray)
     let filtered = userSessionsArray
     // filter by category
     if (categoryFilter.length > 0) {
