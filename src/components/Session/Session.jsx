@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react"
+import { useAuth } from "../../context/AuthContext"
 
 import { useUser } from "../../context/UserContext"
+import UserKit from "../../data/UserKit"
 import { lowerThan10 } from "../../utils/convertTimestamp"
 import TimeFormat from "../TimeFormat/TimeFormat"
 import styles from "./Session.module.scss"
 
 const Session = ({ session }) => {
   const [date, setDate] = useState("")
+  const { currentUser } = useAuth()
   const [dateStop, setDateStop] = useState("")
   const [sessionTime, setSessionTime] = useState()
   const { userSessionsArray } = useUser()
+  const userKit = new UserKit()
   useEffect(() => {
     setDate(new Date(Date.parse(session.start)))
     setDateStop(new Date(Date.parse(session.stop)))
@@ -29,6 +33,10 @@ const Session = ({ session }) => {
     setSessionTime(total)
   }, [])
 
+  const handleDelete = () => {
+    console.log("deleteing")
+    userKit.deleteSession(currentUser.uid, session.id)
+  }
   return (
     <div className={styles.session}>
       <div className={styles.session__year}>
@@ -67,6 +75,7 @@ const Session = ({ session }) => {
       <p className={styles.session__totalTime}>
         <TimeFormat ms={dateStop - date} />
       </p>
+      <button onClick={handleDelete}>x</button>
     </div>
   )
 }

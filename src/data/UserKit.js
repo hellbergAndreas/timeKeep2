@@ -70,7 +70,19 @@ export default class {
       body: JSON.stringify(payload),
     })
   }
+  async deleteSession(userId, id) {
+    const url = `${ROOT_URL}deleteSession`
+    const payload = {
+      userId,
+      id,
+    }
 
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPublicHeaders(),
+      body: JSON.stringify(payload),
+    })
+  }
   async updateSession(userId, id, destination, update) {
     const url = `${ROOT_URL}updateSession`
     const payload = {

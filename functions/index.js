@@ -138,19 +138,21 @@ app.post(`/updateSession`, (req, res) => {
     })
 })
 app.post(`/addSession`, (req, res) => {
-  // db.doc(`Sessions/${req.body.userId}`)
-  //   .update({
-  //     sessions: admin.firestore.FieldValue.arrayUnion(req.body),
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json({ error: "something went wrong" })
-  //     console.log(err)
-  //   })
-  ////////////
-
   db.doc(`Sessions/${req.body.userId}`)
     .update({
       ["sessionsMap." + req.body.id]: req.body,
+    })
+    .then((doc) => {
+      return res.json({
+        message: `document ${doc.id} updated successfully`,
+        id: doc.id,
+      })
+    })
+})
+app.post(`/deleteSession`, (req, res) => {
+  db.doc(`Sessions/${req.body.userId}`)
+    .update({
+      ["sessionsMap." + req.body.id]: admin.firestore.FieldValue.delete(),
     })
     .then((doc) => {
       return res.json({
