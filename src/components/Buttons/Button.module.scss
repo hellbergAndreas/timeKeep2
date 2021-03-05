@@ -19,6 +19,13 @@ button:focus {
   background: $cardColor;
 
   cursor: pointer;
+  color: $textColorDark;
+  font-size: 1.5em;
+  font-weight: bolder;
+  &:hover {
+    color: $textColorWhite;
+    transform: scale(1.2);
+  }
 }
 
 .btn:after {
@@ -31,12 +38,12 @@ button:focus {
   // z-index: 2;
 }
 .btn:active {
-  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 10px px rgba(0, 0, 0, 0.02);
 }
 
 .btn:active:after {
-  box-shadow: inset 0px -2px 5px rgb(255, 255, 255),
-    inset 0px 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0px -2px 5px rgba(255, 255, 255, 0.238),
+    inset 0px 2px 5px rgba(45, 45, 45, 0.094);
 }
 
 .roundSmall {

@@ -33,7 +33,6 @@ const DetailedSession = ({
 
   useEffect(() => {
     if (session) {
-      console.log(session)
       if (!compare[0]) {
         setImages((prevState) => {
           let newState = [...prevState]
@@ -138,7 +137,6 @@ const DetailedSession = ({
   const renderImage = () => {
     if (updatedSession) {
       if ("imageUrl" in updatedSession) {
-        console.log("we have an image")
         return (
           <img
             className={styles.card__content__imageWrapper__image}

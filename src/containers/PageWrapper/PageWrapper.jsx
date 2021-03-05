@@ -127,18 +127,12 @@ const PageWrapper = ({ content }) => {
   }, [currentUser])
 
   useEffect(() => {
+    console.log(userSessions)
     if (
       loaded.activitiesLoaded &&
       loaded.categoriesLoaded &&
       loaded.sessionsLoaded
     ) {
-      console.log("my turn")
-      const map = {
-        step1: {
-          step2: "hej",
-        },
-      }
-      console.log(map.step1.step2)
       sessionsMapToArray()
     }
   }, [loaded, userSessions])

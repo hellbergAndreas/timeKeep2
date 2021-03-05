@@ -1,0 +1,39 @@
+@import "../../sharedCSS.scss";
+
+.section {
+  background-color: $modalBackground;
+
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: $modalBlur;
+  &__card {
+    height: 500px;
+    width: 800px;
+    padding: 40px;
+    background: $cardColor;
+
+    border-radius: 8px;
+    margin-top: -10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    &__header {
+      font-size: 40px;
+      color: $textColorWhite;
+    }
+    &__buttons {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20%;
+    }
+  }
+}

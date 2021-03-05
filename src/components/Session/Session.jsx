@@ -4,15 +4,18 @@ import { useAuth } from "../../context/AuthContext"
 import { useUser } from "../../context/UserContext"
 import UserKit from "../../data/UserKit"
 import { lowerThan10 } from "../../utils/convertTimestamp"
+import DeleteModal from "../DeleteModal/DeleteModal"
 import TimeFormat from "../TimeFormat/TimeFormat"
 import styles from "./Session.module.scss"
 
-const Session = ({ session }) => {
+const Session = ({ session, handleDelete }) => {
   const [date, setDate] = useState("")
   const { currentUser } = useAuth()
   const [dateStop, setDateStop] = useState("")
   const [sessionTime, setSessionTime] = useState()
   const { userSessionsArray } = useUser()
+  const [hover, setHover] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   const userKit = new UserKit()
   useEffect(() => {
     setDate(new Date(Date.parse(session.start)))
@@ -33,12 +36,22 @@ const Session = ({ session }) => {
     setSessionTime(total)
   }, [])
 
-  const handleDelete = () => {
-    console.log("deleteing")
-    userKit.deleteSession(currentUser.uid, session.id)
+  // const handleDelete = () => {
+  //   setDeleteModal(true)
+  //   // userKit.deleteSession(currentUser.uid, session.id).then()
+  // }
+  const handleMouseEnter = () => {
+    setHover(true)
+  }
+  const handleMouseLeave = () => {
+    setHover(false)
   }
   return (
-    <div className={styles.session}>
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={styles.session}
+    >
       <div className={styles.session__year}>
         {date &&
           `${date.getFullYear()}-${lowerThan10(
@@ -75,7 +88,14 @@ const Session = ({ session }) => {
       <p className={styles.session__totalTime}>
         <TimeFormat ms={dateStop - date} />
       </p>
-      <button onClick={handleDelete}>x</button>
+      {hover && (
+        <button
+          className={styles.delete}
+          onClick={() => handleDelete(session.id)}
+        >
+          x
+        </button>
+      )}
     </div>
   )
 }

@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react"
+import DeleteModal from "../../components/DeleteModal/DeleteModal"
 import DetailedSession from "../../components/DetailedSession/DetailedSession"
 import FullScreenImage from "../../components/FullScreenImage/FullScreenImage"
 
 import CategoryFilter from "../../containers/CategoryFilter/CategoryFilter"
 import SessionContainer from "../../containers/SessionContainer/SessionContainer"
+import { useAuth } from "../../context/AuthContext"
 import { useUser } from "../../context/UserContext"
+import UserKit from "../../data/UserKit"
 import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
-  const { userSessionsArray, userActivities, userCategories } = useUser()
+  const {
+    userSessionsArray,
+    userActivities,
+    userCategories,
+    setUserSessions,
+  } = useUser()
+  const { currentUser } = useAuth()
 
   const [filteredList, setFilteredList] = useState([])
   const [categoryFilter, setCategoryFilter] = useState([])
@@ -20,7 +29,10 @@ const SessionsPage = () => {
   const [compare, setCompare] = useState([false, false])
   const [images, setImages] = useState([false, false])
   const [imageFullScreen, setImageFullScreen] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [deleteId, setDeleteId] = useState(null)
 
+  const userKit = new UserKit()
   // looping through all sessions and collecting all key values for the key filter.
   useEffect(() => {
     let array = []
@@ -82,9 +94,40 @@ const SessionsPage = () => {
     userSessionsArray,
     filterByImages,
   ])
+  const handleDelete = (id) => {
+    setDeleteModal(true)
+    setDeleteId(id)
+  }
+  const confirmDelete = () => {
+    userKit
+      .deleteSession(currentUser.uid, deleteId)
 
+      .then(() => {
+        setUserSessions((prevState) => {
+          const newState = prevState
+          delete newState[deleteId]
+
+          return {
+            ...newState,
+          }
+        })
+      })
+    setDeleteId(null)
+    setDeleteModal(false)
+  }
+  const cancelDelete = () => {
+    setDeleteModal(false)
+    setDeleteId(null)
+  }
   return (
     <section className={styles.section}>
+      {deleteModal && (
+        <DeleteModal
+          cancelDelete={cancelDelete}
+          confirmDelete={confirmDelete}
+        ></DeleteModal>
+      )}
+
       <div className={styles.section__left}>
         <div className={styles.section__left__filters}>
           <CategoryFilter
@@ -117,6 +160,7 @@ const SessionsPage = () => {
             sessions={session}
             handleClick={setSession}
             list={filteredList}
+            handleDelete={handleDelete}
           ></SessionContainer>
         </div>
       </div>

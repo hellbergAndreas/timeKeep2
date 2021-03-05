@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react"
+import DeleteModal from "../../components/DeleteModal/DeleteModal"
 import Session from "../../components/Session/Session"
 import { useUser } from "../../context/UserContext"
 import styles from "./SessionContainer.module.scss"
-const SessionContainer = ({ list, handleClick, compare, sessions }) => {
+const SessionContainer = ({
+  list,
+  handleClick,
+  compare,
+  sessions,
+  handleDelete,
+}) => {
   const [sortedList, setSortedList] = useState([])
   const [reversed, setReversed] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   useEffect(() => {
     let sortedSessions = list.sort((a, b) => b.start - a.start)
     setSortedList(sortedSessions)
@@ -25,7 +33,6 @@ const SessionContainer = ({ list, handleClick, compare, sessions }) => {
   }
 
   const onClick = (session) => {
-    console.log(session.id)
     let newState = []
 
     if (compare[0] === true) {
@@ -42,8 +49,11 @@ const SessionContainer = ({ list, handleClick, compare, sessions }) => {
     handleClick(newState)
     // handleClick([session, null])
   }
+
   return (
     <div className={styles.wrapper}>
+      {deleteModal && <DeleteModal />}
+
       <button className={styles.reverse} onClick={reverseSort}>
         reverse
       </button>
@@ -51,7 +61,7 @@ const SessionContainer = ({ list, handleClick, compare, sessions }) => {
         {list.map((session) => {
           return (
             <div onClick={() => onClick(session)} key={session.start}>
-              <Session session={session} />
+              <Session handleDelete={handleDelete} session={session} />
             </div>
           )
         })}
