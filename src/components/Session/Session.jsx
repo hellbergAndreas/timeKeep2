@@ -75,6 +75,7 @@ const Session = ({ session, handleDelete }) => {
         </p>
       </div>
       <div>
+        <div>{session.id}</div>
         <div className={styles.session__keys}>
           {session.keys &&
             session.keys.map((key, index) => {

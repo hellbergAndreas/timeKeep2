@@ -45,12 +45,12 @@ const Dashboard = () => {
     <div>
       <section className={styles.mainSection}>
         <div className={styles.mainSection__startButton}>
+          <TimeDisplay name={"total"} filter={"total"}></TimeDisplay>
+
           <Timer></Timer>
           <StartButton></StartButton>
         </div>
-        <div className={styles.total}>
-          <TimeDisplay name={"total"} filter={"total"}></TimeDisplay>
-        </div>
+
         {!addCategoryHidden && (
           <FormCard
             setHidden={setAddCategoryHidden}

@@ -44,7 +44,7 @@ const TimeDisplay = ({ filter, name }) => {
     })
   }, [total])
   return (
-    <div>{` ${lessThan10(time.hours)}: ${lessThan10(
+    <div className={styles.display}>{` ${lessThan10(time.hours)}: ${lessThan10(
       time.minutes
     )}: ${lessThan10(time.seconds)}`}</div>
   )

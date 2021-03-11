@@ -127,7 +127,6 @@ const PageWrapper = ({ content }) => {
   }, [currentUser])
 
   useEffect(() => {
-    console.log(userSessions)
     if (
       loaded.activitiesLoaded &&
       loaded.categoriesLoaded &&
@@ -138,19 +137,29 @@ const PageWrapper = ({ content }) => {
   }, [loaded, userSessions])
 
   const sessionsMapToArray = () => {
+    console.log("oh no")
     let array = []
     Object.keys(userSessions).map((session) => {
-      array.push(userSessions[session])
+      let sesh = { id: session, ...userSessions[session] }
+      array.push(sesh)
     })
     let sessions = []
     array.forEach((session) => {
-      let sesh = {
-        ...session,
-        start: new Date(Date.parse(session.start)),
-        activityName: activitiesObject[session.activity].name,
-        categoryName: categoriesObject[session.category].name,
+      let failed = []
+      if (session.start) {
+        let sesh = {
+          ...session,
+          start: new Date(Date.parse(session.start)),
+
+          activityName: activitiesObject[session.activity].name,
+          categoryName: categoriesObject[session.category].name,
+        }
+        sessions.push(sesh)
+      } else {
+        failed.push(session)
+        console.log("failed sessions")
+        console.log(failed)
       }
-      sessions.push(sesh)
     })
     setUserSessionsArray(sessions)
   }
@@ -161,24 +170,23 @@ const PageWrapper = ({ content }) => {
       <div className={styles.background__circle2}></div>
       <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
-        <section className={styles.header}>
+        {/* <section className={styles.header}>
           <h2 onClick={goHome} className={styles.logo}>
             timeKeep
           </h2>
 
           <nav className={styles.nav}>
             <ul>
-              <li>
-                <Link onClick={handleLogOut} to="/">
-                  Logout
-                </Link>
-              </li>
+              <li></li>
             </ul>
           </nav>
 
           <button onClick={moveSessions}>move sessions</button>
-        </section>
+        </section> */}
         <section className={styles.content}>
+          {/* <Link onClick={handleLogOut} to="/">
+            Logout
+          </Link> */}
           <SideMenu></SideMenu>
 
           {content}

@@ -46,7 +46,6 @@ const SessionsPage = () => {
     })
   }, [userSessionsArray])
 
-  useEffect(() => {}, [images])
   // filtering through the list
   // note, make three utils functions
   useEffect(() => {

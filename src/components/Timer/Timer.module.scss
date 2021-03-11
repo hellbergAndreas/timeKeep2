@@ -1,4 +1,9 @@
+@import "../../sharedCSS.scss";
 .timer {
   grid-column: 2;
   place-self: center;
+
+  font-size: 2em;
+  color: $textColorWhite;
+  font-weight: bolder;
 }

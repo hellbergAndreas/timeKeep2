@@ -13,6 +13,7 @@ const SessionContainer = ({
   const [sortedList, setSortedList] = useState([])
   const [reversed, setReversed] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
+  const [numberSessions, setNumberSessions] = useState(0)
   useEffect(() => {
     let sortedSessions = list.sort((a, b) => b.start - a.start)
     setSortedList(sortedSessions)
@@ -31,6 +32,10 @@ const SessionContainer = ({
     }
     setSortedList(reverseSort)
   }
+
+  useEffect(() => {
+    setNumberSessions(sortedList.length)
+  }, [sortedList])
 
   const onClick = (session) => {
     let newState = []
@@ -58,12 +63,18 @@ const SessionContainer = ({
         reverse
       </button>
       <div className={styles.wrapper__container}>
+        <div>{numberSessions} sessions found</div>
         {list.map((session) => {
-          return (
-            <div onClick={() => onClick(session)} key={session.start}>
-              <Session handleDelete={handleDelete} session={session} />
-            </div>
-          )
+          let failed = []
+          if (!session.activity) {
+            failed.push(session)
+          } else {
+            return (
+              <div onClick={() => onClick(session)} key={session.start}>
+                <Session handleDelete={handleDelete} session={session} />
+              </div>
+            )
+          }
         })}
       </div>
     </div>
