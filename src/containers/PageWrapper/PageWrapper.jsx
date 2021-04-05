@@ -137,7 +137,6 @@ const PageWrapper = ({ content }) => {
   }, [loaded, userSessions])
 
   const sessionsMapToArray = () => {
-    console.log("oh no")
     let array = []
     Object.keys(userSessions).map((session) => {
       let sesh = { id: session, ...userSessions[session] }
