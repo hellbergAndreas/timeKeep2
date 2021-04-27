@@ -8,6 +8,7 @@ import UserKit from "../../data/UserKit"
 import { useUser } from "../../context/UserContext"
 import MainSection from "../../pages/MainSection/MainSection"
 import SideMenu from "../../components/SideMenu/SideMenu"
+import HeatMap from "../../components/HeatMap/HeatMap"
 
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
@@ -62,16 +63,16 @@ const PageWrapper = ({ content }) => {
     // fetching categories, activities and sessions from db
     currentUser
       .getIdToken()
-      .then((token) => {
+      .then(token => {
         sessionStorage.setItem("sessionToken", token)
       })
       .then(() => {
         userKit
           .getActivities(currentUser.uid)
-          .then((res) => res.json())
-          .then((data) => {
+          .then(res => res.json())
+          .then(data => {
             let array = []
-            Object.keys(data).forEach((object) => {
+            Object.keys(data).forEach(object => {
               array.push(data[object])
             })
             setActivitiesObject(data)
@@ -79,7 +80,7 @@ const PageWrapper = ({ content }) => {
             setUserActivities(array)
           })
           .then(() => {
-            setLoaded((prevState) => {
+            setLoaded(prevState => {
               return {
                 ...prevState,
                 activitiesLoaded: true,
@@ -90,17 +91,17 @@ const PageWrapper = ({ content }) => {
       .then(() => {
         userKit
           .getCategories(currentUser.uid)
-          .then((res) => res.json())
-          .then((data) => {
+          .then(res => res.json())
+          .then(data => {
             let array = []
-            Object.keys(data).forEach((object) => {
+            Object.keys(data).forEach(object => {
               array.push(data[object])
             })
             setCategoriesObject(data)
             setUserCategories(array)
           })
           .then(() => {
-            setLoaded((prevState) => {
+            setLoaded(prevState => {
               return {
                 ...prevState,
                 categoriesLoaded: true,
@@ -111,12 +112,12 @@ const PageWrapper = ({ content }) => {
       .then(() => {
         userKit
           .getSessions(currentUser.uid)
-          .then((res) => res.json())
-          .then((data) => {
+          .then(res => res.json())
+          .then(data => {
             setUserSessions(data)
           })
           .then(() => {
-            setLoaded((prevState) => {
+            setLoaded(prevState => {
               return {
                 ...prevState,
                 sessionsLoaded: true,
@@ -138,12 +139,12 @@ const PageWrapper = ({ content }) => {
 
   const sessionsMapToArray = () => {
     let array = []
-    Object.keys(userSessions).map((session) => {
+    Object.keys(userSessions).map(session => {
       let sesh = { id: session, ...userSessions[session] }
       array.push(sesh)
     })
     let sessions = []
-    array.forEach((session) => {
+    array.forEach(session => {
       let failed = []
       if (session.start) {
         let sesh = {
@@ -156,8 +157,8 @@ const PageWrapper = ({ content }) => {
         sessions.push(sesh)
       } else {
         failed.push(session)
-        console.log("failed sessions")
-        console.log(failed)
+        // console.log("failed sessions")
+        // console.log(failed)
       }
     })
     setUserSessionsArray(sessions)
@@ -191,6 +192,7 @@ const PageWrapper = ({ content }) => {
           {content}
         </section>
       </div>
+      <HeatMap />
     </section>
   )
 }

@@ -27,16 +27,14 @@ const Dashboard = () => {
   // filtering activities based on category
   useEffect(() => {
     if (userActivities) {
-      let filtered = userActivities.filter((activity) => {
+      let filtered = userActivities.filter(activity => {
         return activity.parent === category.id
       })
       setFilteredActivities(filtered)
     }
   }, [category, userActivities])
 
-  useEffect(() => {
-    console.log(addCategoryHidden)
-  }, [addCategoryHidden])
+  useEffect(() => {}, [addCategoryHidden])
 
   const toggle = () => {
     category.id && setAddActivityHidden(false)
@@ -55,27 +53,23 @@ const Dashboard = () => {
           <FormCard
             setHidden={setAddCategoryHidden}
             hidden={addCategoryHidden}
-            type={"categories"}
-          ></FormCard>
+            type={"categories"}></FormCard>
         )}
         {!addActivityHidden && (
           <FormCard
             setHidden={setAddActivityHidden}
-            hidden={addActivityHidden}
-          ></FormCard>
+            hidden={addActivityHidden}></FormCard>
         )}
 
         {category.id && (
           <DetailedCategoryCard
             category={category}
-            filter="category"
-          ></DetailedCategoryCard>
+            filter="category"></DetailedCategoryCard>
         )}
         {activity.id && (
           <DetailedCategoryCard
             category={activity}
-            filter="activity"
-          ></DetailedCategoryCard>
+            filter="activity"></DetailedCategoryCard>
         )}
         <div className={cx(styles.listSection, styles.categories)}>
           <ListHeaderContainer type="categories"></ListHeaderContainer>
@@ -85,8 +79,7 @@ const Dashboard = () => {
 
           <ListContainer
             type="categories"
-            list={userCategories}
-          ></ListContainer>
+            list={userCategories}></ListContainer>
         </div>
 
         <div className={cx(styles.listSection, styles.activities)}>
@@ -94,8 +87,7 @@ const Dashboard = () => {
           <Button onClick={toggle}>Add activity</Button>
           <ListContainer
             type="activities"
-            list={filteredActivities}
-          ></ListContainer>
+            list={filteredActivities}></ListContainer>
         </div>
       </section>
       <ConfirmSession></ConfirmSession>
