@@ -8,7 +8,6 @@ import UserKit from "../../data/UserKit"
 import { useUser } from "../../context/UserContext"
 import MainSection from "../../pages/MainSection/MainSection"
 import SideMenu from "../../components/SideMenu/SideMenu"
-import HeatMap from "../../components/HeatMap/HeatMap"
 
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
@@ -187,12 +186,11 @@ const PageWrapper = ({ content }) => {
           {/* <Link onClick={handleLogOut} to="/">
             Logout
           </Link> */}
-          <SideMenu></SideMenu>
+          <SideMenu logout={handleLogOut}></SideMenu>
 
           {content}
         </section>
       </div>
-      <HeatMap />
     </section>
   )
 }

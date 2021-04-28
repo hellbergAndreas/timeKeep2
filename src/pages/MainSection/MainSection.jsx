@@ -44,7 +44,6 @@ const Dashboard = () => {
       <section className={styles.mainSection}>
         <div className={styles.mainSection__startButton}>
           <TimeDisplay name={"total"} filter={"total"}></TimeDisplay>
-
           <Timer></Timer>
           <StartButton></StartButton>
         </div>
