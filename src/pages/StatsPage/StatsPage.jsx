@@ -7,6 +7,7 @@ import { useUser } from "../../context/UserContext"
 import styles from "./StatsPage.module.scss"
 const StatsPage = () => {
   const { userSessionsArray } = useUser()
+
   const [sortedSessions, setSortedSessions] = useState(null)
   const [years, setYears] = useState(null)
   const [months, setMonths] = useState(null)
@@ -77,7 +78,7 @@ const StatsPage = () => {
   return (
     <div className={styles.section}>
       <GraphControllPanel />
-      <BarChart timeSpan={years} />
+      <BarChart timeSpan={years} position={1} />
     </div>
   )
 }
