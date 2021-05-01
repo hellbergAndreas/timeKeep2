@@ -8,6 +8,7 @@ import UserKit from "../../data/UserKit"
 import { useUser } from "../../context/UserContext"
 import MainSection from "../../pages/MainSection/MainSection"
 import SideMenu from "../../components/SideMenu/SideMenu"
+import BackgroundAnimation from "../../components/BackgroundAnimation/BackgroundAnimation"
 
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()
@@ -165,8 +166,7 @@ const PageWrapper = ({ content }) => {
 
   return (
     <section className={styles.background}>
-      <div className={styles.background__circle}></div>
-      <div className={styles.background__circle2}></div>
+      <BackgroundAnimation objects={10} />
       <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
         {/* <section className={styles.header}>

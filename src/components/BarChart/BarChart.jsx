@@ -6,7 +6,7 @@ import styles from "./BarChart.module.scss"
 const BarChart = ({ timeSpan, position }) => {
   const { userActivities, userCategories } = useUser()
   const [sorted, setSorted] = useState(null)
-  const [sortedActivities, setSortedActivities] = useState()
+  const [sortedActivities, setSortedActivities] = useState(false)
   const [totals, setTotals] = useState(null)
   const [thing, setThing] = useState(false)
 

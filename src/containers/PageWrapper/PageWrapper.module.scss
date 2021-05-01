@@ -9,33 +9,6 @@
   padding: 20px 60px;
   display: flex;
   justify-content: center;
-  &__blur {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-
-    // backdrop-filter: blur(2px);
-  }
-  &__circle {
-    height: 500px;
-    width: 500px;
-    border-radius: 50%;
-    background: $circleColor;
-    position: absolute;
-    top: 26%;
-    left: 5%;
-    z-index: 0;
-  }
-  &__circle2 {
-    height: 400px;
-    width: 400px;
-    border-radius: 50%;
-    background: $circleColor;
-    position: absolute;
-    top: 20%;
-    right: 5%;
-    z-index: 0;
-  }
 }
 .content {
   display: grid;
@@ -46,6 +19,7 @@
   margin-top: 100px;
   height: $height;
   max-height: 800px;
+  z-index: 2;
 }
 .contentWrapper {
   max-width: 1600px;
