@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useUser } from "../../context/UserContext"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
+import { msConverter } from "../../utils/msConverter"
 import styles from "./BarChart.module.scss"
 
 const BarChart = ({ type, timeSpan, position }) => {
@@ -129,6 +130,10 @@ const BarChart = ({ type, timeSpan, position }) => {
     setBars(months)
     setSorted(sortedMonths)
   }
+  const displayTime = time => {
+    const { hours } = msConverter(time)
+    return hours
+  }
   const renderBars = () => {
     const render = bars.map((bar, i) => {
       return (
@@ -148,7 +153,7 @@ const BarChart = ({ type, timeSpan, position }) => {
               height: `${totals[bar.name] && totals[bar.name].percentage}%`,
             }}
             className={styles.bar}>
-            {/* {totals[bar.name] && totals[bar.name].percentage} */}
+            {totals[bar.name] && displayTime(totals[bar.name].time)}
           </div>
         </div>
       )
@@ -160,12 +165,6 @@ const BarChart = ({ type, timeSpan, position }) => {
     <div className={styles.chart}>
       <div className={styles.y}>y</div>
       {totals && done && renderBars()}
-
-      <div
-        style={{ gridColumn: `2 / span ${userCategories.length}` }}
-        className={styles.x}>
-        x
-      </div>
     </div>
   )
 }

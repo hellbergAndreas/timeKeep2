@@ -80,7 +80,7 @@ const StatsPage = () => {
   return (
     <div className={styles.section}>
       <GraphControllPanel />
-      <BarChart type={"categories"} timeSpan={years} position={1} />
+      <BarChart type={"time"} timeSpan={years} position={0} />
     </div>
   )
 }
