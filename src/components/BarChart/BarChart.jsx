@@ -11,25 +11,43 @@ const BarChart = ({ type, timeSpan, position }) => {
   const [done, setDone] = useState(false)
   const [isCategory, setIsCategory] = useState(true)
   const [isYear, setIsYear] = useState(true)
+  const [isMonth, setIsMonth] = useState(false)
+
+  const months = [
+    { name: 1 },
+    { name: 2 },
+    { name: 3 },
+    { name: 4 },
+    { name: 5 },
+    { name: 6 },
+    { name: 7 },
+    { name: 8 },
+    { name: 9 },
+    { name: 10 },
+    { name: 11 },
+    { name: 12 },
+  ]
 
   useEffect(() => {
     if (type === "categories" && timeSpan) {
-      setCategory()
+      sortCategory()
     } else if (type === "time" && timeSpan) {
-      setYears()
+      sortYears()
     }
   }, [type, timeSpan])
 
-  const setYears = () => {
+  const sortYears = () => {
+    setDone(false)
     let newBars = []
     if (isYear) {
       Object.keys(timeSpan).forEach(key => {
         newBars = [...newBars, { name: timeSpan[key][0].start.getFullYear() }]
       })
-      setBars(newBars)
     }
+
+    setBars(newBars)
   }
-  const setCategory = cat => {
+  const sortCategory = cat => {
     setDone(false)
     let newBars = []
     if (isCategory) {
@@ -42,41 +60,15 @@ const BarChart = ({ type, timeSpan, position }) => {
       })
     }
     setBars(newBars)
-
-    // let bars = [
-    //   "jan",
-    //   "feb",
-    //   "mar",
-    //   "apr",
-    //   "may",
-    //   "jun",
-    //   "jul",
-    //   "aug",
-    //   "sep",
-    //   "oct",
-    //   "nov",
-    //   "dec",
-    // ]
   }
   useEffect(() => {
-    if (position === 0 && bars.length > 0) {
+    if (position === 0 && bars.length > 0 && !isMonth) {
       sorter(timeSpan, bars)
-    } else if (bars.length > 0 && position > 0) {
+    }
+    if (bars.length > 0 && position > 0) {
       sorter(timeSpan[position], bars)
     }
   }, [bars])
-
-  // useEffect(() => {
-  //   if (userCategories.length > 0 && timeSpan && type === "categories") {
-  //     sorter(timeSpan[1], userCategories)
-  //   } else if (timeSpan && type === "time") {
-  //   Object.keys(timeSpan).forEach(year => {
-  //     setBarYears(prevState => {
-  //       return [...prevState, timeSpan[year][0].start.getFullYear()]
-  //     })
-  //   })
-  //   }
-  // }, [timeSpan, position])
 
   const sorter = (list, bars) => {
     let sorted = {}
@@ -88,14 +80,14 @@ const BarChart = ({ type, timeSpan, position }) => {
         })
         sorted[bar.name] = [...filtered]
       })
-      setSorted(sorted)
-    } else if (type === "time") {
+    }
+    if (type === "time") {
       bars.forEach((bar, i) => {
         sorted[bar.name] = list[i + 1]
       })
-
-      setSorted(sorted)
     }
+    console.log(sorted)
+    setSorted(sorted)
   }
 
   useEffect(() => {
@@ -122,21 +114,41 @@ const BarChart = ({ type, timeSpan, position }) => {
     }
   }, [sorted])
 
-  const renderBars = bars => {
+  const sortMonths = year => {
+    setDone(false)
+    let sortedMonths = {}
+
+    year.forEach(session => {
+      sortedMonths[session.start.getMonth() + 1] = []
+    })
+    year.forEach(session => {
+      sortedMonths[session.start.getMonth() + 1].push(session)
+    })
+
+    setIsMonth(!isMonth)
+    setBars(months)
+    setSorted(sortedMonths)
+  }
+  const renderBars = () => {
     const render = bars.map((bar, i) => {
       return (
         <div key={bar.name} className={styles.bar__container}>
           <div>{bar.name}</div>
           <div
             onClick={() => {
-              setIsCategory(!isCategory)
-              setCategory(bar)
+              if (type === "categories") {
+                setIsCategory(!isCategory)
+                sortCategory(bar)
+              }
+              if (type === "time") {
+                sortMonths(sorted[bar.name])
+              }
             }}
             style={{
-              height: `${totals[bar.name].percentage}%`,
+              height: `${totals[bar.name] && totals[bar.name].percentage}%`,
             }}
             className={styles.bar}>
-            {totals[bar.name].percentage}
+            {/* {totals[bar.name] && totals[bar.name].percentage} */}
           </div>
         </div>
       )
@@ -147,7 +159,7 @@ const BarChart = ({ type, timeSpan, position }) => {
   return (
     <div className={styles.chart}>
       <div className={styles.y}>y</div>
-      {totals && done && renderBars(bars)}
+      {totals && done && renderBars()}
 
       <div
         style={{ gridColumn: `2 / span ${userCategories.length}` }}
