@@ -166,7 +166,7 @@ const PageWrapper = ({ content }) => {
 
   return (
     <section className={styles.background}>
-      <BackgroundAnimation objects={10} />
+      {/* <BackgroundAnimation objects={15} /> */}
       <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
         {/* <section className={styles.header}>

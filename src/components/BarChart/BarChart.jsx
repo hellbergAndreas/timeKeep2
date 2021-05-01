@@ -3,39 +3,101 @@ import { useUser } from "../../context/UserContext"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
 import styles from "./BarChart.module.scss"
 
-const BarChart = ({ timeSpan, position }) => {
+const BarChart = ({ type, timeSpan, position }) => {
   const { userActivities, userCategories } = useUser()
+  const [bars, setBars] = useState([])
   const [sorted, setSorted] = useState(null)
-  const [sortedActivities, setSortedActivities] = useState(false)
   const [totals, setTotals] = useState(null)
-  const [thing, setThing] = useState(false)
+  const [done, setDone] = useState(false)
+  const [isCategory, setIsCategory] = useState(true)
+  const [isYear, setIsYear] = useState(true)
 
   useEffect(() => {
-    if (userCategories.length > 0 && timeSpan) {
-      sorter(timeSpan[2], userCategories)
+    if (type === "categories" && timeSpan) {
+      setCategory()
+    } else if (type === "time" && timeSpan) {
+      setYears()
     }
-  }, [timeSpan, position])
+  }, [type, timeSpan])
+
+  const setYears = () => {
+    let newBars = []
+    if (isYear) {
+      Object.keys(timeSpan).forEach(key => {
+        newBars = [...newBars, { name: timeSpan[key][0].start.getFullYear() }]
+      })
+      setBars(newBars)
+    }
+  }
+  const setCategory = cat => {
+    setDone(false)
+    let newBars = []
+    if (isCategory) {
+      userCategories.forEach(cat => {
+        newBars = [...newBars, { name: cat.name, id: cat.id }]
+      })
+    } else {
+      newBars = userActivities.filter(act => {
+        return act.parent === cat.id
+      })
+    }
+    setBars(newBars)
+
+    // let bars = [
+    //   "jan",
+    //   "feb",
+    //   "mar",
+    //   "apr",
+    //   "may",
+    //   "jun",
+    //   "jul",
+    //   "aug",
+    //   "sep",
+    //   "oct",
+    //   "nov",
+    //   "dec",
+    // ]
+  }
+  useEffect(() => {
+    if (position === 0 && bars.length > 0) {
+      sorter(timeSpan, bars)
+    } else if (bars.length > 0 && position > 0) {
+      sorter(timeSpan[position], bars)
+    }
+  }, [bars])
+
+  // useEffect(() => {
+  //   if (userCategories.length > 0 && timeSpan && type === "categories") {
+  //     sorter(timeSpan[1], userCategories)
+  //   } else if (timeSpan && type === "time") {
+  //   Object.keys(timeSpan).forEach(year => {
+  //     setBarYears(prevState => {
+  //       return [...prevState, timeSpan[year][0].start.getFullYear()]
+  //     })
+  //   })
+  //   }
+  // }, [timeSpan, position])
 
   const sorter = (list, bars) => {
     let sorted = {}
-    bars.forEach((category, i) => {
-      const filtered = list.filter(session => {
-        return (
-          session.category === bars[i].id || session.activity === bars[i].id
-        )
-      })
-      sorted[category.name] = [...filtered]
-      setSorted(sorted)
-    })
-  }
-  const setCategory = cat => {
-    let activities = userActivities.filter(act => {
-      return act.parent === cat.id
-    })
 
-    sorter(sorted[cat.name], activities)
-    setSortedActivities(activities)
+    if (type === "categories") {
+      bars.forEach((bar, i) => {
+        const filtered = list.filter(session => {
+          return session.category === bar.id || session.activity === bar.id
+        })
+        sorted[bar.name] = [...filtered]
+      })
+      setSorted(sorted)
+    } else if (type === "time") {
+      bars.forEach((bar, i) => {
+        sorted[bar.name] = list[i + 1]
+      })
+
+      setSorted(sorted)
+    }
   }
+
   useEffect(() => {
     if (sorted) {
       let grandTotal = 0
@@ -56,25 +118,25 @@ const BarChart = ({ timeSpan, position }) => {
       })
 
       setTotals(totals)
-      if (sortedActivities) {
-        setThing(true)
-      }
+      setDone(true)
     }
   }, [sorted])
 
-  const renderBars = categories => {
-    console.log(categories)
-    const render = categories.map((cat, i) => {
+  const renderBars = bars => {
+    const render = bars.map((bar, i) => {
       return (
-        <div key={cat.name} className={styles.bar__container}>
-          <div>{cat.name}</div>
+        <div key={bar.name} className={styles.bar__container}>
+          <div>{bar.name}</div>
           <div
-            onClick={() => setCategory(cat)}
+            onClick={() => {
+              setIsCategory(!isCategory)
+              setCategory(bar)
+            }}
             style={{
-              height: `${totals[cat.name].percentage}%`,
+              height: `${totals[bar.name].percentage}%`,
             }}
             className={styles.bar}>
-            {totals[cat.name].percentage}
+            {totals[bar.name].percentage}
           </div>
         </div>
       )
@@ -85,8 +147,8 @@ const BarChart = ({ timeSpan, position }) => {
   return (
     <div className={styles.chart}>
       <div className={styles.y}>y</div>
-      {totals && !thing ? renderBars(userCategories) : null}
-      {sortedActivities && thing ? renderBars(sortedActivities) : null}
+      {totals && done && renderBars(bars)}
+
       <div
         style={{ gridColumn: `2 / span ${userCategories.length}` }}
         className={styles.x}>

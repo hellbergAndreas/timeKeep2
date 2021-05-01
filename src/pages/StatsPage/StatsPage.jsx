@@ -63,22 +63,24 @@ const StatsPage = () => {
 
     Object.keys(months).forEach(month => {
       months[month].forEach(session => {
-        weekObject[week].push(session.start)
+        weekObject[week].push(session)
         if (dayOne.getDate() === session.start.getDate()) {
         } else if (session.start.getDay() === 1) {
           week++
           weekObject[week] = []
           dayOne = session.start
-          weekObject[week].push(session.start)
+          weekObject[week].push(session)
         }
       })
     })
+
+    setWeeks(weekObject)
   }
 
   return (
     <div className={styles.section}>
       <GraphControllPanel />
-      <BarChart timeSpan={years} position={1} />
+      <BarChart type={"time"} timeSpan={years} position={0} />
     </div>
   )
 }
