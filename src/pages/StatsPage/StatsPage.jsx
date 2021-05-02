@@ -51,10 +51,6 @@ const StatsPage = () => {
     sortedSessions && sortYears()
   }, [sortedSessions])
 
-  useEffect(() => {
-    years && sortMonths()
-  }, [years])
-
   const sortYears = () => {
     let sortedYears = {}
     let year = sortedSessions[0].start.getFullYear()
@@ -67,66 +63,15 @@ const StatsPage = () => {
       }
       sortedYears[year].push(session)
     })
-    Object.keys(sortedYears).forEach(year => {
-      setMonths(prevState => {
-        return {
-          ...prevState,
-          [year]: {},
-        }
-      })
-      setWeeks(prevState => {
-        return {
-          ...prevState,
-          [year]: {},
-        }
-      })
-      setDays(prevState => {
-        return {
-          ...prevState,
-          [year]: {},
-        }
-      })
-    })
-
     setYears(sortedYears)
-  }
-  const sortMonths = () => {
-    let sortedMonths = {}
-    Object.keys(years).forEach(year => {
-      let month = years[year][0].start.getMonth()
-      sortedMonths[month] = []
-
-      years[year].forEach(session => {})
-    })
   }
 
   return (
     <div className={styles.section}>
       <GraphControllPanel />
-      <BarChart type={"time"} timeSpan={years} position={0} />
+      <BarChart type={"time"} data={years} position={0} />
     </div>
   )
 }
 
 export default StatsPage
-
-// const sortWeeks = () => {
-//   let weekObject = { 1: [] }
-//   let week = 1
-//   let dayOne = months[1][0].start
-
-//   Object.keys(months).forEach(month => {
-//     months[month].forEach(session => {
-//       weekObject[week].push(session)
-//       if (dayOne.getDate() === session.start.getDate()) {
-//       } else if (session.start.getDay() === 1) {
-//         week++
-//         weekObject[week] = []
-//         dayOne = session.start
-//         weekObject[week].push(session)
-//       }
-//     })
-//   })
-
-//   setWeeks(weekObject)
-// }
