@@ -10,9 +10,36 @@ const StatsPage = () => {
 
   const [sortedSessions, setSortedSessions] = useState(null)
   const [years, setYears] = useState(null)
-  const [months, setMonths] = useState(null)
-  const [weeks, setWeeks] = useState(null)
-
+  const [months, setMonths] = useState({})
+  const [weeks, setWeeks] = useState({})
+  const [days, setDays] = useState({})
+  const proxySorted = {
+    years: { 2020: { sessions: [] }, 2021: { session: [] } },
+    months: {
+      2020: {
+        jan: { sessions: [] },
+        feb: {},
+      },
+    },
+    weeks: {
+      2020: {
+        jan: {
+          1: { sessions: [] },
+          2: {},
+        },
+      },
+    },
+    days: {
+      2020: {
+        jan: {
+          1: {
+            monday: { sessions: [] },
+            tuesday: {},
+          },
+        },
+      },
+    },
+  }
   useEffect(() => {
     if (userSessionsArray.length !== 0) {
       const sortedList = userSessionsArray.sort((a, b) => a.start - b.start)
@@ -23,58 +50,54 @@ const StatsPage = () => {
   useEffect(() => {
     sortedSessions && sortYears()
   }, [sortedSessions])
+
   useEffect(() => {
-    years && sortYears("months")
+    years && sortMonths()
   }, [years])
-  useEffect(() => {
-    months && sortWeeks()
-  }, [months])
 
-  const sortYears = arg => {
-    let groupedSessions = { 1: [] }
-    let yearOne
-    arg
-      ? (yearOne = sortedSessions[0].start.getMonth())
-      : (yearOne = sortedSessions[0].start.getFullYear())
-    let year = 1
-
+  const sortYears = () => {
+    let sortedYears = {}
+    let year = sortedSessions[0].start.getFullYear()
+    sortedYears[year] = []
     sortedSessions.forEach(session => {
-      if (
-        arg
-          ? session.start.getMonth() === yearOne
-          : session.start.getFullYear() === yearOne
-      ) {
+      if (session.start.getFullYear() === year) {
       } else {
-        year++
-        groupedSessions[year] = []
-        arg
-          ? (yearOne = session.start.getMonth())
-          : (yearOne = session.start.getFullYear())
+        year = session.start.getFullYear()
+        sortedYears[year] = []
       }
-      groupedSessions[year].push(session)
+      sortedYears[year].push(session)
     })
-    arg ? setMonths(groupedSessions) : setYears(groupedSessions)
-  }
-
-  const sortWeeks = () => {
-    let weekObject = { 1: [] }
-    let week = 1
-    let dayOne = months[1][0].start
-
-    Object.keys(months).forEach(month => {
-      months[month].forEach(session => {
-        weekObject[week].push(session)
-        if (dayOne.getDate() === session.start.getDate()) {
-        } else if (session.start.getDay() === 1) {
-          week++
-          weekObject[week] = []
-          dayOne = session.start
-          weekObject[week].push(session)
+    Object.keys(sortedYears).forEach(year => {
+      setMonths(prevState => {
+        return {
+          ...prevState,
+          [year]: {},
+        }
+      })
+      setWeeks(prevState => {
+        return {
+          ...prevState,
+          [year]: {},
+        }
+      })
+      setDays(prevState => {
+        return {
+          ...prevState,
+          [year]: {},
         }
       })
     })
 
-    setWeeks(weekObject)
+    setYears(sortedYears)
+  }
+  const sortMonths = () => {
+    let sortedMonths = {}
+    Object.keys(years).forEach(year => {
+      let month = years[year][0].start.getMonth()
+      sortedMonths[month] = []
+
+      years[year].forEach(session => {})
+    })
   }
 
   return (
@@ -86,3 +109,24 @@ const StatsPage = () => {
 }
 
 export default StatsPage
+
+// const sortWeeks = () => {
+//   let weekObject = { 1: [] }
+//   let week = 1
+//   let dayOne = months[1][0].start
+
+//   Object.keys(months).forEach(month => {
+//     months[month].forEach(session => {
+//       weekObject[week].push(session)
+//       if (dayOne.getDate() === session.start.getDate()) {
+//       } else if (session.start.getDay() === 1) {
+//         week++
+//         weekObject[week] = []
+//         dayOne = session.start
+//         weekObject[week].push(session)
+//       }
+//     })
+//   })
+
+//   setWeeks(weekObject)
+// }
