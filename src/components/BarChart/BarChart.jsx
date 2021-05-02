@@ -1,25 +1,48 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const BarChart = ({ timeSpan }) => {
   const [months, setMonths] = useState(null)
+  const [weeks, setWeeks] = useState(null)
+  const [days, setDays] = useState(null)
   const sortMonths = year => {
+    const names = {
+      0: "jan",
+      1: "feb",
+      2: "mar",
+      3: "apr",
+      4: "may",
+      5: "jun",
+      6: "jul",
+      7: "aug",
+      8: "sep",
+      9: "oct",
+      10: "nov",
+      11: "dec",
+    }
     let sortedMonths = {}
     let month = timeSpan[year][0].start.getMonth()
-    sortedMonths[month] = []
+    sortedMonths[names[month]] = []
     timeSpan[year].forEach(session => {
       if (session.start.getMonth() === month) {
       } else {
         month = session.start.getMonth()
-        sortedMonths[month] = []
+        sortedMonths[names[month]] = []
       }
-      sortedMonths[month].push(session)
+      sortedMonths[names[month]].push(session)
     })
     setMonths(sortedMonths)
   }
 
+  useEffect(() => {
+    console.log(months)
+  }, [months])
   const sortWeeks = month => {
     let sortedWeeks = {
       1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
     }
 
     let week = 1
@@ -32,25 +55,62 @@ const BarChart = ({ timeSpan }) => {
         firstDay = session.start.getDate()
         week++
         sortedWeeks[week] = []
-        sortedWeeks[week].push(session.start)
+        sortedWeeks[week].push(session)
       }
-      sortedWeeks[week].push(session.start)
+      sortedWeeks[week].push(session)
     })
-    console.log(sortedWeeks)
-    // Object.keys(months).forEach(month => {
-    //   months[month].forEach(session => {
-    //     sortedWeeks[week].push(session)
-    //     if (dayOne.getDate() === session.start.getDate()) {
-    //     } else if (session.start.getDay() === 1) {
-    //       week++
-    //       sortedWeeks[week] = []
-    //       dayOne = session.start
-    //       sortedWeeks[week].push(session)
-    //     }
-    //   })
-    // })
+    setWeeks(sortedWeeks)
   }
 
+  const sortDays = week => {
+    const names = {
+      0: "sun",
+      1: "mon",
+      2: "tue",
+      3: "wed",
+      4: "thu",
+      5: "fri",
+      6: "sat",
+    }
+    let sortedDays = {
+      mon: [],
+      tue: [],
+      wed: [],
+      thu: [],
+      fri: [],
+      sat: [],
+      sun: [],
+    }
+
+    weeks[week].forEach(session => {
+      sortedDays[names[session.start.getDay()]].push(session)
+    })
+    setDays(sortedDays)
+  }
+
+  useEffect(() => {
+    console.log(days)
+  }, [days])
+  const sayDay = day => {
+    console.log(days[day])
+  }
+  const renderBars = () => {
+    // const render = bars.map(() => {
+    //   return (
+    //     <div key={} className={styles.bar__container}>
+    //       <div>{}</div>
+    //       <div
+    //         onClick={() => {
+    //         }}
+    //         style={{
+    //         }}
+    //         className={styles.bar}>
+    //       </div>
+    //     </div>
+    //   )
+    // })
+    // return render
+  }
   return (
     <div>
       {timeSpan &&
@@ -60,6 +120,14 @@ const BarChart = ({ timeSpan }) => {
       {months &&
         Object.keys(months).map(month => {
           return <div onClick={() => sortWeeks(month)}>{month}</div>
+        })}
+      {weeks &&
+        Object.keys(weeks).map(week => {
+          return <div onClick={() => sortDays(week)}>{week}</div>
+        })}
+      {days &&
+        Object.keys(days).map(day => {
+          return <div onClick={() => sayDay(day)}>{day}</div>
         })}
     </div>
   )
