@@ -19,23 +19,27 @@ const BarChart = ({ timeSpan }) => {
       10: "nov",
       11: "dec",
     }
-    let sortedMonths = {}
-    let month = timeSpan[year][0].start.getMonth()
-    sortedMonths[names[month]] = []
+    let sortedMonths = {
+      jan: [],
+      feb: [],
+      mar: [],
+      apr: [],
+      may: [],
+      jun: [],
+      jul: [],
+      aug: [],
+      sep: [],
+      oct: [],
+      nov: [],
+      dec: [],
+    }
     timeSpan[year].forEach(session => {
-      if (session.start.getMonth() === month) {
-      } else {
-        month = session.start.getMonth()
-        sortedMonths[names[month]] = []
-      }
-      sortedMonths[names[month]].push(session)
+      sortedMonths[names[session.start.getMonth()]].push(session)
     })
+
     setMonths(sortedMonths)
   }
 
-  useEffect(() => {
-    console.log(months)
-  }, [months])
   const sortWeeks = month => {
     let sortedWeeks = {
       1: [],
@@ -60,6 +64,7 @@ const BarChart = ({ timeSpan }) => {
       sortedWeeks[week].push(session)
     })
     setWeeks(sortedWeeks)
+    console.log(sortedWeeks)
   }
 
   const sortDays = week => {
@@ -119,15 +124,25 @@ const BarChart = ({ timeSpan }) => {
         })}
       {months &&
         Object.keys(months).map(month => {
-          return <div onClick={() => sortWeeks(month)}>{month}</div>
+          return (
+            <div onClick={() => months[month].length > 0 && sortWeeks(month)}>
+              {month}
+            </div>
+          )
         })}
       {weeks &&
         Object.keys(weeks).map(week => {
-          return <div onClick={() => sortDays(week)}>{week}</div>
+          return (
+            <div onClick={() => weeks[week].length > 0 && sortDays(week)}>
+              {week}
+            </div>
+          )
         })}
       {days &&
         Object.keys(days).map(day => {
-          return <div onClick={() => sayDay(day)}>{day}</div>
+          return (
+            <div onClick={() => days[day].length > 0 && sayDay(day)}>{day}</div>
+          )
         })}
     </div>
   )
