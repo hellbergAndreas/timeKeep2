@@ -81,22 +81,40 @@ const StatsPage = () => {
   //   },
   // }
   const sortData = () => {
-    let sorted = {
-      years: [],
-      months: {},
-      weeks: {},
-      days: {},
-    }
-    sorted.years = sortYears()
-    Object.keys(sorted.years).forEach(year => {
-      sorted.months[year] = {}
-      sorted.weeks[year] = {}
-      sorted.days[year] = {}
+    let years = []
+    let months = {}
+    let weeks = {}
+    let days = {}
+
+    years = sortYears()
+    Object.keys(years).forEach(year => {
+      months[year] = {}
+      weeks[year] = {}
+      days[year] = {}
     })
-    Object.keys(sorted.months).forEach(year => {
-      sorted.months[year] = sortMonths(sorted.years[year])
+
+    Object.keys(months).forEach(year => {
+      months[year] = sortMonths(years[year])
     })
-    console.log(sorted.months)
+    Object.keys(months).forEach(year => {
+      Object.keys(months[year]).forEach(month => {
+        weeks[year][month] = sortWeeks(months[year][month])
+      })
+    })
+
+    Object.keys(weeks).forEach(year => {
+      Object.keys(weeks[year]).forEach(month => {
+        days[year][month] = weeks[year][month]
+        Object.keys(weeks[year][month]).forEach(week => {
+          days[year][month][week] = sortDays(weeks[year][month][week])
+        })
+      })
+    })
+    console.log(days)
+    //////
+
+    // sorted.weeks = sorted.months
+    // console.log(sorted.weeks)
   }
 
   const sortYears = () => {
@@ -146,6 +164,63 @@ const StatsPage = () => {
       sortedMonths[monthNames[session.start.getMonth()]].push(session)
     })
     return sortedMonths
+  }
+
+  const sortWeeks = data => {
+    let sortedWeeks = {
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+    }
+    let week = 1
+    let firstDay
+
+    if (data[0] != undefined) {
+      firstDay = data[0].start.getDate()
+      data.forEach(session => {
+        if (session.start.getDate() === firstDay) {
+        }
+        if (
+          session.start.getDate() != firstDay &&
+          session.start.getDay() === 1
+        ) {
+          firstDay = session.start.getDate()
+          week++
+          sortedWeeks[week] = []
+          sortedWeeks[week].push(session)
+        }
+        sortedWeeks[week].push(session)
+      })
+    }
+    return sortedWeeks
+  }
+
+  const sortDays = data => {
+    const names = {
+      0: "sun",
+      1: "mon",
+      2: "tue",
+      3: "wed",
+      4: "thu",
+      5: "fri",
+      6: "sat",
+    }
+    let sortedDays = {
+      mon: [],
+      tue: [],
+      wed: [],
+      thu: [],
+      fri: [],
+      sat: [],
+      sun: [],
+    }
+
+    data.forEach(session => {
+      sortedDays[names[session.start.getDay()]].push(session)
+    })
+    return sortedDays
   }
 
   return (
