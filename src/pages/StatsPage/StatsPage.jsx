@@ -12,9 +12,6 @@ const StatsPage = () => {
   const [sortedData, setSortedData] = useState(null)
 
   useEffect(() => {
-    // console.log(sortedData)
-  }, [sortedData])
-  useEffect(() => {
     if (userSessionsArray.length !== 0) {
       const sortedList = userSessionsArray.sort((a, b) => a.start - b.start)
       setSortedSessions(sortedList)
@@ -25,18 +22,8 @@ const StatsPage = () => {
     sortedSessions && sortData()
   }, [sortedSessions])
 
-  const dummy = {
-    years: {
-      2020: [],
-      2021: [],
-    },
-    months: {
-      2020: { jan: [] },
-    },
-  }
-
   const sortData = () => {
-    let years = []
+    let years
     let months = {}
     let weeks = {}
     let days = {}

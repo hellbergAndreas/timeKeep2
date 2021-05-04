@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
 import styles from "./BarChart.module.scss"
 
-const BarChart = ({ data }) => {
+const BarChart = ({ data, mode }) => {
   const [totals, setTotals] = useState(null)
   const [timeSpan, setTimeSpan] = useState("years")
   const [timeTracker, setTimeTracker] = useState(1)
@@ -31,44 +31,58 @@ const BarChart = ({ data }) => {
     })
     setTotals(totals)
   }
-  const changeTimeSpan = bar => {
+  const changeTimeSpan = (bar, span) => {
     let counter = timeTracker
-    counter === 1 && setYear(bar)
-    counter === 2 && setMonth(bar)
-    counter === 3 && setWeek(bar)
-
     const tracker = {
       1: "years",
       2: "months",
       3: "weeks",
       4: "days",
     }
-    if (counter === 4) {
-      counter = 1
-    } else {
-      counter++
+    if (span) {
+      if (counter === 1) {
+      } else {
+        counter += span
+      }
     }
+    if (!span) {
+      counter === 1 && setYear(bar)
+      counter === 2 && setMonth(bar)
+      counter === 3 && setWeek(bar)
+      if (counter === 4) {
+        counter = 1
+      } else {
+        counter++
+      }
+    }
+
     if (counter === 1) {
       countTotals(data[tracker[counter]])
     }
     if (counter === 2) {
-      countTotals(data[tracker[counter]][bar])
+      if (span) {
+        countTotals(data[tracker[counter]][year])
+      } else {
+        countTotals(data[tracker[counter]][bar])
+      }
     }
     if (counter === 3) {
-      countTotals(data[tracker[counter]][year][bar])
+      if (span) {
+        countTotals(data[tracker[counter]][year][month])
+      } else {
+        countTotals(data[tracker[counter]][year][bar])
+      }
     }
     if (counter === 4) {
       countTotals(data[tracker[counter]][year][month][bar])
     }
-    // counter === 3 && console.log(data[tracker[counter]][year][bar])
+
     setTimeTracker(counter)
   }
-  // useEffect(() => {
-  //   console.log(year, month, week)
-  // }, [year, month, week])
+
   return (
     <div className={styles.container}>
-      <div>Back</div>
+      <div onClick={() => changeTimeSpan(null, -1)}>Back</div>
       <div className={styles.chart}>
         <div className={styles.y}>y</div>
         {totals &&
@@ -86,7 +100,6 @@ const BarChart = ({ data }) => {
             )
           })}
       </div>
-      <div>Next</div>
     </div>
   )
 }
