@@ -10,6 +10,7 @@ const StatsPage = () => {
 
   const [sortedSessions, setSortedSessions] = useState(null)
   const [sortedData, setSortedData] = useState(null)
+  const [mode, setMode] = useState(null)
 
   useEffect(() => {
     if (userSessionsArray.length !== 0) {
@@ -159,10 +160,24 @@ const StatsPage = () => {
     return sortedDays
   }
 
+  const toggleChart = current => {
+    console.log("tooog")
+    if (current === "activities") {
+      setMode(null)
+    }
+    console.log(current)
+    if (current === null) {
+      setMode("activities")
+    }
+  }
   return (
     <div className={styles.section}>
       <GraphControllPanel />
-      <BarChart type={"time"} data={sortedData && sortedData} position={0} />
+      <BarChart
+        data={sortedData && sortedData}
+        mode={mode}
+        toggleChart={toggleChart}
+      />
     </div>
   )
 }
