@@ -9,37 +9,11 @@ const StatsPage = () => {
   const { userSessionsArray } = useUser()
 
   const [sortedSessions, setSortedSessions] = useState(null)
-  const [years, setYears] = useState(null)
-  const [months, setMonths] = useState({})
-  const [weeks, setWeeks] = useState({})
-  const [days, setDays] = useState({})
-  const proxySorted = {
-    years: { 2020: { sessions: [] }, 2021: { session: [] } },
-    months: {
-      2020: {
-        jan: { sessions: [] },
-        feb: {},
-      },
-    },
-    weeks: {
-      2020: {
-        jan: {
-          1: { sessions: [] },
-          2: {},
-        },
-      },
-    },
-    days: {
-      2020: {
-        jan: {
-          1: {
-            monday: { sessions: [] },
-            tuesday: {},
-          },
-        },
-      },
-    },
-  }
+  const [sortedData, setSortedData] = useState(null)
+
+  useEffect(() => {
+    // console.log(sortedData)
+  }, [sortedData])
   useEffect(() => {
     if (userSessionsArray.length !== 0) {
       const sortedList = userSessionsArray.sort((a, b) => a.start - b.start)
@@ -51,35 +25,16 @@ const StatsPage = () => {
     sortedSessions && sortData()
   }, [sortedSessions])
 
-  // const dummy = {
-  //   years: {
-  //     2020: [],
-  //   },
-  //   months: {
-  //     2020: {
-  //       jan: [],
-  //       feb: [],
-  //     },
-  //   },
-  //   weeks: {
-  //     2020: {
-  //       jan: {
-  //         1: [],
-  //         2: [],
-  //       },
-  //     },
-  //   },
-  //   days: {
-  //     2020: {
-  //       jan: {
-  //         1: {
-  //           mon: [],
-  //           tue: [],
-  //         },
-  //       },
-  //     },
-  //   },
-  // }
+  const dummy = {
+    years: {
+      2020: [],
+      2021: [],
+    },
+    months: {
+      2020: { jan: [] },
+    },
+  }
+
   const sortData = () => {
     let years = []
     let months = {}
@@ -87,34 +42,29 @@ const StatsPage = () => {
     let days = {}
 
     years = sortYears()
+
     Object.keys(years).forEach(year => {
       months[year] = {}
       weeks[year] = {}
       days[year] = {}
+      months[year] = sortMonths(years[year])
     })
 
     Object.keys(months).forEach(year => {
-      months[year] = sortMonths(years[year])
-    })
-    Object.keys(months).forEach(year => {
       Object.keys(months[year]).forEach(month => {
+        days[year][month] = {}
         weeks[year][month] = sortWeeks(months[year][month])
       })
     })
 
-    Object.keys(weeks).forEach(year => {
+    Object.keys(years).forEach(year => {
       Object.keys(weeks[year]).forEach(month => {
-        days[year][month] = weeks[year][month]
         Object.keys(weeks[year][month]).forEach(week => {
           days[year][month][week] = sortDays(weeks[year][month][week])
         })
       })
     })
-    console.log(days)
-    //////
-
-    // sorted.weeks = sorted.months
-    // console.log(sorted.weeks)
+    setSortedData({ years, months, weeks, days })
   }
 
   const sortYears = () => {
@@ -216,7 +166,6 @@ const StatsPage = () => {
       sat: [],
       sun: [],
     }
-
     data.forEach(session => {
       sortedDays[names[session.start.getDay()]].push(session)
     })
@@ -226,7 +175,7 @@ const StatsPage = () => {
   return (
     <div className={styles.section}>
       <GraphControllPanel />
-      <BarChart type={"time"} data={years} position={0} />
+      <BarChart type={"time"} data={sortedData && sortedData} position={0} />
     </div>
   )
 }

@@ -3,7 +3,92 @@ import { calculateTotalTime } from "../../utils/calculateTotalTime"
 import styles from "./BarChart.module.scss"
 
 const BarChart = ({ data }) => {
-  return <div>I am the barchart</div>
+  const [totals, setTotals] = useState(null)
+  const [timeSpan, setTimeSpan] = useState("years")
+  const [timeTracker, setTimeTracker] = useState(1)
+  const [year, setYear] = useState()
+  const [month, setMonth] = useState()
+  const [week, setWeek] = useState()
+  useEffect(() => {
+    data && countTotals(data[timeSpan])
+  }, [data])
+
+  const countTotals = sessions => {
+    let grandTotal = 0
+    let totals = {}
+    Object.keys(sessions).forEach(key => {
+      grandTotal += calculateTotalTime(sessions[key])
+
+      totals = {
+        ...totals,
+        [key]: { time: calculateTotalTime(sessions[key]) },
+      }
+    })
+
+    Object.keys(totals).forEach(key => {
+      totals[key].percentage =
+        Math.round((totals[key].time / grandTotal) * 100 * 10) / 10
+    })
+    setTotals(totals)
+  }
+  const changeTimeSpan = bar => {
+    let counter = timeTracker
+    counter === 1 && setYear(bar)
+    counter === 2 && setMonth(bar)
+    counter === 3 && setWeek(bar)
+
+    const tracker = {
+      1: "years",
+      2: "months",
+      3: "weeks",
+      4: "days",
+    }
+    if (counter === 4) {
+      counter = 1
+    } else {
+      counter++
+    }
+    if (counter === 1) {
+      countTotals(data[tracker[counter]])
+    }
+    if (counter === 2) {
+      countTotals(data[tracker[counter]][bar])
+    }
+    if (counter === 3) {
+      countTotals(data[tracker[counter]][year][bar])
+    }
+    if (counter === 4) {
+      countTotals(data[tracker[counter]][year][month][bar])
+    }
+    // counter === 3 && console.log(data[tracker[counter]][year][bar])
+    setTimeTracker(counter)
+  }
+  // useEffect(() => {
+  //   console.log(year, month, week)
+  // }, [year, month, week])
+  return (
+    <div className={styles.container}>
+      <div>Back</div>
+      <div className={styles.chart}>
+        <div className={styles.y}>y</div>
+        {totals &&
+          Object.keys(totals).map(bar => {
+            return (
+              <div key={bar} className={styles.bar__container}>
+                <div>{bar}</div>
+                <div
+                  style={{
+                    height: `${totals[bar] && totals[bar].percentage}%`,
+                  }}
+                  className={styles.bar}
+                  onClick={() => changeTimeSpan(bar)}></div>
+              </div>
+            )
+          })}
+      </div>
+      <div>Next</div>
+    </div>
+  )
 }
 export default BarChart
 // const BarChart = ({ data }) => {
