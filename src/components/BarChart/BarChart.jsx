@@ -8,21 +8,23 @@ const BarChart = ({ data, mode, toggleChart }) => {
   const [timeSpan, setTimeSpan] = useState("years")
   const [timeTracker, setTimeTracker] = useState(1)
   const { userActivities, userCategories } = useUser(null)
-  // const [newBars, setNewBars] = useState(null)
-
-  const [testCount, setTestCount] = useState(1)
+  const [renderData, setRenderData] = useState()
 
   const [year, setYear] = useState()
   const [month, setMonth] = useState()
   const [week, setWeek] = useState()
 
   useEffect(() => {
-    data && !mode && countTotals(data[timeSpan])
+    data && !mode && setRenderData(data[timeSpan])
   }, [data])
 
   useEffect(() => {
-    userCategories && mode && getBars(userCategories)
-  }, [userCategories, mode])
+    renderData && countTotals(renderData)
+  }, [renderData, mode])
+
+  useEffect(() => {
+    userCategories && mode && totals && getBars(userCategories)
+  }, [userCategories, mode, renderData])
 
   const getBars = bars => {
     let tartar = {}
@@ -35,7 +37,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
 
   const sortByCategories = newBars => {
     let sortedByCategories = newBars
-    const spans = data[timeSpan]
+    const spans = renderData
     let name = "categoryName"
     Object.keys(spans).forEach(span => {
       spans[span].forEach(session => {
@@ -46,6 +48,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
   }
 
   const countTotals = sessions => {
+    console.log(sessions)
     let grandTotal = 0
     let totals = {}
     Object.keys(sessions).forEach(key => {
@@ -85,24 +88,24 @@ const BarChart = ({ data, mode, toggleChart }) => {
       }
     }
     if (counter === 1) {
-      countTotals(data[tracker[counter]])
+      setRenderData(data[tracker[counter]])
     }
     if (counter === 2) {
       if (goBack) {
-        countTotals(data[tracker[counter]][year])
+        setRenderData(data[tracker[counter]][year])
       } else {
-        countTotals(data[tracker[counter]][span])
+        setRenderData(data[tracker[counter]][span])
       }
     }
     if (counter === 3) {
       if (goBack) {
-        countTotals(data[tracker[counter]][year][month])
+        setRenderData(data[tracker[counter]][year][month])
       } else {
-        countTotals(data[tracker[counter]][year][span])
+        setRenderData(data[tracker[counter]][year][span])
       }
     }
     if (counter === 4) {
-      countTotals(data[tracker[counter]][year][month][span])
+      setRenderData(data[tracker[counter]][year][month][span])
     }
 
     setTimeTracker(counter)

@@ -161,11 +161,10 @@ const StatsPage = () => {
   }
 
   const toggleChart = current => {
-    console.log("tooog")
     if (current === "activities") {
       setMode(null)
     }
-    console.log(current)
+
     if (current === null) {
       setMode("activities")
     }
