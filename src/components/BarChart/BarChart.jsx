@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useUser } from "../../context/UserContext"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
 import styles from "./BarChart.module.scss"
+import HeatMap from "../HeatMap/HeatMap"
 
 const BarChart = ({ data, mode, toggleChart }) => {
   const [totals, setTotals] = useState(null)
@@ -9,6 +10,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
   const [timeTracker, setTimeTracker] = useState(1)
   const { userActivities, userCategories } = useUser(null)
   const [renderData, setRenderData] = useState()
+  const [heatMap, setHeatMap] = useState(true)
 
   const [year, setYear] = useState()
   const [month, setMonth] = useState()
@@ -23,7 +25,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
   }, [renderData, mode])
 
   useEffect(() => {
-    userCategories && mode && totals && getBars(userCategories)
+    mode && totals && getBars(userCategories)
   }, [userCategories, mode, renderData])
 
   const getBars = bars => {
@@ -48,12 +50,10 @@ const BarChart = ({ data, mode, toggleChart }) => {
   }
 
   const countTotals = sessions => {
-    console.log(sessions)
     let grandTotal = 0
     let totals = {}
     Object.keys(sessions).forEach(key => {
       grandTotal += calculateTotalTime(sessions[key])
-
       totals = {
         ...totals,
         [key]: { time: calculateTotalTime(sessions[key]) },
@@ -114,10 +114,11 @@ const BarChart = ({ data, mode, toggleChart }) => {
   return (
     <div className={styles.container}>
       <div onClick={() => changeTimeSpan(null, -1)}>Back</div>
-      <div className={styles.chart}>
+      <div className={!heatMap && styles.chart}>
         <div className={styles.y}>y</div>
         {totals &&
           !mode &&
+          !heatMap &&
           Object.keys(totals).map(bar => {
             return (
               <div key={bar} className={styles.bar__container}>
@@ -131,8 +132,8 @@ const BarChart = ({ data, mode, toggleChart }) => {
               </div>
             )
           })}
-        {totals &&
-          mode &&
+        {mode &&
+          !heatMap &&
           Object.keys(totals).map(bar => {
             return (
               <div key={bar} className={styles.bar__container}>
@@ -146,8 +147,18 @@ const BarChart = ({ data, mode, toggleChart }) => {
               </div>
             )
           })}
+        {heatMap && <HeatMap data={renderData} />}
       </div>
-      <div onClick={() => toggleChart(mode)}>toggle me</div>
+      <div
+        style={{ cursor: "pointer", height: "50px" }}
+        onClick={() => toggleChart(mode)}>
+        toggle me
+      </div>
+      <div
+        style={{ cursor: "pointer", height: "50px" }}
+        onClick={() => setHeatMap(!heatMap)}>
+        Bring the heat
+      </div>
     </div>
   )
 }
