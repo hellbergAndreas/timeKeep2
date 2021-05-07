@@ -129,7 +129,9 @@ const StatsPage = () => {
           sortedWeeks[week] = []
           sortedWeeks[week].push(session)
         }
-        sortedWeeks[week].push(session)
+        if (!sortedWeeks[week].includes(session)) {
+          sortedWeeks[week].push(session)
+        }
       })
     }
     return sortedWeeks
@@ -169,6 +171,22 @@ const StatsPage = () => {
       setMode("activities")
     }
   }
+  useEffect(() => {
+    if (sortedData) {
+      let theOne = "_fn0xh1rwh_96tb6twjn"
+      let ok = []
+
+      userSessionsArray.forEach(session => {
+        if (session.start.getHours() < 10) {
+          ok.push(session)
+        }
+      })
+
+      // sortedData.months[2021].apr.forEach(session => {
+      //   session.id === theOne && ok.push(session)
+      // })
+    }
+  }, [sortedData])
   return (
     <div className={styles.section}>
       <GraphControllPanel />
