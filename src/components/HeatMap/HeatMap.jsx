@@ -10,8 +10,11 @@ const HeatMap = ({ data }) => {
   useEffect(() => {}, [days])
 
   useEffect(() => {
-    data && minutes && sortDataByDays()
-  }, [data, minutes])
+    setDays({})
+    if (data && minutes) {
+      sortDataByDays()
+    }
+  }, [minutes, data])
 
   const sortDataByDays = () => {
     const names = {
@@ -34,7 +37,23 @@ const HeatMap = ({ data }) => {
     }
     Object.keys(data).forEach(span => {
       data[span].forEach(session => {
-        sortedDays[names[session.start.getDay()]].push(session)
+        session.stop = new Date(session.stop)
+        if (session.start.getDate() != session.stop.getDate()) {
+          let afterMidnight = JSON.parse(JSON.stringify(session))
+          afterMidnight.start = new Date(afterMidnight.stop)
+          afterMidnight.start.setHours(0, 0, 0)
+          afterMidnight.stop = new Date(afterMidnight.stop)
+
+          let beforeMidnight = JSON.parse(JSON.stringify(session))
+          beforeMidnight.stop = new Date(beforeMidnight.start)
+          beforeMidnight.start = new Date(session.start)
+          beforeMidnight.stop.setHours(23, 59, 59)
+
+          sortedDays[names[afterMidnight.start.getDay()]].push(afterMidnight)
+          sortedDays[names[beforeMidnight.start.getDay()]].push(beforeMidnight)
+        } else {
+          sortedDays[names[session.start.getDay()]].push(session)
+        }
       })
     })
     Object.keys(sortedDays).forEach(day => {
@@ -79,9 +98,6 @@ const HeatMap = ({ data }) => {
       }
     })
   }
-  useEffect(() => {
-    console.log(minutes)
-  }, [minutes])
 
   useEffect(() => {
     let minuteMap = []
@@ -94,6 +110,33 @@ const HeatMap = ({ data }) => {
 
   return (
     <div className={styles.heat}>
+      <div className={styles.hours}>
+        <div>00</div>
+        <div>01</div>
+        <div>02</div>
+        <div>03</div>
+        <div>04</div>
+        <div>05</div>
+        <div>06</div>
+        <div>07</div>
+        <div>08</div>
+        <div>09</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+        <div>13</div>
+        <div>14</div>
+        <div>15</div>
+        <div>16</div>
+        <div>17</div>
+        <div>18</div>
+        <div>19</div>
+        <div>20</div>
+        <div>21</div>
+        <div>22</div>
+        <div>23</div>
+        <div>00</div>
+      </div>
       {days &&
         Object.keys(days).map(day => {
           return (

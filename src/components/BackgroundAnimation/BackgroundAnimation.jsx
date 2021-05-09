@@ -8,7 +8,7 @@ const BackgroundAnimation = ({ objects }) => {
   }, [objects])
   const renderObjects = () => {
     let rows = []
-    console.log(objects)
+
     for (let i = 0; i < objects; i++) {
       rows.push(i)
     }

@@ -9,9 +9,11 @@ import PageWrapper from "./containers/PageWrapper/PageWrapper"
 
 import MainSection from "./pages/MainSection/MainSection"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
+import BackgroundAnimation from "./components/BackgroundAnimation/BackgroundAnimation"
 function App() {
   return (
     <div className="App">
+      <BackgroundAnimation objects={15} />
       <BrowserRouter>
         <AuthProvider>
           <Switch>

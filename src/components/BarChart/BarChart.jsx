@@ -10,7 +10,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
   const [timeTracker, setTimeTracker] = useState(1)
   const { userActivities, userCategories } = useUser(null)
   const [renderData, setRenderData] = useState()
-  const [heatMap, setHeatMap] = useState(true)
+  const [heatMap, setHeatMap] = useState(false)
 
   const [year, setYear] = useState()
   const [month, setMonth] = useState()
@@ -113,51 +113,54 @@ const BarChart = ({ data, mode, toggleChart }) => {
 
   return (
     <div className={styles.container}>
-      <div onClick={() => changeTimeSpan(null, -1)}>Back</div>
-      <div className={!heatMap && styles.chart}>
-        <div className={styles.y}>y</div>
-        {totals &&
-          !mode &&
-          !heatMap &&
-          Object.keys(totals).map(bar => {
-            return (
-              <div key={bar} className={styles.bar__container}>
-                <div>{bar}</div>
-                <div
-                  style={{
-                    height: `${totals[bar] && totals[bar].percentage}%`,
-                  }}
-                  className={styles.bar}
-                  onClick={() => changeTimeSpan(bar)}></div>
-              </div>
-            )
-          })}
-        {mode &&
-          !heatMap &&
-          Object.keys(totals).map(bar => {
-            return (
-              <div key={bar} className={styles.bar__container}>
-                <div>{bar}</div>
-                <div
-                  style={{
-                    height: `${totals[bar] && totals[bar].percentage}%`,
-                  }}
-                  className={styles.bar}
-                  onClick={() => changeTimeSpan(bar)}></div>
-              </div>
-            )
-          })}
-        {heatMap && <HeatMap data={renderData} />}
+      <div className={styles.panel}>
+        <div onClick={() => changeTimeSpan(null, -1)}>Back</div>
+        <div
+          style={{ cursor: "pointer", height: "50px" }}
+          onClick={() => toggleChart(mode)}>
+          toggle me
+        </div>
+        <div
+          style={{ cursor: "pointer", height: "50px" }}
+          onClick={() => setHeatMap(!heatMap)}>
+          Bring the heat
+        </div>
       </div>
-      <div
-        style={{ cursor: "pointer", height: "50px" }}
-        onClick={() => toggleChart(mode)}>
-        toggle me
-      </div>
-      <div
-        style={{ cursor: "pointer", height: "50px" }}
-        onClick={() => setHeatMap(!heatMap)}>
-        Bring the heat
+      <div className={styles.chart__container}>
+        <div className={!heatMap && styles.chart}>
+          {totals &&
+            !mode &&
+            !heatMap &&
+            Object.keys(totals).map(bar => {
+              return (
+                <div key={bar} className={styles.bar__container}>
+                  <div>{bar}</div>
+                  <div
+                    style={{
+                      height: `${totals[bar] && totals[bar].percentage}%`,
+                    }}
+                    className={styles.bar}
+                    onClick={() => changeTimeSpan(bar)}></div>
+                </div>
+              )
+            })}
+          {mode &&
+            !heatMap &&
+            Object.keys(totals).map(bar => {
+              return (
+                <div key={bar} className={styles.bar__container}>
+                  <div>{bar}</div>
+                  <div
+                    style={{
+                      height: `${totals[bar] && totals[bar].percentage}%`,
+                    }}
+                    className={styles.bar}
+                    onClick={() => changeTimeSpan(bar)}></div>
+                </div>
+              )
+            })}
+          {heatMap && <HeatMap data={renderData} />}
+        </div>
       </div>
     </div>
   )

@@ -189,7 +189,6 @@ const StatsPage = () => {
   }, [sortedData])
   return (
     <div className={styles.section}>
-      <GraphControllPanel />
       <BarChart
         data={sortedData && sortedData}
         mode={mode}

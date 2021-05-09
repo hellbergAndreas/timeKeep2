@@ -3,9 +3,7 @@
   font-size: 1.2em;
   color: $textColorDarker;
   font-weight: bolder;
-
   border: 1px solid black;
-
-  display: grid;
-  grid-template-rows: 1fr 5fr;
+  background: $cardColor;
+  backdrop-filter: $modalBlur;
 }
