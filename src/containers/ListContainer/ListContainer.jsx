@@ -69,9 +69,10 @@ const CategoryContainer = ({ type, list }) => {
 
   const renderCategories = () => {
     if (list.length > 0) {
-      return list.map((item) => {
+      return list.map((item, i) => {
         return (
           <ListObject
+            delay={i}
             key={item.id}
             id={item.id}
             category={category}
@@ -79,8 +80,7 @@ const CategoryContainer = ({ type, list }) => {
             timeGoes={timeGoes}
             canBeDeactivated={true}
             name={item.name}
-            onClick={handleClick}
-          >
+            onClick={handleClick}>
             {item.name}
           </ListObject>
         )
@@ -93,14 +93,12 @@ const CategoryContainer = ({ type, list }) => {
         {list && renderCategories()}
         <div
           onClick={slideLeft}
-          className={cx(styles.switchLeft, styles.sliderButton)}
-        >
+          className={cx(styles.switchLeft, styles.sliderButton)}>
           {"<"}
         </div>
         <div
           onClick={slideRight}
-          className={cx(styles.switchRight, styles.sliderButton)}
-        >
+          className={cx(styles.switchRight, styles.sliderButton)}>
           {">"}
         </div>
       </div>

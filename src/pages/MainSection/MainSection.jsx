@@ -72,9 +72,11 @@ const Dashboard = () => {
         )}
         <div className={cx(styles.listSection, styles.categories)}>
           <ListHeaderContainer type="categories"></ListHeaderContainer>
-          <Button onClick={() => setAddCategoryHidden(false)}>
+          <div
+            className={styles.addBtn}
+            onClick={() => setAddCategoryHidden(false)}>
             Add category
-          </Button>
+          </div>
 
           <ListContainer
             type="categories"
@@ -83,7 +85,9 @@ const Dashboard = () => {
 
         <div className={cx(styles.listSection, styles.activities)}>
           <ListHeaderContainer type="activities"></ListHeaderContainer>
-          <Button onClick={toggle}>Add activity</Button>
+          <div className={styles.addBtn} onClick={toggle}>
+            Add activity
+          </div>
           <ListContainer
             type="activities"
             list={filteredActivities}></ListContainer>

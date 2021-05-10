@@ -16,10 +16,18 @@
   top: 0;
   left: 0;
   z-index: 6;
-  background-color: rgba(42, 60, 62, 0.772);
+  background-color: rgba(42, 60, 62, 0);
   display: flex;
   justify-content: center;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(30px);
+}
+
+.shape {
+  // position: absolute;
+  // width: 200px;
+  // height: 900px;
+  // background-color: rgba(78, 13, 109, 0.289);
+  // z-index: -1;
 }
 
 .formWrapper {
@@ -28,17 +36,37 @@
   border-radius: 8px;
   box-shadow: 10px 10px 26px -5px rgba(0, 0, 0, 0.21);
   max-height: auto;
-  margin-top: 5%;
-  background: $cardColor2;
-  backdrop-filter: blur(420px);
+  margin-top: 10%;
+  background: $cardColor;
+  color: $textColorDark;
+  font-weight: bolder;
+  border-radius: 4px;
   height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  z-index: 10;
+  input {
+    label {
+      font-weight: bolder;
+      color: red;
+    }
+  }
 }
 .button {
   margin-bottom: 20px;
   width: 40px;
   height: 40px;
   place-self: center;
+}
+
+.submit {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  button {
+    font-size: 15px;
+    height: 40px;
+    width: 60px;
+  }
 }

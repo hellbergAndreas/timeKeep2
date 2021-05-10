@@ -16,7 +16,7 @@ button:focus {
 .btn {
   border-radius: 8px;
   position: relative;
-  background: $cardColor;
+  background: $buttonColor;
 
   cursor: pointer;
   color: $textColorDark;
@@ -26,6 +26,7 @@ button:focus {
     color: $textColorWhite;
     transform: scale(1.2);
   }
+  transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn:after {
@@ -90,7 +91,6 @@ button:focus {
   box-shadow: inset 0px -2px 5px rgb(255, 255, 255),
     inset 0px 2px 5px rgba(0, 0, 0, 0.15);
   background-color: #d8dfe7;
-  transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .disabled {
@@ -101,6 +101,9 @@ button:focus {
 }
 .purple {
   color: $purple;
+}
+.white {
+  color: $textColorWhite;
 }
 .orange {
   color: $orange;

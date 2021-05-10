@@ -5,12 +5,13 @@
 }
 
 .btn {
+  opacity: 0;
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0px;
   margin-right: 20px;
   color: $textColorDarker;
-
+  // color: $textColorWhite;
   height: 90px;
 
   min-width: 145px;
@@ -22,12 +23,16 @@
   background: rgba(255, 255, 255, 0.19);
   border: 1px solid rgba(5, 18, 49, 0.108);
   box-shadow: inset 0px 0px 3px 1px rgba(255, 255, 255, 0.258);
-
   cursor: pointer;
   &:hover {
     color: $textColorWhite;
     transform: scale(1.135);
   }
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-name: listIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active {
@@ -41,4 +46,15 @@
 
 .text {
   font-size: medium;
+}
+
+@keyframes listIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -29,25 +29,25 @@ export default ({ hidden, setHidden, type }) => {
     if (type === "categories") {
       userKit
         .addCategory(inputs)
-        .then((res) => {
+        .then(res => {
           if (res.status <= 200) {
             return res.json()
           }
         })
-        .then((res) => {
+        .then(res => {
           let category = {
             description: inputs.description,
             name: inputs.category,
             userId: currentUser.uid,
             id: res.id,
           }
-          setCategoriesObject((prevState) => {
+          setCategoriesObject(prevState => {
             return {
               ...prevState,
               [res.id]: category,
             }
           })
-          setUserCategories((prevState) => {
+          setUserCategories(prevState => {
             return [...prevState, category]
           })
         })
@@ -59,13 +59,13 @@ export default ({ hidden, setHidden, type }) => {
       // first send to db
       userKit
         .addActivity(inputs)
-        .then((res) => {
+        .then(res => {
           if (res.status <= 200) {
             return res.json()
           }
         })
         //then update local state to match db
-        .then((res) => {
+        .then(res => {
           let activity = {
             description: inputs.description,
             name: inputs.activity,
@@ -73,13 +73,13 @@ export default ({ hidden, setHidden, type }) => {
             userId: currentUser.uid,
             id: res.id,
           }
-          setActivitiesObject((prevState) => {
+          setActivitiesObject(prevState => {
             return {
               ...prevState,
               [res.id]: activity,
             }
           })
-          setUserActivities((prevState) => {
+          setUserActivities(prevState => {
             return [...prevState, activity]
           })
         })
@@ -87,7 +87,7 @@ export default ({ hidden, setHidden, type }) => {
     setHidden(!hidden)
   }
   const handleChange = (name, value) => {
-    setInputValues((prevState) => {
+    setInputValues(prevState => {
       return {
         ...prevState,
         [name]: value,
@@ -96,6 +96,7 @@ export default ({ hidden, setHidden, type }) => {
   }
   return (
     <div className={styles.background}>
+      <div className={styles.shape}></div>
       <div className={styles.formWrapper}>
         <button className={styles.button} onClick={() => setHidden(!hidden)}>
           X
@@ -103,14 +104,14 @@ export default ({ hidden, setHidden, type }) => {
         <FormInput
           required
           label={type === "categories" ? "Category name" : "Activity name"}
-          handleChange={handleChange}
-        ></FormInput>
+          handleChange={handleChange}></FormInput>
         <FormInput
           required
           handleChange={handleChange}
-          label="Description"
-        ></FormInput>
-        <Button onClick={handleClick}>Add</Button>
+          label="Description"></FormInput>
+        <div className={styles.submit}>
+          <Button onClick={handleClick}>Add</Button>
+        </div>
       </div>
     </div>
   )

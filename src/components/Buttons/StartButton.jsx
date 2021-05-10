@@ -44,7 +44,7 @@ const StartButton = () => {
     if (timeGoes) {
       let sessionDetail = checkIfCategoryAndActivityIsSet()
       setConfirmSessionHidden(!confirmSessionHidden)
-      setSession((prevState) => {
+      setSession(prevState => {
         return {
           ...prevState,
           stop: date,
@@ -59,7 +59,10 @@ const StartButton = () => {
 
   return (
     <div className={styles.startButton}>
-      <Button shape={ButtonShape.RECT_LARGE} onClick={startAndStopTime}>
+      <Button
+        color={"white"}
+        shape={ButtonShape.RECT_LARGE}
+        onClick={startAndStopTime}>
         Go
       </Button>
       {/* <button onClick={startAndStopTime}>Go</button> */}

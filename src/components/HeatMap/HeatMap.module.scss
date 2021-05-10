@@ -10,10 +10,10 @@
   grid-auto-flow: column;
   grid-template-columns: 80px;
   grid-template-rows: 1fr;
-  grid-auto-columns: minmax(0.1px, 1fr);
+  grid-auto-columns: 1fr;
   // transform: scaleX(0.2);
   // transform: translateX(-1px);
-  border-bottom: 1px solid blue;
+  width: 1200px;
   justify-self: start;
   height: 80px;
   width: 100%;

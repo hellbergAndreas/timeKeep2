@@ -10,7 +10,7 @@ export default ({ type }) => {
   const [hidden, setHidden] = useState(true)
   const { category } = useSession()
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     if (type === "categories") {
       setHidden(!hidden)
     }
@@ -21,10 +21,6 @@ export default ({ type }) => {
   return (
     <div className={styles.header}>
       <Header>{type}</Header>
-
-      {/* {!hidden && (
-        <FormCard type={type} setHidden={setHidden} hidden={hidden}></FormCard>
-      )} */}
     </div>
   )
 }

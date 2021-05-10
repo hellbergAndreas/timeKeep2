@@ -18,15 +18,6 @@ const PageWrapper = ({ content }) => {
     sessionsLoaded: false,
   })
 
-  const moveSessions = () => {
-    let payload = {
-      userId: currentUser.uid,
-      sessionsMap: userSessions,
-    }
-
-    userKit.moveSessions(payload)
-  }
-
   const {
     setUserSessions,
     userSessions,
@@ -166,28 +157,10 @@ const PageWrapper = ({ content }) => {
 
   return (
     <section className={styles.background}>
-      {/* <BackgroundAnimation objects={15} /> */}
       <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
-        {/* <section className={styles.header}>
-          <h2 onClick={goHome} className={styles.logo}>
-            timeKeep
-          </h2>
-
-          <nav className={styles.nav}>
-            <ul>
-              <li></li>
-            </ul>
-          </nav>
-
-          <button onClick={moveSessions}>move sessions</button>
-        </section> */}
         <section className={styles.content}>
-          {/* <Link onClick={handleLogOut} to="/">
-            Logout
-          </Link> */}
           <SideMenu logout={handleLogOut}></SideMenu>
-
           {content}
         </section>
       </div>

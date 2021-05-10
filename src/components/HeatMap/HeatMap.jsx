@@ -43,12 +43,10 @@ const HeatMap = ({ data }) => {
           afterMidnight.start = new Date(afterMidnight.stop)
           afterMidnight.start.setHours(0, 0, 0)
           afterMidnight.stop = new Date(afterMidnight.stop)
-
           let beforeMidnight = JSON.parse(JSON.stringify(session))
           beforeMidnight.stop = new Date(beforeMidnight.start)
           beforeMidnight.start = new Date(session.start)
           beforeMidnight.stop.setHours(23, 59, 59)
-
           sortedDays[names[afterMidnight.start.getDay()]].push(afterMidnight)
           sortedDays[names[beforeMidnight.start.getDay()]].push(beforeMidnight)
         } else {
@@ -56,6 +54,7 @@ const HeatMap = ({ data }) => {
         }
       })
     })
+    console.log(sortedDays.tue)
     Object.keys(sortedDays).forEach(day => {
       calculateSpan(day, sortedDays[day])
     })
