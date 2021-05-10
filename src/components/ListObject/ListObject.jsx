@@ -14,19 +14,21 @@ const CategoryObject = ({
   delay,
 }) => {
   return (
-    <button
-      onClick={() => onClick(id, name)}
-      disabled={timeGoes && canBeDeactivated}
-      style={{
-        animationDelay: `0.${delay}s`,
-      }}
-      className={cx(
-        styles.btn,
-        category.id === id && styles.active,
-        activity.id === id && styles.active
-      )}>
-      <div className={styles.text}>{children}</div>
-    </button>
+    <div class={styles.wrapper}>
+      <button
+        onClick={() => onClick(id, name)}
+        disabled={timeGoes && canBeDeactivated}
+        style={{
+          animationDelay: `0.${delay}s`,
+        }}
+        className={cx(
+          styles.btn,
+          category.id === id && styles.active,
+          activity.id === id && styles.active
+        )}>
+        <div className={styles.text}>{children}</div>
+      </button>
+    </div>
   )
 }
 

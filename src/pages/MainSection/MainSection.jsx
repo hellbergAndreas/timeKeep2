@@ -71,11 +71,14 @@ const Dashboard = () => {
             filter="activity"></DetailedCategoryCard>
         )}
         <div className={cx(styles.listSection, styles.categories)}>
-          <ListHeaderContainer type="categories"></ListHeaderContainer>
-          <div
-            className={styles.addBtn}
-            onClick={() => setAddCategoryHidden(false)}>
-            Add category
+          {/* <ListHeaderContainer type="categories"></ListHeaderContainer> */}
+          <div className={styles.headerj}>
+            <p className={styles.header}>Your Categories</p>
+            <p
+              className={styles.addBtn}
+              onClick={() => setAddCategoryHidden(false)}>
+              Add category
+            </p>
           </div>
 
           <ListContainer
@@ -84,9 +87,12 @@ const Dashboard = () => {
         </div>
 
         <div className={cx(styles.listSection, styles.activities)}>
-          <ListHeaderContainer type="activities"></ListHeaderContainer>
-          <div className={styles.addBtn} onClick={toggle}>
-            Add activity
+          {/* <ListHeaderContainer type="activities"></ListHeaderContainer> */}
+          <div className={styles.headerj}>
+            <p className={styles.header}>Your Activities</p>
+            <div className={styles.addBtn} onClick={toggle}>
+              Add activity
+            </div>
           </div>
           <ListContainer
             type="activities"
