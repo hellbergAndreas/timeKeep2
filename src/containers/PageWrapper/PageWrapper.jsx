@@ -8,7 +8,6 @@ import UserKit from "../../data/UserKit"
 import { useUser } from "../../context/UserContext"
 import MainSection from "../../pages/MainSection/MainSection"
 import SideMenu from "../../components/SideMenu/SideMenu"
-import BackgroundAnimation from "../../components/BackgroundAnimation/BackgroundAnimation"
 
 const PageWrapper = ({ content }) => {
   const { logout, currentUser } = useAuth()

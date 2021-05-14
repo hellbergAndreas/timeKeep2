@@ -11,12 +11,8 @@ import UserKit from "../../data/UserKit"
 import styles from "./SessionsPage.module.scss"
 
 const SessionsPage = () => {
-  const {
-    userSessionsArray,
-    userActivities,
-    userCategories,
-    setUserSessions,
-  } = useUser()
+  const { userSessionsArray, userActivities, userCategories, setUserSessions } =
+    useUser()
   const { currentUser } = useAuth()
 
   const [filteredList, setFilteredList] = useState([])
@@ -36,9 +32,9 @@ const SessionsPage = () => {
   // looping through all sessions and collecting all key values for the key filter.
   useEffect(() => {
     let array = []
-    userSessionsArray.forEach((session) => {
+    userSessionsArray.forEach(session => {
       if (session.keys && session.keys.length > 0) {
-        session.keys.forEach((key) => {
+        session.keys.forEach(key => {
           !array.includes(key) && array.push({ name: key }) && array.push(key)
         })
       }
@@ -49,21 +45,19 @@ const SessionsPage = () => {
   // filtering through the list
   // note, make three utils functions
   useEffect(() => {
-    console.log("filter activated")
-    console.log(userSessionsArray)
     let filtered = userSessionsArray
     // filter by category
     if (categoryFilter.length > 0) {
-      categoryFilter.forEach((filter) => {
-        filtered = filtered.filter((session) => {
+      categoryFilter.forEach(filter => {
+        filtered = filtered.filter(session => {
           return session.categoryName === filter
         })
       })
     }
     // by activity
     if (activityFilter.length > 0) {
-      activityFilter.forEach((filter) => {
-        filtered = filtered.filter((session) => {
+      activityFilter.forEach(filter => {
+        filtered = filtered.filter(session => {
           return session.activityName === filter
         })
       })
@@ -71,8 +65,8 @@ const SessionsPage = () => {
 
     // by keys
     if (keyFilter.length > 0) {
-      keyFilter.forEach((filter) => {
-        filtered = filtered.filter((session) => {
+      keyFilter.forEach(filter => {
+        filtered = filtered.filter(session => {
           return session.keys.includes(filter)
         })
       })
@@ -80,7 +74,7 @@ const SessionsPage = () => {
 
     // by images
     if (filterByImages === true) {
-      filtered = filtered.filter((session) => {
+      filtered = filtered.filter(session => {
         return session.imageUrl
       })
     }
@@ -93,7 +87,7 @@ const SessionsPage = () => {
     userSessionsArray,
     filterByImages,
   ])
-  const handleDelete = (id) => {
+  const handleDelete = id => {
     setDeleteModal(true)
     setDeleteId(id)
   }
@@ -102,7 +96,7 @@ const SessionsPage = () => {
       .deleteSession(currentUser.uid, deleteId)
 
       .then(() => {
-        setUserSessions((prevState) => {
+        setUserSessions(prevState => {
           const newState = prevState
           delete newState[deleteId]
 
@@ -123,8 +117,7 @@ const SessionsPage = () => {
       {deleteModal && (
         <DeleteModal
           cancelDelete={cancelDelete}
-          confirmDelete={confirmDelete}
-        ></DeleteModal>
+          confirmDelete={confirmDelete}></DeleteModal>
       )}
 
       <div className={styles.section__left}>
@@ -133,22 +126,19 @@ const SessionsPage = () => {
             name={"categories"}
             setFilter={setCategoryFilter}
             filter={categoryFilter}
-            display={userCategories}
-          ></CategoryFilter>
+            display={userCategories}></CategoryFilter>
           <CategoryFilter
             name={"activities"}
             filter={activityFilter}
             remove={categoryFilter}
             setFilter={setActivityFilter}
-            display={userActivities}
-          ></CategoryFilter>
+            display={userActivities}></CategoryFilter>
           <CategoryFilter
             name={"keys"}
             filter={keyFilter}
             remove={categoryFilter}
             setFilter={setKeyFilter}
-            display={keys}
-          ></CategoryFilter>
+            display={keys}></CategoryFilter>
         </div>
         <button onClick={() => setFilterByImages(!filterByImages)}>
           filter by images
@@ -159,8 +149,7 @@ const SessionsPage = () => {
             sessions={session}
             handleClick={setSession}
             list={filteredList}
-            handleDelete={handleDelete}
-          ></SessionContainer>
+            handleDelete={handleDelete}></SessionContainer>
         </div>
       </div>
       <div className={styles.right}>
@@ -170,16 +159,14 @@ const SessionsPage = () => {
           setImages={setImages}
           setCompare={setCompare}
           session={session[0] && session[0]}
-          setImageFullScreen={setImageFullScreen}
-        ></DetailedSession>
+          setImageFullScreen={setImageFullScreen}></DetailedSession>
         <DetailedSession
           slot={1}
           compare={compare}
           setCompare={setCompare}
           setImages={setImages}
           setImageFullScreen={setImageFullScreen}
-          session={session[1] && session[1]}
-        ></DetailedSession>
+          session={session[1] && session[1]}></DetailedSession>
       </div>
       {imageFullScreen && (
         <FullScreenImage

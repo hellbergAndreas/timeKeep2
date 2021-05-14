@@ -22,13 +22,20 @@
 
   min-width: 145px;
   max-width: 145px;
-
+  border: 1px solid rgba(5, 18, 49, 0.108);
   border-radius: 8px;
-
+  border: 1px solid rgba(50, 72, 68, 0.077);
   position: relative;
   background: rgba(255, 255, 255, 0.19);
-  border: 1px solid rgba(5, 18, 49, 0.108);
-  box-shadow: inset 0px 0px 3px 1px rgba(255, 255, 255, 0.258);
+  &:after {
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: $boxShadow;
+  }
   cursor: pointer;
   animation-name: listIn;
   animation-duration: 0.5s;
@@ -37,6 +44,7 @@
   animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   &:hover {
     color: $textColorWhite;
+    text-shadow: 1px 1px 7px rgba(31, 36, 36, 0.344);
   }
 }
 

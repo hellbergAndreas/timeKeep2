@@ -3,6 +3,9 @@ import { useUser } from "../../context/UserContext"
 import { calculateTotalTime } from "../../utils/calculateTotalTime"
 import styles from "./BarChart.module.scss"
 import HeatMap from "../HeatMap/HeatMap"
+import Yaxis from "../Yaxis/Yaxis"
+import ChartTotalPopup from "../ChartTotalPopup/ChartTotalPopup"
+import { msConverter } from "../../utils/msConverter"
 
 const BarChart = ({ data, mode, toggleChart }) => {
   const [totals, setTotals] = useState(null)
@@ -11,6 +14,8 @@ const BarChart = ({ data, mode, toggleChart }) => {
   const { userActivities, userCategories } = useUser(null)
   const [renderData, setRenderData] = useState()
   const [heatMap, setHeatMap] = useState(false)
+  const [grandTotal, setGrandTotal] = useState()
+  const [popup, setPopup] = useState()
 
   const [year, setYear] = useState()
   const [month, setMonth] = useState()
@@ -65,6 +70,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
         Math.round((totals[key].time / grandTotal) * 100 * 10) / 10
     })
     setTotals(totals)
+    setGrandTotal(grandTotal)
   }
   const changeTimeSpan = (span, goBack) => {
     let counter = timeTracker
@@ -111,9 +117,16 @@ const BarChart = ({ data, mode, toggleChart }) => {
     setTimeTracker(counter)
   }
 
+  useEffect(() => {
+    console.log(popup)
+  }, [popup])
   return (
     <div className={styles.container}>
       <div className={styles.panel}>
+        <div className={styles.popup}>
+          {popup && <ChartTotalPopup data={popup} />}
+        </div>
+
         <div onClick={() => changeTimeSpan(null, -1)}>Back</div>
         <div
           style={{ cursor: "pointer", height: "50px" }}
@@ -128,6 +141,8 @@ const BarChart = ({ data, mode, toggleChart }) => {
       </div>
       <div className={styles.chart__container}>
         <div className={!heatMap && styles.chart}>
+          <Yaxis value={grandTotal} />
+
           {totals &&
             !mode &&
             !heatMap &&
@@ -140,7 +155,14 @@ const BarChart = ({ data, mode, toggleChart }) => {
                       height: `${totals[bar] && totals[bar].percentage}%`,
                     }}
                     className={styles.bar}
-                    onClick={() => changeTimeSpan(bar)}></div>
+                    onClick={() => changeTimeSpan(bar)}
+                    onMouseEnter={() => {
+                      const { hours } = msConverter(totals[bar].time)
+                      setPopup(hours)
+                    }}
+                    onMouseLeave={() => {
+                      setPopup(null)
+                    }}></div>
                 </div>
               )
             })}
@@ -155,7 +177,14 @@ const BarChart = ({ data, mode, toggleChart }) => {
                       height: `${totals[bar] && totals[bar].percentage}%`,
                     }}
                     className={styles.bar}
-                    onClick={() => changeTimeSpan(bar)}></div>
+                    onClick={() => changeTimeSpan(bar)}
+                    onMouseEnter={() => {
+                      const { hours } = msConverter(totals[bar].time)
+                      setPopup(hours)
+                    }}
+                    onMouseLeave={() => {
+                      setPopup(null)
+                    }}></div>
                 </div>
               )
             })}

@@ -23,13 +23,15 @@ const BackgroundAnimation = ({ objects }) => {
   }
   const handleClick = e => {
     const colors = [
+      "rgba(228, 130, 255, 0.221)",
+      "rgba(210, 7, 7, 0.132)",
       "rgba(244, 94, 252, 0.228)",
       "rgba(150, 115, 198, 0.111)",
+      "rgba(31, 224, 245, 0.235)",
       "rgba(108, 247, 95, 0.193)",
       "rgba(95, 143, 247, 0.235)",
-      "rgba(228, 130, 255, 0.221)",
-      "rgba(210, 7, 169, 0.132)",
-      "rgba(31, 224, 245, 0.235)",
+      "rgba(23, 255, 42, 0.235)",
+      "rgba(255, 220, 23, 0.235)",
     ]
     const newColor = () => {
       let rando = Math.floor(Math.random() * colors.length)

@@ -10,7 +10,7 @@
 
     padding: 20px;
     border-radius: 4px;
-    border: 1px solid blue;
+
     .chart {
       height: 100%;
       width: 100%;
@@ -30,6 +30,7 @@
         justify-content: space-between;
         padding: 0px 10px;
         overflow: hidden;
+        color: $textColorWhite;
         .bar {
           background-color: $purple;
           width: 100%;
@@ -37,14 +38,12 @@
           border-top-right-radius: 5px;
         }
       }
-
-      .y {
-        grid-column: 1;
-        grid-row: 1 / -1;
-        border-right: 1px dotted rgba(60, 107, 124, 0.577);
-        display: flex;
-        justify-content: space-between;
-      }
     }
   }
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

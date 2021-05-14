@@ -6,11 +6,15 @@ $green: #5fff70;
 
 $textColorWhite: #dbfcff;
 $textColorDark: #629084;
-$textColorDarker: #2a4941;
+$textColorDarker: #366161;
 $headerColor1: #2f2e39;
 
 $backgroundColor: linear-gradient(to right top, #65bddf, #6cebcb);
 $backgroundColorDark: linear-gradient(to right top, #000000, #000000);
+
+$boxShadow: inset 8px 8px 4px -6px rgba(255, 255, 255, 0.262),
+  inset -8px -8px 4px -10px rgba(0, 0, 0, 0.276),
+  0px -20px 15px -27px rgba(0, 0, 0, 0.19);
 
 $buttonColor: linear-gradient(
   to right bottom,

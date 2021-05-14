@@ -1,0 +1,8 @@
+@import "../../sharedCSS.scss";
+.y {
+  color: $textColorWhite;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
