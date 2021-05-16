@@ -8,9 +8,14 @@
   .x {
     position: absolute;
     top: -25px;
+    overflow: hidden;
+
+    width: 100px;
+    margin-left: -15px;
   }
 
   .chart__container {
+    position: relative;
     width: 100%;
 
     border-radius: 4px;
@@ -24,8 +29,7 @@
 
       grid-template-rows: 1fr;
       grid-auto-columns: minmax(90px, 100px);
-      background: $cardColor;
-      backdrop-filter: $modalBlur;
+
       .bar__container {
         height: 100%;
         display: flex;

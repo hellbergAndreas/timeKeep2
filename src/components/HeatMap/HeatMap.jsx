@@ -54,7 +54,6 @@ const HeatMap = ({ data }) => {
         }
       })
     })
-    console.log(sortedDays.tue)
     Object.keys(sortedDays).forEach(day => {
       calculateSpan(day, sortedDays[day])
     })
@@ -77,12 +76,16 @@ const HeatMap = ({ data }) => {
   }
 
   const addSessions = (weekDay, sessions) => {
-    let dayMap = []
-
-    const day = 1440
-    for (let i = 0; i < day; i++) {
-      dayMap.push({ i, busy: 0 })
-    }
+    let dayMap = JSON.parse(JSON.stringify(minutes))
+    // const day = 1440
+    // for (let i = 0; i < day; i++) {
+    //   dayMap.push({ i, busy: 0 })
+    // }
+    let anarray = []
+    sessions.filter(session => {
+      session.from < 660 && session.from > 400 && anarray.push(session)
+    })
+    console.log(anarray)
 
     sessions.forEach(session => {
       for (let i = session.from; i <= session.to; i++) {
@@ -148,7 +151,7 @@ const HeatMap = ({ data }) => {
                       backgroundColor: "blue",
                       opacity: `0.${minute.busy}`,
                     }}
-                    className={styles[i]}></div>
+                    className={styles.minute}></div>
                 )
               })}
             </div>

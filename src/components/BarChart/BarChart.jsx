@@ -129,28 +129,31 @@ const BarChart = ({ data, mode, toggleChart }) => {
   return (
     <div className={styles.container}>
       <div className={styles.panel}>
-        <div className={styles.popup}>
-          {popup && <ChartTotalPopup data={popup} />}
-        </div>
+        {!heatMap && (
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => changeTimeSpan(null, -1)}>
+            Back
+          </div>
+        )}
 
-        <div onClick={() => changeTimeSpan(null, -1)}>Back</div>
-        <div
-          style={{ cursor: "pointer", height: "50px" }}
-          onClick={() => toggleChart(mode)}>
-          toggle me
-        </div>
+        {!heatMap && (
+          <div
+            style={{ cursor: "pointer", height: "50px" }}
+            onClick={() => toggleChart(mode)}>
+            toggle me
+          </div>
+        )}
         <div
           style={{ cursor: "pointer", height: "50px" }}
           onClick={() => setHeatMap(!heatMap)}>
-          Bring the heat
+          {!heatMap ? "Bring the heat" : "Turn of the heat"}
         </div>
       </div>
       <div className={styles.chart__container}>
         <div className={!heatMap && styles.chart}>
-          <Yaxis value={grandTotal} />
-
+          {!heatMap && <Yaxis value={grandTotal} />}
           {totals &&
-            !mode &&
             !heatMap &&
             Object.keys(totals).map(bar => {
               const { hours } = msConverter(totals[bar].time)
@@ -171,23 +174,8 @@ const BarChart = ({ data, mode, toggleChart }) => {
                         animationDuration: `${getRandomNubmer()}s`,
                       }}
                       className={styles.bar}
-                      onClick={() => changeTimeSpan(bar)}></div>
+                      onClick={() => !mode && changeTimeSpan(bar)}></div>
                   </div>
-                </div>
-              )
-            })}
-          {mode &&
-            !heatMap &&
-            Object.keys(totals).map(bar => {
-              return (
-                <div key={bar} className={styles.bar__container}>
-                  <div>{bar}</div>
-                  <div
-                    style={{
-                      height: `${totals[bar] && totals[bar].percentage}%`,
-                    }}
-                    className={styles.bar}
-                    onClick={() => changeTimeSpan(bar)}></div>
                 </div>
               )
             })}

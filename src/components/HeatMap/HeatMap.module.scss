@@ -1,3 +1,4 @@
+@import "../../sharedCSS.scss";
 .heat {
   display: grid;
   grid-template-rows: repeat(7, 1fr);
@@ -11,25 +12,119 @@
   grid-template-columns: 80px;
   grid-template-rows: 1fr;
   grid-auto-columns: 1fr;
-  // transform: scaleX(0.2);
-  // transform: translateX(-1px);
-
   justify-self: start;
   height: 80px;
   width: 100%;
 }
 .hours {
   display: flex;
-
   justify-content: space-between;
   margin-left: 80px;
 }
 
-// .mon {
-//   div {
-//     &:nth-of-type(50) {
-//       background-color: blue;
-//       grid-column: span 60;
-//     }
+// .minute {
+//   &:nth-of-type(1) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(60) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(120) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(180) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(240) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(300) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(360) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(420) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(480) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(540) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(600) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(660) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(720) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(780) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(840) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(900) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(960) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1020) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1120) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1080) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1140) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1200) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1260) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1320) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1380) {
+//     background-color: green !important;
+//     opacity: 1 !important;
+//   }
+//   &:nth-of-type(1440) {
+//     background-color: green !important;
+//     opacity: 1 !important;
 //   }
 // }
