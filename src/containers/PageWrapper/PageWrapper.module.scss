@@ -9,6 +9,8 @@
   padding: 20px 60px;
   display: flex;
   justify-content: center;
+  &:before {
+  }
 }
 .content {
   display: grid;

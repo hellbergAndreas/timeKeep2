@@ -50,16 +50,18 @@ const Session = ({ session, handleDelete }) => {
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={styles.session}
-    >
+      className={styles.session}>
       <div className={styles.session__year}>
         {date &&
           `${date.getFullYear()}-${lowerThan10(
             date.getMonth() + 1
           )}-${lowerThan10(date.getDate())} `}
       </div>
-
-      <div className={styles.session__time}>
+      <div className={styles.activity}>
+        <p>{session.categoryName}</p>
+        <p> {session.activityName}</p>
+      </div>
+      {/* <div className={styles.session__time}>
         <p className={styles.session__time__timeStart}>
           {date.getHours &&
             `${lowerThan10(date.getHours())}:${lowerThan10(
@@ -75,7 +77,6 @@ const Session = ({ session, handleDelete }) => {
         </p>
       </div>
       <div>
-        <div>{session.id}</div>
         <div className={styles.session__keys}>
           {session.keys &&
             session.keys.map((key, index) => {
@@ -88,12 +89,11 @@ const Session = ({ session, handleDelete }) => {
       </p>
       <p className={styles.session__totalTime}>
         <TimeFormat ms={dateStop - date} />
-      </p>
+      </p> */}
       {hover && (
         <button
           className={styles.delete}
-          onClick={() => handleDelete(session.id)}
-        >
+          onClick={() => handleDelete(session.id)}>
           x
         </button>
       )}

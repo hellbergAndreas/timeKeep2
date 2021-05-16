@@ -118,8 +118,14 @@ const BarChart = ({ data, mode, toggleChart }) => {
   }
 
   useEffect(() => {
-    console.log(popup)
+    let styleSheet = document.styleSheets[0]
+    console.log(styleSheet)
   }, [popup])
+
+  const getRandomNubmer = () => {
+    return Math.floor(Math.random() * 3 + 1)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.panel}>
@@ -147,22 +153,26 @@ const BarChart = ({ data, mode, toggleChart }) => {
             !mode &&
             !heatMap &&
             Object.keys(totals).map(bar => {
+              const { hours } = msConverter(totals[bar].time)
               return (
                 <div key={bar} className={styles.bar__container}>
-                  <div>{bar}</div>
+                  <div className={styles.x}>{bar}</div>
                   <div
+                    className={styles.barWrapper}
                     style={{
                       height: `${totals[bar] && totals[bar].percentage}%`,
-                    }}
-                    className={styles.bar}
-                    onClick={() => changeTimeSpan(bar)}
-                    onMouseEnter={() => {
-                      const { hours } = msConverter(totals[bar].time)
-                      setPopup(hours)
-                    }}
-                    onMouseLeave={() => {
-                      setPopup(null)
-                    }}></div>
+                      display: "flex",
+                      flexDirection: "column-reverse",
+                      position: "relative",
+                    }}>
+                    <div className={styles.total}>{hours} h</div>
+                    <div
+                      style={{
+                        animationDuration: `${getRandomNubmer()}s`,
+                      }}
+                      className={styles.bar}
+                      onClick={() => changeTimeSpan(bar)}></div>
+                  </div>
                 </div>
               )
             })}
@@ -177,14 +187,7 @@ const BarChart = ({ data, mode, toggleChart }) => {
                       height: `${totals[bar] && totals[bar].percentage}%`,
                     }}
                     className={styles.bar}
-                    onClick={() => changeTimeSpan(bar)}
-                    onMouseEnter={() => {
-                      const { hours } = msConverter(totals[bar].time)
-                      setPopup(hours)
-                    }}
-                    onMouseLeave={() => {
-                      setPopup(null)
-                    }}></div>
+                    onClick={() => changeTimeSpan(bar)}></div>
                 </div>
               )
             })}
@@ -195,107 +198,3 @@ const BarChart = ({ data, mode, toggleChart }) => {
   )
 }
 export default BarChart
-
-//   const countTotals = sessions => {
-//     let grandTotal = 0
-//     let totals = {}
-//     Object.keys(sessions).forEach(key => {
-//       grandTotal += calculateTotalTime(sessions[key])
-
-//       totals = {
-//         ...totals,
-//         [key]: { time: calculateTotalTime(sessions[key]) },
-//       }
-//     })
-
-//     Object.keys(totals).forEach(key => {
-//       totals[key].percentage =
-//         Math.round((totals[key].time / grandTotal) * 100 * 10) / 10
-//     })
-//     setTotals(totals)
-//   }
-//   useEffect(() => {
-//     data && setTimeSpan(data)
-//   }, [data])
-//   useEffect(() => {
-//     timeSpan && countTotals(timeSpan)
-//   }, [timeSpan])
-
-//   const renderNext = bar => {
-//     let tracker = spanTracker
-//     if (spanTracker === 0) {
-//       sortMonths(bar)
-//     }
-//     if (spanTracker === 1) {
-//       sortWeeks(bar)
-//     }
-//     if (spanTracker === 2) {
-//       sortDays(bar)
-//     }
-//     if (spanTracker <= 2) {
-//       tracker++
-//     } else {
-//       setTimeSpan(data)
-//       tracker = 0
-//     }
-
-//     setSpanTracker(tracker)
-//   }
-
-//   const renderChart = data => {
-//     let render = Object.keys(data).map(bar => {
-//       return (
-//         <div key={bar} className={styles.bar__container}>
-//           <div>{bar}</div>
-//           <div
-//             onClick={e => renderNext(bar)}
-//             style={{
-//               height: `${totals[bar] && totals[bar].percentage}%`,
-//             }}
-//             className={styles.bar}></div>
-//         </div>
-//       )
-//     })
-//     return render
-//   }
-
-//   const nextChart = action => {
-//     const previous = {
-//       1: {
-//         data: data,
-//         method: i => {
-//           setTimeSpan(data)
-//           sortMonths(i)
-//         },
-//       },
-//       2: {
-//         data: months,
-//         method: i => {
-//           sortWeeks(i)
-//         },
-//       },
-//       3: {
-//         data: weeks,
-//         method: i => {
-//           sortDays(i)
-//         },
-//       },
-//     }
-//     let array = Object.keys(previous[spanTracker].data)
-//     let i = array.indexOf(activeInterval) + action
-//     previous[spanTracker].method(array[i])
-//   }
-
-//   return (
-//     <div className={styles.container}>
-//       <div onClick={() => nextChart(-1)}>Back</div>
-//       <div className={styles.chart}>
-//         <div className={styles.y}>y</div>
-//         {timeSpan && totals && renderChart(timeSpan)}
-//       </div>
-//       <div onClick={() => nextChart(1)}>Next</div>
-//     </div>
-//   )
-// }
-
-// export default BarChart

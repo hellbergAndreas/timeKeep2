@@ -1,26 +1,20 @@
 @import "../../sharedCSS.scss";
 .card {
   height: 100%;
-  max-height: 355px;
   background: $cardColor;
-  padding: 15px;
+
   -webkit-backdrop-filter: blur(40px);
   backdrop-filter: blur(20px);
   &__content {
     display: grid;
     color: $textColorDarker;
     grid-template-columns: 1fr 1fr;
+    height: 100%;
     &__imageWrapper {
-      height: 250px;
-      width: 350px;
-
       &__image {
-        display: block;
-        max-width: 350px;
-        max-height: 350px;
-        width: auto;
-        height: auto;
-        margin: 20px 0px;
+        img {
+          object-fit: cover;
+        }
       }
     }
     &__keys {
@@ -40,6 +34,6 @@
   }
 }
 
-.active {
-  transform: scale(1.2);
-}
+// .active {
+//   transform: scale(1.2);
+// }

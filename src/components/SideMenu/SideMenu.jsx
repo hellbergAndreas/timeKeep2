@@ -5,9 +5,6 @@ import styles from "./SideMenu.module.scss"
 const SideMenu = ({ handleLogOut }) => {
   const [path, setPath] = useState(useHistory(useHistory))
 
-  useEffect(() => {
-    console.log(path.location.pathname.length)
-  }, [])
   return (
     <div className={styles.menu}>
       <div className={styles.menu__user}>IamUser</div>
