@@ -9,19 +9,17 @@ const FullScreenImage = ({ images, setImageFullScreen }) => {
     <div className={styles.section}>
       <button
         className={styles.section__button}
-        onClick={() => setImageFullScreen(false)}
-      >
+        onClick={() => setImageFullScreen(false)}>
         X
       </button>
       {images &&
-        images.map((image) => {
+        images.map(image => {
           if (image) {
             return (
               <div className={styles.section__imageWrapper}>
                 <img
                   className={styles.section__imageWrapper__image}
-                  src={image}
-                ></img>
+                  src={image}></img>
               </div>
             )
           }

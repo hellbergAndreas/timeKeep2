@@ -9,6 +9,7 @@ import { useAuth } from "../../context/AuthContext"
 import { useUser } from "../../context/UserContext"
 import UserKit from "../../data/UserKit"
 import styles from "./SessionsPage.module.scss"
+import cx from "classnames"
 
 const SessionsPage = () => {
   const { userSessionsArray, userActivities, userCategories, setUserSessions } =
@@ -21,9 +22,12 @@ const SessionsPage = () => {
   const [filterByImages, setFilterByImages] = useState(false)
   const [keyFilter, setKeyFilter] = useState([])
   const [keys, setKeys] = useState([])
-  const [session, setSession] = useState([])
+
   const [compare, setCompare] = useState([false, false])
-  const [images, setImages] = useState([false, false])
+  const [holdOne, setHoldOne] = useState(false)
+  const [holdTwo, setHoldTwo] = useState(false)
+  const [sessionOne, setSessionOne] = useState(null)
+  const [sessionTwo, setSessionTwo] = useState(null)
   const [imageFullScreen, setImageFullScreen] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
@@ -112,6 +116,32 @@ const SessionsPage = () => {
     setDeleteModal(false)
     setDeleteId(null)
   }
+  const setSession = session => {
+    if (holdTwo) {
+      setSessionOne(session)
+    }
+    if (holdOne) {
+      setSessionTwo(session)
+    }
+    if (!holdTwo && !holdOne) {
+      setSessionTwo(null)
+      setSessionOne(session)
+    }
+  }
+
+  const holdFunction = arg => {
+    if (arg === 1) {
+      setHoldOne(!holdOne)
+      setHoldTwo(false)
+    }
+    if (arg === 2) {
+      setHoldOne(false)
+      setHoldTwo(!holdTwo)
+    }
+  }
+  useEffect(() => {
+    console.log(holdTwo)
+  }, [holdTwo])
   return (
     <section className={styles.section}>
       {deleteModal && (
@@ -140,13 +170,16 @@ const SessionsPage = () => {
             setFilter={setKeyFilter}
             display={keys}></CategoryFilter>
         </div>
-        <button onClick={() => setFilterByImages(!filterByImages)}>
-          filter by images
+        <button
+          className={cx(styles.btn, filterByImages && styles.active)}
+          onClick={() => setFilterByImages(!filterByImages)}>
+          Only Images
         </button>
         <div className={styles.section__left__list}>
           <SessionContainer
+            holdOne={holdOne}
+            holdTwo={holdTwo}
             compare={compare}
-            sessions={session}
             handleClick={setSession}
             list={filteredList}
             handleDelete={handleDelete}></SessionContainer>
@@ -154,24 +187,24 @@ const SessionsPage = () => {
       </div>
       <div className={styles.right}>
         <DetailedSession
-          slot={0}
-          compare={compare}
-          setImages={setImages}
-          setCompare={setCompare}
-          session={session[0] && session[0]}
-          setImageFullScreen={setImageFullScreen}></DetailedSession>
-        <DetailedSession
-          slot={1}
-          compare={compare}
-          setCompare={setCompare}
-          setImages={setImages}
+          active={holdOne}
           setImageFullScreen={setImageFullScreen}
-          session={session[1] && session[1]}></DetailedSession>
+          hold={() => holdFunction(1)}
+          session={sessionOne && sessionOne}
+          setCompare={setCompare}></DetailedSession>
+        <DetailedSession
+          active={holdTwo}
+          setImageFullScreen={setImageFullScreen}
+          hold={() => holdFunction(2)}
+          session={sessionTwo && sessionTwo}></DetailedSession>
       </div>
       {imageFullScreen && (
         <FullScreenImage
-          images={images}
           setImageFullScreen={setImageFullScreen}
+          images={[
+            sessionOne && sessionOne.imageUrl,
+            sessionTwo && sessionTwo.imageUrl,
+          ]}
         />
       )}
     </section>

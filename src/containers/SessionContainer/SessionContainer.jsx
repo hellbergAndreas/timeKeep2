@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react"
 import DeleteModal from "../../components/DeleteModal/DeleteModal"
 import Session from "../../components/Session/Session"
-import { useUser } from "../../context/UserContext"
+
 import styles from "./SessionContainer.module.scss"
-const SessionContainer = ({
-  list,
-  handleClick,
-  compare,
-  sessions,
-  handleDelete,
-}) => {
+const SessionContainer = ({ list, handleClick, handleDelete }) => {
   const [sortedList, setSortedList] = useState([])
   const [reversed, setReversed] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
@@ -37,34 +31,20 @@ const SessionContainer = ({
     setNumberSessions(sortedList.length)
   }, [sortedList])
 
-  const onClick = (session) => {
-    let newState = []
-
-    if (compare[0] === true) {
-      newState = [...sessions]
-      newState[1] = session
-    }
-    if (compare[1] === true) {
-      newState = [...sessions]
-      newState[0] = session
-    }
-    if (compare[0] === false && compare[1] === false) {
-      newState[0] = session
-    }
-    handleClick(newState)
-    // handleClick([session, null])
+  const onClick = session => {
+    handleClick(session)
   }
 
   return (
     <div className={styles.wrapper}>
       {deleteModal && <DeleteModal />}
 
-      <button className={styles.reverse} onClick={reverseSort}>
-        reverse
+      <button className={styles.btn} onClick={reverseSort}>
+        Reverse
       </button>
       <div className={styles.wrapper__container}>
         <div>{numberSessions} sessions found</div>
-        {list.map((session) => {
+        {list.map(session => {
           let failed = []
           if (!session.activity) {
             failed.push(session)

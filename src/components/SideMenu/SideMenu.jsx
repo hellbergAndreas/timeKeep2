@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import styles from "./SideMenu.module.scss"
 
-const SideMenu = ({ handleLogOut }) => {
+const SideMenu = ({ logout }) => {
   const [path, setPath] = useState(useHistory(useHistory))
 
   return (
@@ -28,7 +28,7 @@ const SideMenu = ({ handleLogOut }) => {
           <Link to="/stats">Stats</Link>
         </div>
         <div>
-          <Link onClick={handleLogOut} to="/">
+          <Link onClick={logout} to="/">
             Logout
           </Link>
         </div>

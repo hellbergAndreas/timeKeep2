@@ -83,7 +83,7 @@ const HeatMap = ({ data }) => {
     // }
     let anarray = []
     sessions.filter(session => {
-      session.from < 660 && session.from > 400 && anarray.push(session)
+      session.from < 599 && session.from > 400 && anarray.push(session)
     })
     console.log(anarray)
 

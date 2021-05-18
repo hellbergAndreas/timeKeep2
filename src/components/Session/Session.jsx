@@ -61,8 +61,8 @@ const Session = ({ session, handleDelete }) => {
         <p>{session.categoryName}</p>
         <p> {session.activityName}</p>
       </div>
-      {/* <div className={styles.session__time}>
-        <p className={styles.session__time__timeStart}>
+      <div className={styles.session__time}>
+        {/* <p className={styles.session__time__timeStart}>
           {date.getHours &&
             `${lowerThan10(date.getHours())}:${lowerThan10(
               date.getMinutes()
@@ -74,7 +74,7 @@ const Session = ({ session, handleDelete }) => {
             `${lowerThan10(dateStop.getHours())}:${lowerThan10(
               dateStop.getMinutes()
             )}:${lowerThan10(dateStop.getSeconds())}`}
-        </p>
+        </p> */}
       </div>
       <div>
         <div className={styles.session__keys}>
@@ -89,7 +89,7 @@ const Session = ({ session, handleDelete }) => {
       </p>
       <p className={styles.session__totalTime}>
         <TimeFormat ms={dateStop - date} />
-      </p> */}
+      </p>
       {hover && (
         <button
           className={styles.delete}

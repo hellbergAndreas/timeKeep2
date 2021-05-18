@@ -14,10 +14,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     background: $cardColor;
-    // border: 1px solid rgba(122, 195, 238, 0.923);
-    // -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff58;
-    // box-shadow: inset 2px 2px 5px 0px #ffffff57;
-    // border-radius: 4px;
+
     backdrop-filter: blur(20px);
   }
 }
@@ -33,10 +30,6 @@
   right: 20px;
   bottom: 20px;
   background: $cardColor;
-  // border: 1px solid rgba(122, 195, 238, 0.923);
-  // -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff58;
-  // box-shadow: inset 2px 2px 5px 0px #ffffff57;
-  // border-radius: 4px;
   padding: 10px 20px;
 }
 
@@ -48,10 +41,6 @@
   background: $cardColor;
   border-radius: 4px;
   backdrop-filter: blur(20px);
-  // border: 1px solid rgba(122, 195, 238, 0.923);
-  // -webkit-box-shadow: inset 2px 2px 5px 0px #ffffff58;
-  // box-shadow: inset 2px 2px 5px 0px #ffffff57;
-
   .header {
     color: white;
     font-weight: bolder;

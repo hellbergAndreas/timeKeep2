@@ -8,7 +8,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-
+  scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -25,7 +25,6 @@ body {
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: red;
     border-radius: 10px;
   }
 }

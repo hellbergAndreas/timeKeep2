@@ -71,7 +71,6 @@ const Dashboard = () => {
             filter="activity"></DetailedCategoryCard>
         )}
         <div className={cx(styles.listSection, styles.categories)}>
-          {/* <ListHeaderContainer type="categories"></ListHeaderContainer> */}
           <div className={styles.headerj}>
             <p className={styles.header}>Your Categories</p>
             <p
@@ -80,14 +79,12 @@ const Dashboard = () => {
               Add category
             </p>
           </div>
-
           <ListContainer
             type="categories"
             list={userCategories}></ListContainer>
         </div>
 
         <div className={cx(styles.listSection, styles.activities)}>
-          {/* <ListHeaderContainer type="activities"></ListHeaderContainer> */}
           <div className={styles.headerj}>
             <p className={styles.header}>Your Activities</p>
             <div className={styles.addBtn} onClick={toggle}>

@@ -147,8 +147,6 @@ const PageWrapper = ({ content }) => {
         sessions.push(sesh)
       } else {
         failed.push(session)
-        // console.log("failed sessions")
-        // console.log(failed)
       }
     })
     setUserSessionsArray(sessions)
