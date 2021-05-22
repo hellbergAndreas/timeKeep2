@@ -16,7 +16,7 @@ const LoginSignUpForm = () => {
   const history = useHistory()
   const { signup, login, currentUser, loading } = useAuth()
   const handleChange = (name, value) => {
-    setInputValues((prevState) => {
+    setInputValues(prevState => {
       return {
         ...prevState,
         [name]: value,
@@ -34,7 +34,7 @@ const LoginSignUpForm = () => {
     }
   }, [currentUser])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     if (!member) {
       signup(inputValues.email, inputValues.password)
@@ -53,23 +53,24 @@ const LoginSignUpForm = () => {
   return (
     <div className={styles.background}>
       <div className={styles.formWrapper}>
-        <Header border={"border"}>{member ? "Login" : "Register"}</Header>
+        <Header color={"purple"} border={"border"}>
+          {member ? "Login" : "Register"}
+        </Header>
 
         <div>
           <FormInput
             required
             handleChange={handleChange}
-            label="Email"
-          ></FormInput>
+            label="Email"></FormInput>
         </div>
         <div>
           <FormInput
             required={true}
             handleChange={handleChange}
             label="Password"
-          ></FormInput>
+            type={"password"}></FormInput>
         </div>
-        <Button shape={ButtonShape.RECT_LARGE} onClick={(e) => handleSubmit(e)}>
+        <Button shape={ButtonShape.RECT_LARGE} onClick={e => handleSubmit(e)}>
           {member ? "Login" : "Register"}
         </Button>
 

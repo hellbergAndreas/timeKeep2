@@ -13,7 +13,7 @@ import BackgroundAnimation from "./components/BackgroundAnimation/BackgroundAnim
 function App() {
   return (
     <div className="App">
-      <BackgroundAnimation objects={15} />
+      <BackgroundAnimation objects={8} />
       <BrowserRouter>
         <AuthProvider>
           <Switch>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react"
 import styles from "./HeatMap.module.scss"
-import cx from "classnames"
-import { calculateTotalTime } from "../../utils/calculateTotalTime"
 
 const HeatMap = ({ data }) => {
   const [minutes, setMinutes] = useState()
@@ -77,15 +75,6 @@ const HeatMap = ({ data }) => {
 
   const addSessions = (weekDay, sessions) => {
     let dayMap = JSON.parse(JSON.stringify(minutes))
-    // const day = 1440
-    // for (let i = 0; i < day; i++) {
-    //   dayMap.push({ i, busy: 0 })
-    // }
-    let anarray = []
-    sessions.filter(session => {
-      session.from < 599 && session.from > 400 && anarray.push(session)
-    })
-    console.log(anarray)
 
     sessions.forEach(session => {
       for (let i = session.from; i <= session.to; i++) {
@@ -107,6 +96,7 @@ const HeatMap = ({ data }) => {
     for (let i = 0; i < minutes; i++) {
       minuteMap.push({ i, busy: 0 })
     }
+    console.log(minuteMap)
     setMinutes(minuteMap)
   }, [])
 

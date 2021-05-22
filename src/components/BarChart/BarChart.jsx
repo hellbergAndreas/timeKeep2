@@ -21,6 +21,8 @@ const BarChart = ({ data, mode, toggleChart }) => {
   const [month, setMonth] = useState()
   const [week, setWeek] = useState()
 
+  const [yearDisplay, setYearDisplay] = useState(null)
+
   useEffect(() => {
     data && !mode && setRenderData(data[timeSpan])
   }, [data])
@@ -129,25 +131,24 @@ const BarChart = ({ data, mode, toggleChart }) => {
   return (
     <div className={styles.container}>
       <div className={styles.panel}>
-        {!heatMap && (
-          <div
-            style={{ cursor: "pointer" }}
-            onClick={() => changeTimeSpan(null, -1)}>
-            Back
-          </div>
-        )}
+        <div></div>
+        <div className={styles.buttons}>
+          {!heatMap && (
+            <div
+              className={styles.btn}
+              onClick={() => changeTimeSpan(null, -1)}>
+              Back
+            </div>
+          )}
 
-        {!heatMap && (
-          <div
-            style={{ cursor: "pointer", height: "50px" }}
-            onClick={() => toggleChart(mode)}>
-            toggle me
+          {!heatMap && (
+            <div className={styles.btn} onClick={() => toggleChart(mode)}>
+              Toggle Chart
+            </div>
+          )}
+          <div className={styles.btn} onClick={() => setHeatMap(!heatMap)}>
+            {!heatMap ? "Bring the Heat" : "Turn of the Heat"}
           </div>
-        )}
-        <div
-          style={{ cursor: "pointer", height: "50px" }}
-          onClick={() => setHeatMap(!heatMap)}>
-          {!heatMap ? "Bring the heat" : "Turn of the heat"}
         </div>
       </div>
       <div className={styles.chart__container}>

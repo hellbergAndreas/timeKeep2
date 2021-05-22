@@ -98,7 +98,7 @@ export default ({ hidden, setHidden, type }) => {
     <div className={styles.background}>
       <div className={styles.shape}></div>
       <div className={styles.formWrapper}>
-        <button className={styles.button} onClick={() => setHidden(!hidden)}>
+        <button className={styles.btn} onClick={() => setHidden(!hidden)}>
           X
         </button>
         <FormInput

@@ -21,13 +21,11 @@ const DetailedCategoryCard = ({ category, filter }) => {
         styles.card,
         filter === "activity" && styles.activity,
         activity.id && filter === "category" ? styles.opacity : ""
-      )}
-    >
+      )}>
       <div
         className={
           activity.id && filter === "category" ? styles.faded : styles.hidden
-        }
-      ></div>
+        }></div>
       <div className={styles.card__header}>
         <Header size={HeaderSize.HEADER_LARGE} color={"purple"}>
           {category.name}
@@ -37,24 +35,22 @@ const DetailedCategoryCard = ({ category, filter }) => {
         className={cx(
           styles.card__item,
           activity.id && filter === "category" ? styles.hidden : null
-        )}
-      >
+        )}>
         sessions complete: <div className={styles.data}>{sessions.length}</div>
       </p>
-      <p
+      {/* <p
         className={cx(
           styles.card__item,
           activity.id && filter === "category" ? styles.hidden : null
         )}
       >
         average session length: <div className={styles.data}>?</div>
-      </p>
+      </p> */}
       <p
         className={cx(
           styles.card__item,
           activity.id && filter === "category" ? styles.hidden : null
-        )}
-      >
+        )}>
         time spent:
         <div className={styles.data}>
           <TimeDisplay name={category.id} filter={filter}></TimeDisplay>
