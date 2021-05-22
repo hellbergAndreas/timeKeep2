@@ -181,10 +181,6 @@ const StatsPage = () => {
           ok.push(session)
         }
       })
-
-      // sortedData.months[2021].apr.forEach(session => {
-      //   session.id === theOne && ok.push(session)
-      // })
     }
   }, [sortedData])
   return (

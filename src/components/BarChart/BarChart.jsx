@@ -121,7 +121,6 @@ const BarChart = ({ data, mode, toggleChart }) => {
 
   useEffect(() => {
     let styleSheet = document.styleSheets[0]
-    console.log(styleSheet)
   }, [popup])
 
   const getRandomNubmer = () => {

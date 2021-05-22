@@ -96,7 +96,6 @@ const HeatMap = ({ data }) => {
     for (let i = 0; i < minutes; i++) {
       minuteMap.push({ i, busy: 0 })
     }
-    console.log(minuteMap)
     setMinutes(minuteMap)
   }, [])
 
@@ -152,22 +151,3 @@ const HeatMap = ({ data }) => {
 }
 
 export default HeatMap
-
-// days.map(day => {
-//   return (
-//     <div className={cx(styles.day, styles[day])}>
-//       <div>{day}</div>
-//       {minutes &&
-//         minutes.map((minute, i) => {
-//           return (
-//             <div
-//               style={{
-//                 backgroundColor: "blue",
-//                 opacity: `0.${minute.busy}`,
-//               }}
-//               className={styles[i]}></div>
-//           )
-//         })}
-//     </div>
-//   )
-// })
