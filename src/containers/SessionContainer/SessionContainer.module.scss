@@ -8,8 +8,18 @@
     height: 50px;
     min-height: 100px;
   }
+  .header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: -60px;
+    z-index: 60;
+    margin-left: -30px;
+    font-weight: bolder;
+  }
   .btn {
     font-size: 0.8rem;
-    padding: 4px;
+    padding: 8px;
   }
 }

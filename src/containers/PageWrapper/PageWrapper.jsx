@@ -27,7 +27,12 @@ const PageWrapper = ({ content }) => {
     setCategoriesObject,
     activitiesObject,
     setActivitiesObject,
+    userSessionsArray,
   } = useUser()
+  const backItUp = () => {
+    const date = new Date()
+    localStorage.setItem(`${date} sessions`, JSON.stringify(userSessionsArray))
+  }
 
   const history = useHistory()
   const userKit = new UserKit()
@@ -48,73 +53,75 @@ const PageWrapper = ({ content }) => {
   // the correct timestamp is set to context "userSessionsArray"
 
   useEffect(() => {
-    !currentUser && history.push("/login")
+    if (!currentUser) {
+      history.push("/login")
+    } else {
+      // fetching categories, activities and sessions from db
+      currentUser
+        .getIdToken()
+        .then(token => {
+          sessionStorage.setItem("sessionToken", token)
+        })
+        .then(() => {
+          userKit
+            .getActivities(currentUser.uid)
+            .then(res => res.json())
+            .then(data => {
+              let array = []
+              Object.keys(data).forEach(object => {
+                array.push(data[object])
+              })
+              setActivitiesObject(data)
 
-    // fetching categories, activities and sessions from db
-    currentUser
-      .getIdToken()
-      .then(token => {
-        sessionStorage.setItem("sessionToken", token)
-      })
-      .then(() => {
-        userKit
-          .getActivities(currentUser.uid)
-          .then(res => res.json())
-          .then(data => {
-            let array = []
-            Object.keys(data).forEach(object => {
-              array.push(data[object])
+              setUserActivities(array)
             })
-            setActivitiesObject(data)
-
-            setUserActivities(array)
-          })
-          .then(() => {
-            setLoaded(prevState => {
-              return {
-                ...prevState,
-                activitiesLoaded: true,
-              }
+            .then(() => {
+              setLoaded(prevState => {
+                return {
+                  ...prevState,
+                  activitiesLoaded: true,
+                }
+              })
             })
-          })
-      })
-      .then(() => {
-        userKit
-          .getCategories(currentUser.uid)
-          .then(res => res.json())
-          .then(data => {
-            let array = []
-            Object.keys(data).forEach(object => {
-              array.push(data[object])
+        })
+        .then(() => {
+          userKit
+            .getCategories(currentUser.uid)
+            .then(res => res.json())
+            .then(data => {
+              let array = []
+              Object.keys(data).forEach(object => {
+                array.push(data[object])
+              })
+              setCategoriesObject(data)
+              setUserCategories(array)
             })
-            setCategoriesObject(data)
-            setUserCategories(array)
-          })
-          .then(() => {
-            setLoaded(prevState => {
-              return {
-                ...prevState,
-                categoriesLoaded: true,
-              }
+            .then(() => {
+              setLoaded(prevState => {
+                return {
+                  ...prevState,
+                  categoriesLoaded: true,
+                }
+              })
             })
-          })
-      })
-      .then(() => {
-        userKit
-          .getSessions(currentUser.uid)
-          .then(res => res.json())
-          .then(data => {
-            setUserSessions(data)
-          })
-          .then(() => {
-            setLoaded(prevState => {
-              return {
-                ...prevState,
-                sessionsLoaded: true,
-              }
+        })
+        .then(() => {
+          userKit
+            .getSessions(currentUser.uid)
+            .then(res => res.json())
+            .then(data => {
+              setUserSessions(data)
             })
-          })
-      })
+            .then(() => {
+              setLoaded(prevState => {
+                return {
+                  ...prevState,
+                  sessionsLoaded: true,
+                }
+              })
+            })
+        })
+    }
   }, [currentUser])
 
   useEffect(() => {
@@ -157,6 +164,7 @@ const PageWrapper = ({ content }) => {
       <div className={styles.background__blur}></div>
       <div className={styles.contentWrapper}>
         <section className={styles.content}>
+          {/* <button onClick={() => backItUp()}>backup</button> */}
           <SideMenu logout={handleLogOut}></SideMenu>
           {content}
         </section>

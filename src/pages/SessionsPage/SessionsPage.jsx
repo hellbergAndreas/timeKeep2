@@ -10,6 +10,7 @@ import { useUser } from "../../context/UserContext"
 import UserKit from "../../data/UserKit"
 import styles from "./SessionsPage.module.scss"
 import cx from "classnames"
+import Button from "../../components/Buttons/Button"
 
 const SessionsPage = () => {
   const { userSessionsArray, userActivities, userCategories, setUserSessions } =
@@ -170,11 +171,13 @@ const SessionsPage = () => {
             setFilter={setKeyFilter}
             display={keys}></CategoryFilter>
         </div>
+
         <button
           className={cx(styles.btn, filterByImages && styles.active)}
           onClick={() => setFilterByImages(!filterByImages)}>
           Only Images
         </button>
+
         <div className={styles.section__left__list}>
           <SessionContainer
             holdOne={holdOne}

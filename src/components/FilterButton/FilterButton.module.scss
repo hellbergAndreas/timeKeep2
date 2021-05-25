@@ -10,15 +10,15 @@
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 
 .active {
-  transform: scale(1.3);
+  transform: scale(1.1);
   background: $cardColor3;
   color: $textColorDarker;
   &:hover {
-    transform: scale(1.3);
+    transform: scale(1.1);
   }
 }

@@ -39,11 +39,13 @@ const SessionContainer = ({ list, handleClick, handleDelete }) => {
     <div className={styles.wrapper}>
       {deleteModal && <DeleteModal />}
 
-      <button className={styles.btn} onClick={reverseSort}>
-        Reverse
-      </button>
+      <div className={styles.header}>
+        <button className={styles.btn} onClick={reverseSort}>
+          Reverse
+        </button>
+        <div>{numberSessions} found</div>
+      </div>
       <div className={styles.wrapper__container}>
-        <div>{numberSessions} sessions found</div>
         {list.map(session => {
           let failed = []
           if (!session.activity) {

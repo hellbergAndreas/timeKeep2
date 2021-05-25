@@ -8,16 +8,16 @@ import FilterButton from "../../components/FilterButton/FilterButton"
 const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
   const [filteredDisplay, setFilteredDisplay] = useState([])
 
-  const handleClick = (name) => {
+  const handleClick = name => {
     if (filter.includes(name)) {
-      let newFilter = filter.filter((cat) => {
+      let newFilter = filter.filter(cat => {
         return cat != name
       })
       setFilter(() => {
         return newFilter
       })
     } else {
-      setFilter((prevState) => {
+      setFilter(prevState => {
         return [...prevState, name]
       })
     }
@@ -25,7 +25,7 @@ const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
 
   useEffect(() => {
     let noDuplicates = []
-    display.forEach((el) => {
+    display.forEach(el => {
       if (!noDuplicates.includes(el.name)) {
         noDuplicates.push(el.name)
       }
@@ -36,18 +36,19 @@ const CategoryFilter = ({ name, display, setFilter, filter, remove }) => {
   return (
     <div className={styles.categoryFilter}>
       <h6>{name}</h6>
-      {filteredDisplay.map((cat, index) => {
-        return (
-          <FilterButton
-            key={index}
-            filter={filter}
-            onClick={handleClick}
-            name={cat}
-          >
-            {cat}
-          </FilterButton>
-        )
-      })}
+      <div className={styles.container}>
+        {filteredDisplay.map((cat, index) => {
+          return (
+            <FilterButton
+              key={index}
+              filter={filter}
+              onClick={handleClick}
+              name={cat}>
+              {cat}
+            </FilterButton>
+          )
+        })}
+      </div>
     </div>
   )
 }

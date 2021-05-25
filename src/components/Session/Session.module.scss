@@ -13,8 +13,14 @@
   padding: 8px;
   cursor: pointer;
   display: flex;
+  justify-content: space-between;
   .activity {
     margin-top: 10px;
+  }
+  .timeStuff {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   &__keys {
     display: flex;
